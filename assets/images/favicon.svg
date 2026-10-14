@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <circle cx="32" cy="32" r="31" fill="#fffffb" stroke="#e4e1d5" stroke-width="2"/>
+  <text x="32" y="39" text-anchor="middle" font-family="'Geist Mono', Consolas, monospace" font-size="20" font-weight="800" fill="#262322">YK</text>
+  <circle cx="50" cy="13" r="6" fill="#f94d00"/>
+</svg>

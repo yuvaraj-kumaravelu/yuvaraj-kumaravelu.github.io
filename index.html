@@ -1,0 +1,1186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Yuvaraj K — Amazon Connect Developer &amp; Voice AI Engineer</title>
+  <meta name="description" content="Yuvaraj K — Amazon Connect Developer and AWS Voice AI Engineer. Builds real-time voice agents and cloud contact-center solutions with Amazon Connect, Amazon Bedrock, Lambda and Python.">
+  <meta name="author" content="Yuvaraj K">
+  <meta name="theme-color" content="#efede5">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Yuvaraj K — Amazon Connect Developer &amp; Voice AI Engineer">
+  <meta property="og:description" content="Real-time voice AI agents and cloud contact-center solutions on AWS.">
+
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <!-- Fonts: Geist (headings & body) · Fraunces italic (accent words) · Geist Mono (labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@1,9..144,400;1,9..144,500&display=swap">
+
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/themes.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/sections.css">
+  <link rel="stylesheet" href="assets/css/callflow.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+
+  <!-- Mark JS as available so reveal animations only apply when they can finish -->
+  <script>document.documentElement.classList.add("js");</script>
+  <script src="assets/js/motion.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
+</head>
+<body>
+  <!-- UI icon sprite (Lucide, ISC licence) — referenced below with <use href="#i-…"> -->
+  <svg xmlns="http://www.w3.org/2000/svg" hidden>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+    <symbol id="i-arrow-down-right" viewBox="0 0 24 24"><path d="m7 7 10 10"/><path d="M17 7v10H7"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 8h16"/><path d="M4 16h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-map-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-split" viewBox="0 0 24 24"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3"/><path d="m15 9 6-6"/></symbol>
+    <symbol id="i-phone-off" viewBox="0 0 24 24"><path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.42 19.42 0 0 1-3.33-2.67m-2.67-3.34a19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91"/><path d="M22 2 2 22"/></symbol>
+    <symbol id="i-headset" viewBox="0 0 24 24"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"/><path d="M21 16v2a4 4 0 0 1-4 4h-5"/></symbol>
+    <symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-maximize" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-fit" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></symbol>
+    <symbol id="i-file-text" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
+  </svg>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- =====================================================================
+       Header
+       ===================================================================== -->
+  <header class="site-header" id="top">
+    <div class="site-header__inner">
+      <a class="brand" href="#top" aria-label="Yuvaraj K — back to top">
+        <span class="brand__mark" aria-hidden="true">YK<span class="brand__dot"></span></span>
+        <span class="brand__text">
+          <span class="brand__name">YUVARAJ K</span>
+          <span class="brand__spec">AWS &amp; Voice AI Engineer</span>
+        </span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <svg class="icon icon-open" aria-hidden="true"><use href="#i-menu"/></svg>
+        <svg class="icon icon-close" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+
+      <nav class="nav" id="site-nav" aria-label="Primary">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="#about">About</a></li>
+          <li><a class="nav__link" href="#expertise">Expertise</a></li>
+          <li><a class="nav__link" href="#projects">Projects</a></li>
+          <li><a class="nav__link" href="#experience">Experience</a></li>
+          <li><a class="nav__link" href="#education">Education</a></li>
+          <li class="nav__cta"><a class="btn btn--primary btn--sm" href="#contact">Let's connect <svg class="icon icon--nudge" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- =====================================================================
+         Hero
+         ===================================================================== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero__topline" data-reveal>
+          <p class="status"><span class="pulse-dot" aria-hidden="true"></span>Open to work · Available immediately</p>
+          <p class="hero__location">
+            <svg class="icon" aria-hidden="true"><use href="#i-map-pin"/></svg>Chennai, India
+          </p>
+        </div>
+
+        <div class="hero__grid">
+          <div class="hero__content">
+            <h1 class="hero__title" id="hero-title" data-split data-reveal style="--reveal-delay: 80ms">Yuvaraj <em>K.</em></h1>
+            <p class="hero__role" data-split data-reveal style="--reveal-delay: 160ms">
+              Amazon Connect Developer
+              <span class="hero__role-line"><span class="hero__amp">&amp;</span> <em>Voice AI Engineer</em></span>
+            </p>
+            <p class="hero__intro" data-reveal style="--reveal-delay: 240ms">
+              I build cloud contact-center and conversational AI solutions on AWS. My voice agents answer
+              real calls, run backend tools mid-conversation, and reply in under two seconds.
+            </p>
+
+            <div class="hero__actions" data-reveal style="--reveal-delay: 320ms">
+              <a class="btn btn--primary" href="#projects">
+                View selected work
+                <svg class="icon icon--nudge" aria-hidden="true"><use href="#i-arrow-down-right"/></svg>
+              </a>
+              <a class="btn btn--ghost" href="mailto:yuvarajkumaravelu@gmail.com?subject=Resume%20request&amp;body=Hi%20Yuvaraj%2C%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20receive%20your%20resume.%0D%0A%0D%0ACompany%3A%20%0D%0ARole%3A%20%0D%0A%0D%0AThanks%2C%0D%0A">
+                Request resume
+                <svg class="icon icon--nudge" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Hero visual: an illustration of the voice AI pipeline he built -->
+          <figure class="console" data-reveal style="--reveal-delay: 240ms" aria-label="Illustration of a real-time voice AI call pipeline on AWS">
+            <div class="console__bar" aria-hidden="true">
+              <div class="console__dots"><span></span><span></span><span></span></div>
+              <span class="console__title">voice-agent / inbound-call</span>
+              <span class="console__live"><span class="pulse-dot"></span>live</span>
+            </div>
+
+            <div class="console__body">
+              <p class="console__caption" aria-hidden="true">Real-time voice AI pipeline</p>
+
+              <div class="pipeline" aria-hidden="true">
+                <div class="pipeline__node">
+                  <span class="res-icon"><img src="assets/icons/general/user.svg" alt="" width="48" height="48"></span>
+                  <span class="pipeline__label">Caller</span>
+                </div>
+                <span class="pipeline__pipe"></span>
+                <div class="pipeline__node">
+                  <img class="aws-icon" src="assets/icons/aws/amazon-connect.svg" alt="" width="80" height="80">
+                  <span class="pipeline__label">Amazon Connect</span>
+                </div>
+                <span class="pipeline__pipe" style="--pipe-delay: .4s"></span>
+                <div class="pipeline__node">
+                  <img class="aws-icon" src="assets/icons/aws/amazon-nova.svg" alt="" width="80" height="80">
+                  <span class="pipeline__label">Nova Sonic</span>
+                </div>
+                <span class="pipeline__pipe" style="--pipe-delay: .8s"></span>
+                <div class="pipeline__node">
+                  <img class="aws-icon" src="assets/icons/aws/aws-lambda.svg" alt="" width="80" height="80">
+                  <span class="pipeline__label">Lambda tools</span>
+                </div>
+              </div>
+
+              <div class="wave" aria-hidden="true" data-wave></div>
+
+              <div class="readouts">
+                <div class="readout">
+                  <div class="readout__label">Custom stream</div>
+                  <div class="readout__value readout__value--good">&lt; 2 s</div>
+                </div>
+                <div class="readout">
+                  <div class="readout__label">Managed</div>
+                  <div class="readout__value">2.5–3.5 s</div>
+                </div>
+                <div class="readout">
+                  <div class="readout__label">Calls / month</div>
+                  <div class="readout__value">~<span data-count>15</span>K</div>
+                </div>
+              </div>
+            </div>
+            <figcaption class="sr-only">
+              Caller audio flows through Amazon Connect to Amazon Bedrock Nova Sonic, which calls AWS Lambda tools.
+              Response latency: under 2 seconds with custom streaming, 2.5 to 3.5 seconds with the managed integration.
+              About 15,000 calls per month.
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- Impact strip -->
+        <dl class="impact" data-reveal-group>
+          <div class="impact__item" data-reveal>
+            <dt class="eyebrow">Response latency</dt>
+            <dd class="figure stat__value">&lt;2<span class="unit">sec</span></dd>
+            <dd class="stat__label">Voice AI replies with custom audio streaming</dd>
+          </div>
+          <div class="impact__item" data-reveal>
+            <dt class="eyebrow">Call volume</dt>
+            <dd class="figure stat__value"><span data-count>15</span>K<span class="unit">/mo</span></dd>
+            <dd class="stat__label">Calls handled by the Nova Sonic scheduling agent</dd>
+          </div>
+          <div class="impact__item" data-reveal>
+            <dt class="eyebrow">QA cycle</dt>
+            <dd class="figure stat__value">4–5<span class="unit">hrs</span></dd>
+            <dd class="stat__label">With AI-to-AI testing, down from 2–3 days</dd>
+          </div>
+          <div class="impact__item" data-reveal>
+            <dt class="eyebrow">Campaign reach</dt>
+            <dd class="figure stat__value"><span data-count>500</span><span class="unit">+</span></dd>
+            <dd class="stat__label">Recipients reached in a single outbound campaign</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         Stack band — scrolling AWS logo marquee
+         ===================================================================== -->
+    <section class="stack-band theme-milk" aria-label="AWS services I work with">
+      <p class="eyebrow stack-band__label">AWS services I work with</p>
+      <div class="marquee">
+        <ul class="marquee__track">
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-connect.svg" alt="" width="80" height="80" loading="lazy">Amazon Connect</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-bedrock.svg" alt="" width="80" height="80" loading="lazy">Amazon Bedrock</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-nova.svg" alt="" width="80" height="80" loading="lazy">Nova Sonic</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/bedrock-agentcore.svg" alt="" width="80" height="80" loading="lazy">Bedrock AgentCore</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/aws-lambda.svg" alt="" width="80" height="80" loading="lazy">AWS Lambda</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/api-gateway.svg" alt="" width="80" height="80" loading="lazy">API Gateway</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-ecs.svg" alt="" width="80" height="80" loading="lazy">Amazon ECS</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/aws-fargate.svg" alt="" width="80" height="80" loading="lazy">AWS Fargate</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-ec2.svg" alt="" width="80" height="80" loading="lazy">Amazon EC2</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-vpc.svg" alt="" width="80" height="80" loading="lazy">Amazon VPC</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-dynamodb.svg" alt="" width="80" height="80" loading="lazy">DynamoDB</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-rds.svg" alt="" width="80" height="80" loading="lazy">Amazon RDS</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-s3.svg" alt="" width="80" height="80" loading="lazy">Amazon S3</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/secrets-manager.svg" alt="" width="80" height="80" loading="lazy">Secrets Manager</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-cloudwatch.svg" alt="" width="80" height="80" loading="lazy">CloudWatch</li>
+        </ul>
+        <!-- duplicate track makes the loop seamless; hidden from screen readers -->
+        <ul class="marquee__track" aria-hidden="true">
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-connect.svg" alt="" width="80" height="80" loading="lazy">Amazon Connect</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-bedrock.svg" alt="" width="80" height="80" loading="lazy">Amazon Bedrock</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-nova.svg" alt="" width="80" height="80" loading="lazy">Nova Sonic</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/bedrock-agentcore.svg" alt="" width="80" height="80" loading="lazy">Bedrock AgentCore</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/aws-lambda.svg" alt="" width="80" height="80" loading="lazy">AWS Lambda</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/api-gateway.svg" alt="" width="80" height="80" loading="lazy">API Gateway</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-ecs.svg" alt="" width="80" height="80" loading="lazy">Amazon ECS</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/aws-fargate.svg" alt="" width="80" height="80" loading="lazy">AWS Fargate</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-ec2.svg" alt="" width="80" height="80" loading="lazy">Amazon EC2</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-vpc.svg" alt="" width="80" height="80" loading="lazy">Amazon VPC</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-dynamodb.svg" alt="" width="80" height="80" loading="lazy">DynamoDB</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-rds.svg" alt="" width="80" height="80" loading="lazy">Amazon RDS</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-s3.svg" alt="" width="80" height="80" loading="lazy">Amazon S3</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/secrets-manager.svg" alt="" width="80" height="80" loading="lazy">Secrets Manager</li>
+            <li class="marquee__item"><img class="aws-icon" src="assets/icons/aws/amazon-cloudwatch.svg" alt="" width="80" height="80" loading="lazy">CloudWatch</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         About
+         ===================================================================== -->
+    <section class="section theme-muted" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="section-eyebrow"><span class="section-num">01</span><span class="eyebrow">About</span></p>
+            <h2 class="section-title" data-split id="about-title">Voice agents that work on <em>real</em> phone calls</h2>
+          </div>
+          <p class="section-lead">
+            One year of production experience where telephony meets generative AI.
+          </p>
+        </div>
+
+        <div class="about__grid">
+          <div class="about__text" data-reveal>
+            <p class="about__lede">
+              I'm an Amazon Connect developer who builds cloud contact-center and conversational AI solutions on AWS.
+            </p>
+            <p>
+              I design Contact Flows and IVR on Amazon Connect, connect them to <strong>Amazon Bedrock</strong> and
+              <strong>Nova Sonic</strong>, and wire up tool calls through Lambda, API Gateway and Bedrock AgentCore,
+              so the agent can take action during a live call.
+            </p>
+            <p>
+              I care most about latency and reliability. I profiled and rebuilt a voice pipeline with custom audio
+              streaming to bring response times <strong>under two seconds</strong>. I built most of these systems
+              hands-on, working with my team where needed.
+            </p>
+          </div>
+
+          <aside class="about__side" data-reveal style="--reveal-delay: 120ms">
+            <p class="eyebrow about__side-title">Roles I'm looking for</p>
+            <ol class="roles" data-rule>
+              <li class="roles__item"><span class="roles__num">i.</span>Amazon Connect Developer / Contact Center Engineer</li>
+              <li class="roles__item"><span class="roles__num">ii.</span>Python AWS Backend Developer</li>
+              <li class="roles__item"><span class="roles__num">iii.</span>Voice AI / GenAI Engineer</li>
+            </ol>
+
+            <dl class="facts">
+              <div class="facts__row">
+                <dt class="eyebrow">Experience</dt>
+                <dd>1 year in production</dd>
+              </div>
+              <div class="facts__row">
+                <dt class="eyebrow">Education</dt>
+                <dd>B.E. Computer Science, CGPA 8.2</dd>
+              </div>
+              <div class="facts__row">
+                <dt class="eyebrow">Work mode</dt>
+                <dd>Onsite · Hybrid · Remote</dd>
+              </div>
+              <div class="facts__row">
+                <dt class="eyebrow">Availability</dt>
+                <dd>Immediate · open to relocation</dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         Expertise
+         ===================================================================== -->
+    <section class="section theme-dark" id="expertise" aria-labelledby="expertise-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="section-eyebrow"><span class="section-num">02</span><span class="eyebrow">Expertise</span></p>
+            <h2 class="section-title" data-split id="expertise-title">The AWS stack I <em>build with</em></h2>
+          </div>
+          <p class="section-lead">
+            These are the services I've used in production voice AI and contact-center work.
+          </p>
+        </div>
+
+        <ul class="aws-grid" data-reveal-group>
+          <li class="aws-tile" data-reveal>
+            <img class="aws-icon" src="assets/icons/aws/amazon-connect.svg" alt="" width="80" height="80" loading="lazy">
+            <div><p class="aws-tile__name">Amazon Connect</p><p class="aws-tile__use">Contact Flows, IVR, campaigns</p></div>
+          </li>
+          <li class="aws-tile" data-reveal>
+            <img class="aws-icon" src="assets/icons/aws/amazon-bedrock.svg" alt="" width="80" height="80" loading="lazy">
+            <div><p class="aws-tile__name">Amazon Bedrock</p><p class="aws-tile__use">Real-time LLM inference</p></div>
+          </li>
+          <li class="aws-tile" data-reveal>
+            <img class="aws-icon" src="assets/icons/aws/amazon-nova.svg" alt="" width="80" height="80" loading="lazy">
+            <div><p class="aws-tile__name">Nova Sonic</p><p class="aws-tile__use">Speech-to-speech agents</p></div>
+          </li>
+          <li class="aws-tile" data-reveal>
+            <img class="aws-icon" src="assets/icons/aws/bedrock-agentcore.svg" alt="" width="80" height="80" loading="lazy">
+            <div><p class="aws-tile__name">Bedrock AgentCore</p><p class="aws-tile__use">Tool calling &amp; gateway</p></div>
+          </li>
+          <li class="aws-tile" data-reveal>
+            <img class="aws-icon" src="assets/icons/aws/aws-lambda.svg" alt="" width="80" height="80" loading="lazy">
+            <div><p class="aws-tile__name">AWS Lambda</p><p class="aws-tile__use">Serverless logic</p></div>
+          </li>
+          <li class="aws-tile" data-reveal>
+            <img class="aws-icon" src="assets/icons/aws/api-gateway.svg" alt="" width="80" height="80" loading="lazy">
+            <div><p class="aws-tile__name">API Gateway</p><p class="aws-tile__use">REST APIs for tools</p></div>
+          </li>
+          <li class="aws-tile" data-reveal>
+            <img class="aws-icon" src="assets/icons/aws/amazon-ecs.svg" alt="" width="80" height="80" loading="lazy">
+            <div><p class="aws-tile__name">ECS / Fargate</p><p class="aws-tile__use">Container services</p></div>
+          </li>
+          <li class="aws-tile" data-reveal>
+            <img class="aws-icon" src="assets/icons/aws/amazon-ec2.svg" alt="" width="80" height="80" loading="lazy">
+            <div><p class="aws-tile__name">Amazon EC2</p><p class="aws-tile__use">Streaming backend</p></div>
+          </li>
+          <li class="aws-tile" data-reveal>
+            <img class="aws-icon" src="assets/icons/aws/amazon-vpc.svg" alt="" width="80" height="80" loading="lazy">
+            <div><p class="aws-tile__name">Amazon VPC</p><p class="aws-tile__use">Private networking</p></div>
+          </li>
+          <li class="aws-tile" data-reveal>
+            <img class="aws-icon" src="assets/icons/aws/amazon-dynamodb.svg" alt="" width="80" height="80" loading="lazy">
+            <div><p class="aws-tile__name">DynamoDB</p><p class="aws-tile__use">Real-time state</p></div>
+          </li>
+          <li class="aws-tile" data-reveal>
+            <img class="aws-icon" src="assets/icons/aws/amazon-rds.svg" alt="" width="80" height="80" loading="lazy">
+            <div><p class="aws-tile__name">Amazon RDS</p><p class="aws-tile__use">Relational data</p></div>
+          </li>
+          <li class="aws-tile" data-reveal>
+            <img class="aws-icon" src="assets/icons/aws/amazon-s3.svg" alt="" width="80" height="80" loading="lazy">
+            <div><p class="aws-tile__name">Amazon S3</p><p class="aws-tile__use">Object storage</p></div>
+          </li>
+          <li class="aws-tile" data-reveal>
+            <img class="aws-icon" src="assets/icons/aws/secrets-manager.svg" alt="" width="80" height="80" loading="lazy">
+            <div><p class="aws-tile__name">Secrets Manager</p><p class="aws-tile__use">Credentials &amp; keys</p></div>
+          </li>
+          <li class="aws-tile" data-reveal>
+            <img class="aws-icon" src="assets/icons/aws/amazon-cloudwatch.svg" alt="" width="80" height="80" loading="lazy">
+            <div><p class="aws-tile__name">CloudWatch</p><p class="aws-tile__use">Logs &amp; monitoring</p></div>
+          </li>
+        </ul>
+
+        <!-- Skill groups, laid out as a ruled specification sheet -->
+        <div class="skills" data-rule>
+          <div class="skill-row" data-reveal>
+            <h3 class="skill-row__title">Amazon Connect</h3>
+            <ul class="chip-list">
+              <li class="chip">Contact Flows</li>
+              <li class="chip">Call Routing Design</li>
+              <li class="chip">Routing Profiles</li>
+              <li class="chip">Queues</li>
+              <li class="chip">Callbacks</li>
+              <li class="chip">Emergency Messaging</li>
+              <li class="chip">Business Hours &amp; Holiday Routing</li>
+              <li class="chip">Contact Lens</li>
+              <li class="chip">Journey Builder</li>
+              <li class="chip">Outbound Campaigns</li>
+              <li class="chip">Agent Workspace</li>
+              <li class="chip">CCP Customization</li>
+              <li class="chip">IVR</li>
+              <li class="chip">Conversational AI</li>
+            </ul>
+          </div>
+
+          <div class="skill-row" data-reveal>
+            <h3 class="skill-row__title">Languages &amp; <em>frameworks</em></h3>
+            <ul class="chip-list">
+              <li class="chip">Python</li>
+              <li class="chip">FastAPI</li>
+              <li class="chip">Node.js</li>
+              <li class="chip">JavaScript</li>
+              <li class="chip">TypeScript</li>
+              <li class="chip">React</li>
+              <li class="chip">REST APIs</li>
+              <li class="chip">Amazon Connect Streams API</li>
+            </ul>
+          </div>
+
+          <div class="skill-row" data-reveal>
+            <h3 class="skill-row__title">AI &amp; <em>prompt engineering</em></h3>
+            <ul class="chip-list">
+              <li class="chip">LLM Prompt Engineering</li>
+              <li class="chip">Conversational Agent Design</li>
+              <li class="chip">Claude Code</li>
+              <li class="chip">AWS Kiro</li>
+              <li class="chip">GitHub Copilot</li>
+            </ul>
+          </div>
+
+          <div class="skill-row" data-reveal>
+            <h3 class="skill-row__title">Databases &amp; <em>analytics</em></h3>
+            <ul class="chip-list">
+              <li class="chip">PostgreSQL</li>
+              <li class="chip">Oracle SQL</li>
+              <li class="chip">DynamoDB</li>
+              <li class="chip">RDS</li>
+              <li class="chip">Power BI</li>
+              <li class="chip">Tableau</li>
+              <li class="chip">Looker Studio</li>
+              <li class="chip">ETL Processes</li>
+            </ul>
+          </div>
+
+          <div class="skill-row" data-reveal>
+            <h3 class="skill-row__title">Tools &amp; <em>practices</em></h3>
+            <ul class="chip-list">
+              <li class="chip">Jira</li>
+              <li class="chip">Git &amp; GitHub</li>
+              <li class="chip">TFS</li>
+              <li class="chip">Azure DevOps</li>
+              <li class="chip">CI/CD</li>
+              <li class="chip">SDLC</li>
+              <li class="chip">Agile / Scrum</li>
+              <li class="chip">Postman</li>
+              <li class="chip">Debugging &amp; Troubleshooting</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         Projects
+         ===================================================================== -->
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <div>
+            <p class="section-eyebrow"><span class="section-num">03</span><span class="eyebrow">Projects</span></p>
+            <h2 class="section-title" data-split id="projects-title">Selected <em>work</em></h2>
+          </div>
+          <p class="section-lead">
+            Five systems I built at AVASOFT, each shown with its results and how it fits together on AWS.
+          </p>
+        </div>
+
+        <div class="projects">
+          <!-- ---------- 01 ---------- -->
+          <article class="project" data-reveal aria-labelledby="p1-title">
+            <span class="project__index" aria-hidden="true">01</span>
+            <div class="project__main">
+              <div class="project__tags">
+                <span class="tag tag--gold">Production</span>
+                <span class="tag">Voice AI</span>
+              </div>
+              <h3 class="project__title" id="p1-title">Nova Sonic AI Voice Agent: <em>Appointment Scheduling</em></h3>
+
+              <div class="project__body">
+                <div>
+                  <p class="project__summary">
+                    A production voice AI agent on Amazon Connect and Amazon Bedrock Nova Sonic that handles inbound
+                    appointment scheduling and rescheduling in real time.
+                  </p>
+                  <ul class="project__points">
+                    <li>Built tool-calling workflows with AWS Lambda, API Gateway and Bedrock AgentCore that run backend business operations during live customer calls.</li>
+                    <li>Profiled and tuned the audio-capture-to-response pipeline, bringing end-to-end latency down to a steady 2.5–3.5 seconds.</li>
+                  </ul>
+                </div>
+                <div class="project__metrics">
+                  <div class="metric" data-rule>
+                    <div class="figure metric__value">2.5–3.5<span class="unit">sec</span></div>
+                    <div class="metric__label">Consistent end-to-end latency</div>
+                  </div>
+                  <div class="metric" data-rule>
+                    <div class="figure metric__value"><span data-count>15</span>K<span class="unit">/mo</span></div>
+                    <div class="metric__label">Calls handled per month</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Call flow: Nova Sonic voice AI appointment booking — one continuous left-to-right flow -->
+            <figure class="project__arch project__arch--wide callflow" data-draw aria-labelledby="p1-flow-title">
+              <figcaption class="callflow__head">
+                <div>
+                  <p class="eyebrow callflow__kicker"><span class="callflow__dot" aria-hidden="true"></span>Call flow · continuous left-to-right</p>
+                  <p class="callflow__title" id="p1-flow-title">Customer <span class="callflow__arrow" aria-hidden="true">→</span> Five9 <span class="callflow__arrow" aria-hidden="true">→</span> Amazon Connect <span class="callflow__arrow" aria-hidden="true">→</span> Lex <span class="callflow__arrow" aria-hidden="true">→</span> Lambda tools <span class="callflow__arrow" aria-hidden="true">→</span> Salesforce CRM</p>
+                  <p class="callflow__sub">One telephony journey: qualification, Lambda tool calls, live-agent escalation and CRM sync.</p>
+                </div>
+                <button class="btn btn--ghost btn--sm callflow__expand" type="button" data-cf-open hidden>
+                  <svg class="icon" aria-hidden="true"><use href="#i-maximize"/></svg>
+                  View large
+                </button>
+              </figcaption>
+
+              <div class="callflow__viewport" data-cf-inline>
+                <div class="cfx-sizer">
+                <div class="cfx-canvas" style="--cfx-w: 3040px; --cfx-h: 560px">
+                  <svg class="cfx-wires" viewBox="0 0 3040 560" width="3040" height="560" aria-hidden="true">
+                    <defs>
+                        <marker id="cfx-arrow-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--orange"/></marker>
+                        <marker id="cfx-arrow-dark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--dark"/></marker>
+                        <marker id="cfx-arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--green"/></marker>
+                        <marker id="cfx-arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--blue"/></marker>
+                        <marker id="cfx-arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--red"/></marker>
+                        <marker id="cfx-arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--amber"/></marker>
+                    </defs>
+                    <polygon class="cfx-diamond-shape" style="--step-i: 4" points="1130,216 1192,278 1130,340 1068,278"/>
+                      <g class="cfx-link cfx-link--dark" style="--step-i: 1">
+                        <path d="M 232 278 H 282" pathLength="1" marker-end="url(#cfx-arrow-dark)"/>
+                        <text x="258" y="266">CALL</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 2">
+                        <path d="M 492 278 H 542" pathLength="1" marker-end="url(#cfx-arrow-orange)"/>
+                        <text x="518" y="266">SIP</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 3">
+                        <path d="M 752 278 H 802" pathLength="1" marker-end="url(#cfx-arrow-orange)"/>
+                        <text x="778" y="266">BOT</text>
+                      </g>
+                      <g class="cfx-link cfx-link--dark" style="--step-i: 4">
+                        <path d="M 1012 278 H 1062" pathLength="1" marker-end="url(#cfx-arrow-dark)"/>
+                        <text x="1038" y="266">INTAKE</text>
+                      </g>
+                      <g class="cfx-link cfx-link--green" style="--step-i: 6">
+                        <path d="M 1196 278 H 1246" pathLength="1" marker-end="url(#cfx-arrow-green)"/>
+                        <text x="1222" y="266">✓ MET</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 7">
+                        <path d="M 1456 278 H 1506" pathLength="1" marker-end="url(#cfx-arrow-orange)"/>
+                        <text x="1482" y="266">TOOL</text>
+                      </g>
+                      <g class="cfx-link cfx-link--dark" style="--step-i: 8">
+                        <path d="M 1716 278 H 1766" pathLength="1" marker-end="url(#cfx-arrow-dark)"/>
+                        <text x="1742" y="266">SLOTS</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 9">
+                        <path d="M 1976 278 H 2026" pathLength="1" marker-end="url(#cfx-arrow-orange)"/>
+                        <text x="2002" y="266">BOOK</text>
+                      </g>
+                      <g class="cfx-link cfx-link--green" style="--step-i: 10">
+                        <path d="M 2236 278 H 2286" pathLength="1" marker-end="url(#cfx-arrow-green)"/>
+                        <text x="2262" y="266">APPT ID</text>
+                      </g>
+                      <g class="cfx-link cfx-link--blue" style="--step-i: 11">
+                        <path d="M 2496 278 H 2546" pathLength="1" marker-end="url(#cfx-arrow-blue)"/>
+                        <text x="2522" y="266">WRAP-UP</text>
+                      </g>
+                      <g class="cfx-link cfx-link--blue" style="--step-i: 12">
+                        <path d="M 2756 278 H 2806" pathLength="1" marker-end="url(#cfx-arrow-blue)"/>
+                        <text x="2782" y="266">SYNC</text>
+                      </g>
+                      <g class="cfx-branch cfx-branch--red" style="--step-i: 5">
+                        <path d="M 1130 216 C 1130 146, 1160 90, 1246 90" marker-end="url(#cfx-arrow-red)"/>
+                        <rect x="1064" y="146" width="76" height="22" rx="11"/>
+                        <text x="1102" y="161">Not met</text>
+                      </g>
+                      <g class="cfx-branch cfx-branch--amber" style="--step-i: 5">
+                        <path d="M 1130 340 C 1130 410, 1160 478, 1246 478" marker-end="url(#cfx-arrow-amber)"/>
+                        <rect x="1052" y="388" width="88" height="22" rx="11"/>
+                        <text x="1096" y="403">Live agent</text>
+                      </g>
+                  </svg>
+                  <span class="cfx-packet" style="offset-path: path('M 28 278 H 3012')" aria-hidden="true"></span>
+                  <ol class="cfx-steps">
+                  <li class="cfx-card cfx-card--dark cfx-card--start" style="--x: 28px; --y: 200px; --step-i: 0">
+                    <div class="cfx-card__top">
+                      <span class="res-icon"><img src="assets/icons/general/user.svg" alt="" width="48" height="48" loading="lazy"></span>
+                      <span class="cfx-badge">Start</span>
+                    </div>
+                    <p class="cfx-card__title">Customer</p>
+                    <p class="cfx-card__sub">Inbound caller</p>
+                    <div class="cfx-card__body">
+                      <p>Places an inbound call</p>
+                      <p class="cfx-card__em">Wants to book an appointment</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--neutral" style="--x: 288px; --y: 200px; --step-i: 1">
+                    <div class="cfx-card__top">
+                      <img class="cfx-logo" src="assets/images/logos/five9.png" alt="" width="179" height="96" loading="lazy">
+                      <span class="cfx-badge">01 · Inbound</span>
+                    </div>
+                    <p class="cfx-card__title">Five9 Contact Center</p>
+                    <p class="cfx-card__sub">Cloud contact center</p>
+                    <div class="cfx-card__body">
+                      <p>Inbound caller arrives</p>
+                      <p class="cfx-card__em">Intent: “Book Appt”</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--neutral" style="--x: 548px; --y: 200px; --step-i: 2">
+                    <div class="cfx-card__top">
+                      <img class="aws-icon" src="assets/icons/aws/amazon-connect.svg" alt="" width="80" height="80" loading="lazy">
+                      <span class="cfx-badge">02 · Telephony</span>
+                    </div>
+                    <p class="cfx-card__title">Amazon Connect</p>
+                    <p class="cfx-card__sub">AWS cloud telephony</p>
+                    <div class="cfx-card__body">
+                      <p>Receives the SIP transfer</p>
+                      <p class="cfx-card__em">Routes the call to Lex</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--orange" style="--x: 808px; --y: 200px; --step-i: 3">
+                    <div class="cfx-card__top">
+                      <img class="aws-icon" src="assets/icons/aws/amazon-lex.svg" alt="" width="80" height="80" loading="lazy">
+                      <span class="cfx-badge">03 · Bot</span>
+                    </div>
+                    <p class="cfx-card__title">Amazon Lex Bot</p>
+                    <p class="cfx-card__sub">Conversational AI intake</p>
+                    <div class="cfx-card__body">
+                      <p>Greets the customer</p>
+                      <p class="cfx-card__em">Collects criteria details</p>
+                    </div>
+                  </li>
+                  <li class="cfx-diamond" style="--x: 1068px; --y: 216px; --step-i: 4">
+                    <span class="cfx-diamond__num">04</span>
+                    <span class="cfx-diamond__label">Criteria<br>check</span>
+                  </li>
+                  <li class="cfx-card cfx-card--red cfx-card--branch" style="--x: 1252px; --y: 20px; --step-i: 5">
+                    <div class="cfx-card__top">
+                      <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-phone-off"/></svg></span>
+                      <span class="cfx-badge">Not met</span>
+                    </div>
+                    <p class="cfx-card__title">Criteria Not Met</p>
+                    <p class="cfx-card__sub">Disconnect path</p>
+                    <div class="cfx-card__body">
+                      <p>Plays the ineligibility reason</p>
+                      <p class="cfx-card__em">Polite call disconnect</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--amber cfx-card--branch" style="--x: 1252px; --y: 408px; --step-i: 5">
+                    <div class="cfx-card__top">
+                      <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-headset"/></svg></span>
+                      <span class="cfx-badge">Live agent</span>
+                    </div>
+                    <p class="cfx-card__title">Live Agent Transfer</p>
+                    <p class="cfx-card__sub">Escalation path</p>
+                    <div class="cfx-card__body">
+                      <p>Hands the call to a person</p>
+                      <p class="cfx-card__em">Connect live queue</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--green" style="--x: 1252px; --y: 200px; --step-i: 6">
+                    <div class="cfx-card__top">
+                      <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-circle-check"/></svg></span>
+                      <span class="cfx-badge">✓ Met</span>
+                    </div>
+                    <p class="cfx-card__title">Intake Qualified</p>
+                    <p class="cfx-card__sub">Eligible caller</p>
+                    <div class="cfx-card__body">
+                      <p>Collects complete intake</p>
+                      <p class="cfx-card__em">Information captured</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--orange" style="--x: 1512px; --y: 200px; --step-i: 7">
+                    <div class="cfx-card__top">
+                      <img class="aws-icon" src="assets/icons/aws/aws-lambda.svg" alt="" width="80" height="80" loading="lazy">
+                      <span class="cfx-badge">05 · Tool 01</span>
+                    </div>
+                    <p class="cfx-card__title">getAvailableSlots</p>
+                    <p class="cfx-card__sub">AWS Lambda function</p>
+                    <div class="cfx-card__body">
+                      <p>Queries the calendar API</p>
+                      <p class="cfx-card__em">Returns open slots</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--neutral" style="--x: 1772px; --y: 200px; --step-i: 8">
+                    <div class="cfx-card__top">
+                      <img class="aws-icon" src="assets/icons/aws/amazon-lex.svg" alt="" width="80" height="80" loading="lazy">
+                      <span class="cfx-badge">06 · Dialogue</span>
+                    </div>
+                    <p class="cfx-card__title">Slot Selection</p>
+                    <p class="cfx-card__sub">Amazon Lex conversation</p>
+                    <div class="cfx-card__body">
+                      <p>Speaks the open slots</p>
+                      <p class="cfx-card__em">Caller picks a slot</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--orange" style="--x: 2032px; --y: 200px; --step-i: 9">
+                    <div class="cfx-card__top">
+                      <img class="aws-icon" src="assets/icons/aws/aws-lambda.svg" alt="" width="80" height="80" loading="lazy">
+                      <span class="cfx-badge">07 · Tool 02</span>
+                    </div>
+                    <p class="cfx-card__title">bookAppointment</p>
+                    <p class="cfx-card__sub">AWS Lambda function</p>
+                    <div class="cfx-card__body">
+                      <p>Books the chosen slot</p>
+                      <p class="cfx-card__em">Returns appointment ID</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--green" style="--x: 2292px; --y: 200px; --step-i: 10">
+                    <div class="cfx-card__top">
+                      <img class="aws-icon" src="assets/icons/aws/amazon-lex.svg" alt="" width="80" height="80" loading="lazy">
+                      <span class="cfx-badge">08 · Confirm</span>
+                    </div>
+                    <p class="cfx-card__title">Spoken Confirmation</p>
+                    <p class="cfx-card__sub">Amazon Lex Bot</p>
+                    <div class="cfx-card__body">
+                      <p>Reads back to the caller</p>
+                      <p class="cfx-card__em">Speaks the appointment ID</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--blue" style="--x: 2552px; --y: 200px; --step-i: 11">
+                    <div class="cfx-card__top">
+                      <img class="aws-icon" src="assets/icons/aws/aws-lambda.svg" alt="" width="80" height="80" loading="lazy">
+                      <span class="cfx-badge">09 · Tool 03</span>
+                    </div>
+                    <p class="cfx-card__title">salesforceSync</p>
+                    <p class="cfx-card__sub">AWS Lambda function</p>
+                    <div class="cfx-card__body">
+                      <p>Triggered at call wrap-up</p>
+                      <p class="cfx-card__em">Pushes record &amp; transcript</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--blue" style="--x: 2812px; --y: 200px; --step-i: 12">
+                    <div class="cfx-card__top">
+                      <img class="cfx-logo" src="assets/images/logos/salesforce.png" alt="" width="137" height="96" loading="lazy">
+                      <span class="cfx-badge">10 · CRM</span>
+                    </div>
+                    <p class="cfx-card__title">Salesforce CRM</p>
+                    <p class="cfx-card__sub">Customer record store</p>
+                    <div class="cfx-card__body">
+                      <ul class="cfx-card__checks">
+                        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Call record &amp; appt ID</li>
+                        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Full audio transcript</li>
+                      </ul>
+                    </div>
+                  </li>
+                  </ol>
+                </div>
+                </div>
+              </div>
+              <p class="callflow__tip" hidden>Showing the full flow. Click the diagram or <strong>View large</strong> to zoom in.</p>
+
+              <ul class="callflow__legend" aria-label="Legend">
+                <li><span class="legend-line legend-line--orange" aria-hidden="true"></span>Primary call flow</li>
+                <li><span class="legend-line legend-line--red legend-line--dashed" aria-hidden="true"></span>Disconnect path (branch up)</li>
+                <li><span class="legend-line legend-line--amber legend-line--dashed" aria-hidden="true"></span>Live-agent escalation (branch down)</li>
+                <li><span class="legend-swatch legend-swatch--orange" aria-hidden="true"></span>AWS Lambda tool call</li>
+                <li><span class="legend-swatch legend-swatch--blue" aria-hidden="true"></span>CRM data &amp; transcript sync</li>
+              </ul>
+            </figure>
+          </article>
+
+          <!-- ---------- 02 ---------- -->
+          <article class="project" data-reveal aria-labelledby="p2-title">
+            <span class="project__index" aria-hidden="true">02</span>
+            <div class="project__main">
+              <div class="project__tags">
+                <span class="tag tag--gold">Real-time streaming</span>
+                <span class="tag">Voice AI</span>
+              </div>
+              <h3 class="project__title" id="p2-title">Custom Nova Sonic <em>AI Voice Agent</em></h3>
+
+              <div class="project__body">
+                <div>
+                  <p class="project__summary">
+                    A custom real-time audio-streaming architecture, built to get past the latency and flexibility
+                    limits of the managed Nova Sonic integration.
+                  </p>
+                  <ul class="project__points">
+                    <li>Captured live audio directly from the Amazon Connect CCP, streamed it to Amazon Bedrock for inference, and routed the generated reply back into the active customer call.</li>
+                    <li>Wrote a Python/FastAPI backend for audio routing and session-state management.</li>
+                    <li>Built and deployed the backend across EC2, ECS, VPC, RDS, S3 and Secrets Manager.</li>
+                  </ul>
+                </div>
+                <div class="project__metrics">
+                  <div class="metric" data-rule>
+                    <div class="figure metric__value">&lt;2<span class="unit">sec</span></div>
+                    <div class="metric__label">End-to-end response latency, faster than the managed integration</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="project__arch" data-draw>
+                <p class="eyebrow project__arch-title">Architecture</p>
+                <ol class="flow">
+                  <li class="flow__step"><span class="res-icon"><img src="assets/icons/general/user.svg" alt="" width="48" height="48" loading="lazy"></span><span class="flow__label">Caller</span></li>
+                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/amazon-connect.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">Connect CCP audio</span></li>
+                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/amazon-ecs.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">FastAPI stream service</span></li>
+                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/amazon-bedrock.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">Amazon Bedrock</span></li>
+                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/amazon-connect.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">Reply into live call</span></li>
+                </ol>
+                <div class="flow-support">
+                  <span class="eyebrow">Runs on</span>
+                  <span class="flow-support__item"><img class="aws-icon aws-icon--sm" src="assets/icons/aws/amazon-ec2.svg" alt="" width="80" height="80" loading="lazy">EC2</span>
+                  <span class="flow-support__item"><img class="aws-icon aws-icon--sm" src="assets/icons/aws/amazon-ecs.svg" alt="" width="80" height="80" loading="lazy">ECS</span>
+                  <span class="flow-support__item"><img class="aws-icon aws-icon--sm" src="assets/icons/aws/amazon-vpc.svg" alt="" width="80" height="80" loading="lazy">VPC</span>
+                  <span class="flow-support__item"><img class="aws-icon aws-icon--sm" src="assets/icons/aws/amazon-rds.svg" alt="" width="80" height="80" loading="lazy">RDS</span>
+                  <span class="flow-support__item"><img class="aws-icon aws-icon--sm" src="assets/icons/aws/amazon-s3.svg" alt="" width="80" height="80" loading="lazy">S3</span>
+                  <span class="flow-support__item"><img class="aws-icon aws-icon--sm" src="assets/icons/aws/secrets-manager.svg" alt="" width="80" height="80" loading="lazy">Secrets Manager</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- ---------- 03 ---------- -->
+          <article class="project" data-reveal aria-labelledby="p3-title">
+            <span class="project__index" aria-hidden="true">03</span>
+            <div class="project__main">
+              <div class="project__tags">
+                <span class="tag tag--gold">Healthcare</span>
+                <span class="tag">Voice AI</span>
+              </div>
+              <h3 class="project__title" id="p3-title">AI Healthcare <em>Receptionist Agent</em></h3>
+
+              <div class="project__body">
+                <div>
+                  <p class="project__summary">
+                    An Amazon Connect AI voice agent built to fully automate a clinic's front-desk phone calls.
+                  </p>
+                  <ul class="project__points">
+                    <li>Built conversational tool-calling workflows for booking, rescheduling and cancelling appointments.</li>
+                    <li>Integrated Amazon Connect with API Gateway, AWS Lambda and Bedrock AgentCore Gateway to run appointment-management operations during live calls.</li>
+                  </ul>
+                </div>
+                <div class="project__metrics">
+                  <div class="metric" data-rule>
+                    <div class="figure metric__value">3</div>
+                    <div class="metric__label">Appointment workflows automated: book, reschedule and cancel</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="project__arch" data-draw>
+                <p class="eyebrow project__arch-title">Architecture</p>
+                <ol class="flow">
+                  <li class="flow__step"><span class="res-icon"><img src="assets/icons/general/user.svg" alt="" width="48" height="48" loading="lazy"></span><span class="flow__label">Patient</span></li>
+                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/amazon-connect.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">Amazon Connect</span></li>
+                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/bedrock-agentcore.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">AgentCore Gateway</span></li>
+                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/api-gateway.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">API Gateway</span></li>
+                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/aws-lambda.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">Appointment Lambdas</span></li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ---------- 04 ---------- -->
+          <article class="project" data-reveal aria-labelledby="p4-title">
+            <span class="project__index" aria-hidden="true">04</span>
+            <div class="project__main">
+              <div class="project__tags">
+                <span class="tag tag--gold">QA automation</span>
+                <span class="tag">Voice AI</span>
+              </div>
+              <h3 class="project__title" id="p4-title">AI-to-AI Calling: <em>Automated QA Voice Testing Agent</em></h3>
+
+              <div class="project__body">
+                <div>
+                  <p class="project__summary">
+                    An automated QA platform where one AI voice agent tests another through real outbound calls,
+                    reducing dependence on manual testing.
+                  </p>
+                  <ul class="project__points">
+                    <li>Designed an Azure DevOps → ECS → RDS pipeline that processes test scripts and feeds them to a dedicated QA agent.</li>
+                    <li>Automated outbound test calls, conversation execution and performance evaluation, with concurrent-call support.</li>
+                  </ul>
+                </div>
+                <div class="project__metrics">
+                  <div class="metric" data-rule>
+                    <div class="figure metric__value">4–5<span class="unit">hrs</span></div>
+                    <div class="metric__label">QA testing time, down from 2–3 days</div>
+                  </div>
+                  <div class="metric" data-rule>
+                    <div class="figure metric__value">~5</div>
+                    <div class="metric__label">Concurrent test calls, set by the target agent's limit</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="project__arch" data-draw>
+                <p class="eyebrow project__arch-title">Architecture</p>
+                <ol class="flow">
+                  <li class="flow__step"><span class="res-icon"><img src="assets/icons/general/source-code.svg" alt="" width="48" height="48" loading="lazy"></span><span class="flow__label">Azure DevOps test scripts</span></li>
+                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/amazon-ecs.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">Amazon ECS</span></li>
+                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/amazon-rds.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">Amazon RDS</span></li>
+                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/amazon-connect.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">QA agent outbound call</span></li>
+                  <li class="flow__step"><span class="res-icon"><img src="assets/icons/general/client.svg" alt="" width="48" height="48" loading="lazy"></span><span class="flow__label">AI agent under test</span></li>
+                </ol>
+              </div>
+            </div>
+          </article>
+
+          <!-- ---------- 05 ---------- -->
+          <article class="project" data-reveal aria-labelledby="p5-title">
+            <span class="project__index" aria-hidden="true">05</span>
+            <div class="project__main">
+              <div class="project__tags">
+                <span class="tag tag--gold">Full-stack</span>
+                <span class="tag">Outbound</span>
+              </div>
+              <h3 class="project__title" id="p5-title">Multi-Channel <em>Outbound Campaign Dialer</em></h3>
+
+              <div class="project__body">
+                <div>
+                  <p class="project__summary">
+                    A full-stack campaign dispatch portal built with React.js, Python and AWS Lambda, integrated with
+                    Amazon Connect Outbound Campaigns and custom Contact Flows.
+                  </p>
+                  <ul class="project__points">
+                    <li>Automated bulk and single outbound campaigns for electricity-reminder calls and emails, with recipient-state tracking.</li>
+                    <li>Designed a DynamoDB-backed datastore that tracks recipient states and dispatch schedules in real time.</li>
+                    <li>Built an operations dashboard for call connection rates and email deliveries, with CSV/Excel export.</li>
+                  </ul>
+                </div>
+                <div class="project__metrics">
+                  <div class="metric" data-rule>
+                    <div class="figure metric__value"><span data-count>500</span><span class="unit">+</span></div>
+                    <div class="metric__label">Recipients reached in a single campaign</div>
+                  </div>
+                  <div class="metric" data-rule>
+                    <div class="figure metric__value">2</div>
+                    <div class="metric__label">Channels: voice calls and email</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="project__arch" data-draw>
+                <p class="eyebrow project__arch-title">Architecture</p>
+                <ol class="flow">
+                  <li class="flow__step"><span class="res-icon"><img src="assets/icons/general/client.svg" alt="" width="48" height="48" loading="lazy"></span><span class="flow__label">React portal</span></li>
+                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/aws-lambda.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">AWS Lambda (Python)</span></li>
+                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/amazon-dynamodb.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">DynamoDB state</span></li>
+                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/amazon-connect.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">Connect Outbound Campaigns</span></li>
+                  <li class="flow__step"><span class="res-icon"><img src="assets/icons/general/email.svg" alt="" width="48" height="48" loading="lazy"></span><span class="flow__label">Calls &amp; emails</span></li>
+                </ol>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         Experience
+         ===================================================================== -->
+    <section class="section theme-muted" id="experience" aria-labelledby="experience-title">
+      <div class="container">
+        <div class="section-head section-head--solo" data-reveal>
+          <div>
+            <p class="section-eyebrow"><span class="section-num">04</span><span class="eyebrow">Experience</span></p>
+            <h2 class="section-title" data-split id="experience-title">Where I've <em>worked</em></h2>
+          </div>
+        </div>
+
+        <article class="job" data-reveal>
+          <div class="job__aside">
+            <p class="eyebrow">Sept 2025 – Aug 2026</p>
+            <p class="job__company">AVASOFT</p>
+          </div>
+
+          <div class="job__main">
+            <h3 class="job__role">Software Developer: <em>Amazon Connect &amp; AI Voice Agents</em></h3>
+
+            <ul class="job__points">
+              <li>Designed and shipped real-time voice AI agents on Amazon Connect, Amazon Bedrock Nova Sonic and Bedrock AgentCore, with tool calling through Lambda and API Gateway.</li>
+              <li>Engineered a custom audio-streaming architecture that brought voice response latency under 2 seconds.</li>
+              <li>Built an AI-to-AI automated QA platform that cut testing time from 2–3 days to 4–5 hours.</li>
+              <li>Delivered a full-stack outbound campaign dialer on Amazon Connect Outbound Campaigns, React and DynamoDB.</li>
+              <li>Worked in an Agile/Scrum team using Jira, Azure DevOps (PRs, branching) and CI/CD.</li>
+            </ul>
+
+            <ul class="chip-list job__stack" aria-label="Technologies used">
+              <li class="chip">Amazon Connect</li>
+              <li class="chip">Amazon Bedrock</li>
+              <li class="chip">Nova Sonic</li>
+              <li class="chip">Bedrock AgentCore</li>
+              <li class="chip">AWS Lambda</li>
+              <li class="chip">API Gateway</li>
+              <li class="chip">ECS</li>
+              <li class="chip">DynamoDB</li>
+              <li class="chip">Python / FastAPI</li>
+              <li class="chip">React</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         Education
+         ===================================================================== -->
+    <section class="section theme-milk" id="education" aria-labelledby="education-title">
+      <div class="container">
+        <div class="section-head section-head--solo" data-reveal>
+          <div>
+            <p class="section-eyebrow"><span class="section-num">05</span><span class="eyebrow">Education</span></p>
+            <h2 class="section-title" data-split id="education-title">Academic <em>background</em></h2>
+          </div>
+        </div>
+
+        <div class="edu-list" data-reveal-group>
+          <article class="edu" data-reveal>
+            <p class="eyebrow edu__years">2021 – 2025</p>
+            <div>
+              <h3 class="edu__degree">B.E. Computer Science <em>and Engineering</em></h3>
+              <p class="edu__school">Arunai Engineering College, Tiruvannamalai</p>
+            </div>
+            <p class="edu__score"><span class="figure" data-count>8.2</span><span class="edu__score-label">CGPA / 10</span></p>
+          </article>
+
+          <article class="edu" data-reveal>
+            <p class="eyebrow edu__years">2020 – 2021</p>
+            <div>
+              <h3 class="edu__degree">Higher Secondary <em>(HSC)</em></h3>
+              <p class="edu__school">A.C.S Matriculation HSS, Arani</p>
+            </div>
+            <p class="edu__score"><span class="figure" data-count>85.83</span><span class="edu__score-label">Percent</span></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         Contact
+         ===================================================================== -->
+    <section class="section theme-dark" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="contact" data-reveal>
+          <div class="contact__grid">
+            <div>
+              <p class="section-eyebrow"><span class="section-num">06</span><span class="eyebrow">Contact</span></p>
+              <h2 class="contact__title" data-split id="contact-title">Let's work <em>together.</em></h2>
+              <p class="contact__lead">
+                I'm looking for Amazon Connect, Python AWS backend and Voice AI roles. I can join immediately
+                and I'm open to onsite, hybrid or remote work, including relocation.
+              </p>
+
+              <div class="resume-card">
+                <p class="resume-card__head">
+                  <svg class="icon" aria-hidden="true"><use href="#i-file-text"/></svg>
+                  Resume available on request
+                </p>
+                <p>Email me with your company and the role, and I'll send you my latest resume.</p>
+                <a class="btn btn--light" href="mailto:yuvarajkumaravelu@gmail.com?subject=Resume%20request&amp;body=Hi%20Yuvaraj%2C%0D%0A%0D%0AI%20came%20across%20your%20portfolio%20and%20would%20like%20to%20receive%20your%20resume.%0D%0A%0D%0ACompany%3A%20%0D%0ARole%3A%20%0D%0A%0D%0AThanks%2C%0D%0A">
+                  Request resume by email
+                  <svg class="icon icon--nudge" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <ul class="contact__methods" data-rule>
+              <li class="contact-method">
+                <span class="contact-method__icon" aria-hidden="true"><svg class="icon"><use href="#i-mail"/></svg></span>
+                <div class="contact-method__text">
+                  <p class="contact-method__label">Email</p>
+                  <a class="contact-method__value" href="mailto:yuvarajkumaravelu@gmail.com">yuvarajkumaravelu<wbr>@gmail.com</a>
+                </div>
+                <button class="icon-btn" type="button" data-copy="yuvarajkumaravelu@gmail.com" aria-label="Copy email address">
+                  <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>
+                </button>
+              </li>
+              <li class="contact-method">
+                <span class="contact-method__icon" aria-hidden="true"><svg class="icon"><use href="#i-phone"/></svg></span>
+                <div class="contact-method__text">
+                  <p class="contact-method__label">Phone</p>
+                  <a class="contact-method__value" href="tel:+916369644323">+91 63696 44323</a>
+                </div>
+                <button class="icon-btn" type="button" data-copy="+91 6369644323" aria-label="Copy phone number">
+                  <svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg>
+                </button>
+              </li>
+              <li class="contact-method">
+                <span class="contact-method__icon" aria-hidden="true"><svg class="icon"><use href="#i-linkedin"/></svg></span>
+                <div class="contact-method__text">
+                  <p class="contact-method__label">LinkedIn</p>
+                  <a class="contact-method__value" href="https://www.linkedin.com/in/yuvaraj-kumaravelu-1756ba23b" target="_blank" rel="noopener noreferrer">
+                    yuvaraj-kumaravelu<span class="sr-only"> (opens in a new tab)</span>
+                  </a>
+                </div>
+                <a class="icon-btn" href="https://www.linkedin.com/in/yuvaraj-kumaravelu-1756ba23b" target="_blank" rel="noopener noreferrer" aria-label="Open LinkedIn profile in a new tab">
+                  <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+                </a>
+              </li>
+              <li class="contact-method">
+                <span class="contact-method__icon" aria-hidden="true"><svg class="icon"><use href="#i-map-pin"/></svg></span>
+                <div class="contact-method__text">
+                  <p class="contact-method__label">Location</p>
+                  <p class="contact-method__value">Chennai, India · open to relocation</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================================================================
+       Footer
+       ===================================================================== -->
+  <footer class="site-footer theme-darker">
+    <div class="container site-footer__inner">
+      <div>
+        <p class="site-footer__name">Yuvaraj <em class="serif-italic">K.</em></p>
+        <p class="site-footer__note">
+          © <span data-year>2026</span> Yuvaraj K. AWS, Amazon Connect and the AWS service icons are trademarks of
+          Amazon.com, Inc. or its affiliates. Five9 and Salesforce logos are trademarks of their respective owners.
+        </p>
+      </div>
+      <a class="back-to-top" href="#top">
+        Back to top
+        <svg class="icon" aria-hidden="true"><use href="#i-arrow-up"/></svg>
+      </a>
+    </div>
+  </footer>
+
+  <!-- Full-screen "View large" for the Project 01 call flow -->
+  <dialog class="cf-modal" aria-labelledby="cf-modal-title">
+    <div class="cf-modal__bar">
+      <div>
+        <p class="eyebrow cf-modal__kicker">Project 01 · Call flow</p>
+        <p class="cf-modal__title" id="cf-modal-title">Customer → Five9 → Amazon Connect → Lex → Lambda tools → Salesforce CRM</p>
+      </div>
+      <div class="cf-modal__tools">
+        <button class="cf-modal__btn" type="button" data-cf-zoom="out" aria-label="Zoom out"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg></button>
+        <output class="cf-modal__level" aria-live="polite">100%</output>
+        <button class="cf-modal__btn" type="button" data-cf-zoom="in" aria-label="Zoom in"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></button>
+        <button class="cf-modal__btn cf-modal__btn--text" type="button" data-cf-zoom="fit">
+          <svg class="icon" aria-hidden="true"><use href="#i-fit"/></svg>Fit
+        </button>
+        <button class="cf-modal__btn cf-modal__btn--close" type="button" data-cf-close aria-label="Close large view"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
+      </div>
+    </div>
+    <div class="cf-modal__stage callflow callflow--modal is-revealed">
+      <div class="callflow__viewport cf-modal__viewport" data-cf-modal-viewport tabindex="0" aria-label="Call flow, drag to move around when zoomed in"></div>
+    </div>
+    <p class="cf-modal__hint">Drag to move around · Esc to close</p>
+  </dialog>
+
+  <div class="toast" role="status" aria-live="polite" data-toast>
+    <svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>
+    <span data-toast-text>Copied</span>
+  </div>
+</body>
+</html>

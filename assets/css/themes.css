@@ -1,0 +1,85 @@
+/* ==========================================================================
+   Section themes
+   Each theme re-maps the colour tokens for one section, so every component
+   inside (text, rules, chips, tags, accents) adapts automatically.
+   Apply by adding the class to a <section> (or the footer).
+
+   Page rhythm:
+     Hero         — linen stone + peach glow (default, no class)
+     Stack band   — .theme-milk     milk white marquee strip
+     About        — .theme-muted    muted stone
+     Expertise    — .theme-dark     charcoal gradient (dark)
+     Projects     — linen stone with milk-white cards (default, no class)
+     Experience   — .theme-muted    muted stone
+     Education    — .theme-milk     milk white
+     Contact      — .theme-dark     charcoal gradient (dark)
+     Footer       — .theme-darker   espresso
+
+   All text colours below are checked for at least 4.5:1 contrast
+   against their section background.
+   ========================================================================== */
+
+/* ---- Milk white: bright, clean band ---- */
+.theme-milk {
+  --color-bg: #fffffb;
+  --color-surface: #efede5;          /* cards invert to stone */
+  --color-surface-hover: #e9e6dc;
+  --color-bg-sunken: #f5f3ec;
+  background: var(--color-bg);
+}
+
+/* ---- Muted stone: the original "elevated" section tone ---- */
+.theme-muted {
+  --color-bg: #e5e2d8;
+  --color-bg-sunken: #efede5;
+  --color-line: #d8d4c5;
+  --color-line-strong: #c9c4b2;
+  --color-text-subtle: #645d57;      /* 5.0:1 */
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+}
+
+/* ---- Charcoal: dramatic dark sections ---- */
+.theme-dark {
+  color-scheme: dark;
+  --color-bg: #262322;
+  --color-surface: #342f2d;
+  --color-surface-hover: #3b3532;
+  --color-bg-sunken: #1c1918;
+  --color-line: rgba(255, 255, 251, 0.1);
+  --color-line-strong: rgba(255, 255, 251, 0.18);
+  --color-ink: #fffffb;              /* headings become milk white */
+  --color-ink-soft: #e6e3dd;
+  --color-text-muted: #c8c5c0;       /* 9:1 */
+  --color-text-subtle: #a8a199;      /* 6:1 */
+  --color-accent-display: #fa6d2e;   /* 5.4:1 */
+  --color-accent-text: #fa6d2e;
+  --color-accent-soft: rgba(250, 109, 46, 0.12);
+  --color-accent-line: rgba(250, 109, 46, 0.4);
+  --color-peach: rgba(250, 109, 46, 0.14);
+  --color-green: #3dba7e;
+  --color-focus: #fffffb;
+  background: var(--gradient-dark);
+  color: var(--color-text-muted);
+}
+
+.theme-dark ::selection {
+  background: var(--color-accent-on-dark);
+  color: #1c1918;
+}
+
+/* ---- Espresso: the footer ---- */
+.theme-darker {
+  color-scheme: dark;
+  --color-bg: #1c1918;
+  --color-line: rgba(255, 255, 251, 0.08);
+  --color-ink: #fffffb;
+  --color-ink-soft: #e6e3dd;
+  --color-text-muted: #c8c5c0;
+  --color-text-subtle: #a8a199;
+  --color-accent-display: #fa6d2e;
+  --color-accent-text: #fa6d2e;
+  --color-focus: #fffffb;
+  background: var(--color-bg);
+}

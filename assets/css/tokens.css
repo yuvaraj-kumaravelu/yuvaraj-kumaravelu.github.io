@@ -1,0 +1,140 @@
+/* ==========================================================================
+   Design tokens — "Stone & Signal Orange"
+   Palette, fonts and motion curves carried over from the original portfolio
+   (portfollio/style.css), with deeper orange variants where text must meet
+   WCAG AA contrast.
+   Components never use raw values — always reference these variables.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* ---- Colour: canvas & surfaces ---- */
+  --color-bg: #efede5;              /* warm light stone / linen */
+  --color-bg-sunken: #e5e2d8;       /* muted stone */
+  --color-surface: #fffffb;         /* milk-white cards */
+  --color-surface-hover: #ffffff;
+  --color-line: #e4e1d5;            /* hairline warm sand */
+  --color-line-strong: #d8d4c5;
+
+  /* ---- Colour: text ---- */
+  --color-ink: #262322;             /* deep charcoal — headings (14:1) */
+  --color-ink-soft: #3d3835;
+  --color-text-muted: #59524f;      /* body copy (6.5:1) */
+  --color-text-subtle: #6e6761;     /* captions & labels (4.7:1) */
+
+  /* ---- Colour: signal orange ---- */
+  --color-accent: #f94d00;          /* decorative: dots, rules, particles, glows */
+  --color-accent-display: #dd3b00;  /* large italic accent words (3.8:1, large text) */
+  --color-accent-strong: #d03b00;   /* button fill behind white text (4.9:1) */
+  --color-accent-text: #a32c09;     /* small orange text (6.1:1) */
+  --color-accent-soft: rgba(249, 77, 0, 0.08);
+  --color-accent-line: rgba(249, 77, 0, 0.35);
+  --color-accent-glow: rgba(249, 77, 0, 0.22);
+  --color-peach: #ffecd2;           /* badge / kicker fill */
+
+  /* ---- Colour: signal green (live status) ---- */
+  --color-green: #0d7b46;           /* 4.5:1 on stone */
+  --color-green-soft: rgba(13, 123, 70, 0.12);
+
+  /* ---- Colour: charcoal (dark sections, console) ---- */
+  --color-dark: #262322;
+  --color-dark-elevated: #342f2d;
+  --color-dark-code: #1c1918;
+  --gradient-dark: radial-gradient(103% 223% at 49.2% 170.8%, #38312f 35%, #262321 67.3%);
+  --color-on-dark: #fffffb;         /* milk white */
+  --color-on-dark-muted: #c8c5c0;   /* sand grey (9:1) */
+  --color-on-dark-subtle: #a8a199;  /* (6:1) */
+  --color-accent-on-dark: #fa6d2e;  /* orange text on charcoal (5.4:1) */
+  --color-green-on-dark: #3dba7e;
+  --color-line-on-dark: rgba(255, 255, 251, 0.1);
+
+  --color-focus: #262322;
+
+  /* ---- Typography ---- */
+  --font-sans: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Fraunces", "Cirka", Georgia, serif;          /* italic accent words only */
+  --font-mono: "Geist Mono", "JetBrains Mono", Consolas, monospace;
+
+  --font-body: var(--font-sans);
+  --font-display: var(--font-sans);  /* headings: Geist 800, tight tracking */
+
+  /* Body & UI sizes */
+  --text-2xs: 0.6875rem;   /* 11px — mono labels */
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 1rem;       /* 16px — body */
+  --text-md: 1.125rem;     /* 18px — lead paragraphs */
+
+  /* Display sizes (Geist 800) */
+  --display-sm: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  --display-md: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+  --display-lg: clamp(2.1rem, 1.5rem + 2.4vw, 3.4rem);
+  --display-xl: clamp(3rem, 1.6rem + 5.6vw, 6rem);
+  --display-figure: clamp(2.2rem, 1.8rem + 1.6vw, 3rem);
+
+  --leading-tight: 1.1;
+  --leading-snug: 1.4;
+  --leading-normal: 1.65;
+
+  --tracking-display: -0.035em;
+  --tracking-label: 0.12em;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-black: 800;
+
+  /* ---- Spacing (4px base) ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  --section-gap: clamp(4.5rem, 3rem + 5vw, 7.5rem);
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --container: 1240px;
+  --header-height: 64px;
+  --header-offset: 1.25rem;          /* floating capsule distance from the top */
+
+  /* ---- Radius: soft cards, pill controls ---- */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-pill: 9999px;
+
+  /* ---- Elevation ---- */
+  --shadow-sm: 0 2px 8px rgba(38, 35, 34, 0.04);
+  --shadow-md: 0 10px 28px -4px rgba(38, 35, 34, 0.06), 0 0 0 1px var(--color-line);
+  --shadow-lg: 0 20px 48px -10px rgba(38, 35, 34, 0.09), 0 0 0 1px var(--color-line);
+  --shadow-lift: 0 24px 50px -12px rgba(38, 35, 34, 0.12), 0 0 0 1px var(--color-line);
+  --shadow-dark: 0 25px 50px -12px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 251, 0.08);
+  --shadow-orange-btn: 0 6px 20px rgba(249, 77, 0, 0.28);
+
+  /* ---- Motion (spring curves from the original portfolio) ---- */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-out: var(--ease-spring);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 180ms;
+  --duration-base: 280ms;
+  --duration-slow: 850ms;
+
+  /* ---- Layers ---- */
+  --z-glow: 1;
+  --z-header: 100;
+  --z-menu: 110;
+  --z-toast: 120;
+}

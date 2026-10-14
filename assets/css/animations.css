@@ -1,0 +1,496 @@
+/* ==========================================================================
+   Animations
+   All motion lives here, merging two sets:
+     • From the original portfolio: spring scroll reveals, floating hero card,
+       magnetic pill buttons with a breathing glow, radar-ping live dots,
+       card lift on hover, pipeline particles, logo marquee, cursor glow.
+     • Added here: headline word reveal, self-drawing rules, step-by-step
+       architecture diagrams, count-up figures, hide-on-scroll header,
+       reading progress.
+   Driven by classes that assets/js/motion.js adds:
+     .is-revealed  element has scrolled into view
+     .is-split     headline has been split into words
+   Every effect has a static final state when JS is off or the visitor
+   prefers reduced motion.
+   ========================================================================== */
+
+/* ---- 1. Spring scroll reveal (original: translateY 32px, 0.85s spring) ----
+   Per-property delays: the reveal waits for its stagger, while hover lift
+   (the separate `translate` property) and shadows respond instantly. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity var(--duration-slow) var(--ease-spring) var(--reveal-delay, 0ms),
+    transform var(--duration-slow) var(--ease-spring) var(--reveal-delay, 0ms),
+    translate 400ms var(--ease-spring) 0ms,
+    box-shadow 400ms var(--ease-spring) 0ms,
+    border-color 300ms ease 0ms;
+}
+
+.js [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- 2. Headline word reveal: words rise from behind a mask ---- */
+.js [data-split]:not(.is-split) {
+  visibility: hidden; /* avoid a flash of unsplit text */
+}
+
+.js [data-reveal][data-split] {
+  opacity: 1;
+  transform: none; /* the words animate instead of the whole block */
+}
+
+.word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  /* room for descenders and italic overhang */
+  padding: 0 0.08em 0.14em 0;
+  margin: 0 -0.08em -0.14em 0;
+}
+
+.word__inner {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform 1000ms var(--ease-out-expo);
+  transition-delay: calc(var(--word-i, 0) * 70ms + var(--reveal-delay, 0ms) + 80ms);
+}
+
+.is-revealed .word__inner,
+.is-revealed.word__inner {
+  transform: none;
+}
+
+/* ---- 3. Hairline rules that draw themselves ---- */
+[data-rule] {
+  position: relative;
+}
+
+[data-rule]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--rule-color, var(--color-ink));
+  transform-origin: left;
+  transition: transform 1200ms var(--ease-spring);
+  transition-delay: var(--rule-delay, 100ms);
+}
+
+.js [data-rule]:not(.is-revealed)::before {
+  transform: scaleX(0);
+}
+
+.section-head,
+.hero__topline {
+  position: relative;
+}
+
+.section-head::after,
+.hero__topline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--color-line-strong);
+  transform-origin: left;
+  transition: transform 1400ms var(--ease-spring) 250ms;
+}
+
+.js .section-head:not(.is-revealed)::after,
+.js .hero__topline:not(.is-revealed)::after {
+  transform: scaleX(0);
+}
+
+/* ---- 4. Floating hero console (original "subtleFloat" levitation) ---- */
+@keyframes subtleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.js .console.is-revealed {
+  animation: subtleFloat 7s ease-in-out 1.2s infinite;
+}
+
+.console:hover,
+.console.is-paused {
+  animation-play-state: paused;
+}
+
+.console:hover {
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(249, 77, 0, 0.25);
+}
+
+/* ---- 5. Pipeline data particles (original "flowPulseParticle") ---- */
+@keyframes flowPulseParticle {
+  0% { left: 0%; opacity: 0; transform: translateY(-50%) scale(0.6); }
+  20% { opacity: 1; transform: translateY(-50%) scale(1.1); }
+  80% { opacity: 1; transform: translateY(-50%) scale(1.1); }
+  100% { left: 100%; opacity: 0; transform: translateY(-50%) scale(0.6); }
+}
+
+.pipeline__pipe::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  margin-left: -3.5px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 10px var(--color-accent), 0 0 3px #fff;
+  animation: flowPulseParticle 1.8s linear infinite;
+  animation-delay: var(--pipe-delay, 0s);
+}
+
+/* ---- 6. Radar ping on live status dots (original "radarPing") ---- */
+@keyframes radarPing {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(13, 123, 70, 0.7); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(13, 123, 70, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(13, 123, 70, 0); }
+}
+
+.pulse-dot {
+  animation: radarPing 2.2s cubic-bezier(0.25, 0, 0, 1) infinite;
+}
+
+/* ---- 7. Magnetic pill buttons (original button physics) ---- */
+.btn {
+  position: relative;
+  transition:
+    transform 220ms var(--ease-spring),
+    background-color 250ms ease,
+    border-color 250ms ease,
+    box-shadow 250ms ease,
+    color 200ms ease;
+  will-change: transform;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn .icon {
+  transition: transform 250ms var(--ease-spring);
+}
+
+/* trailing arrows glide diagonally */
+.btn:hover .icon--nudge {
+  transform: translate(3px, -3px);
+}
+
+/* signal-orange CTA breathes gently */
+@keyframes signalGlow {
+  0%, 100% { box-shadow: var(--shadow-orange-btn); }
+  50% { box-shadow: 0 8px 28px rgba(249, 77, 0, 0.45), 0 0 0 3px rgba(249, 77, 0, 0.12); }
+}
+
+.btn--primary {
+  animation: signalGlow 3.5s ease-in-out infinite;
+}
+
+.btn--primary:hover {
+  animation: none;
+  box-shadow: 0 10px 32px rgba(249, 77, 0, 0.42);
+}
+
+.btn--ghost:hover {
+  box-shadow: 0 6px 18px rgba(38, 35, 34, 0.08);
+}
+
+/* ---- 8. Kinetic card lift on hover (original card dynamics) ---- */
+.project,
+.job,
+.impact__item,
+.about__side,
+.aws-tile {
+  transition:
+    translate 400ms var(--ease-spring),
+    box-shadow 400ms var(--ease-spring),
+    border-color 300ms ease;
+}
+
+.project:hover {
+  translate: 0 -6px;
+  box-shadow: var(--shadow-lift);
+}
+
+.impact__item:hover,
+.aws-tile:hover {
+  translate: 0 -5px;
+  box-shadow: 0 16px 36px -8px rgba(38, 35, 34, 0.1), 0 0 0 1px var(--color-line);
+}
+
+.job:hover,
+.about__side:hover {
+  translate: 0 -4px;
+  box-shadow: 0 16px 40px -10px rgba(38, 35, 34, 0.1);
+}
+
+.theme-dark .aws-tile:hover {
+  border-color: var(--color-accent-line);
+  box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.45);
+}
+
+/* AWS icons: settle in on reveal, then tilt playfully on hover */
+.aws-tile .aws-icon {
+  transition: transform 500ms var(--ease-spring);
+}
+
+.js .aws-tile:not(.is-revealed) .aws-icon {
+  transform: translateY(8px) scale(0.9);
+}
+
+.aws-tile:hover .aws-icon {
+  transform: scale(1.08) rotate(-2deg);
+}
+
+/* Project numerals glide in, then nudge on hover */
+.project__index {
+  transition: transform var(--duration-slow) var(--ease-spring);
+}
+
+.js .project:not(.is-revealed) .project__index {
+  transform: translateX(-16px);
+}
+
+.project:hover .project__index {
+  transform: translateX(6px);
+}
+
+/* ---- 9. Architecture diagrams build step by step ---- */
+.js .project__arch .flow__step {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 600ms var(--ease-spring),
+    transform 600ms var(--ease-spring);
+  transition-delay: calc(var(--step-i, 0) * 120ms + 150ms);
+}
+
+.js .project__arch.is-revealed .flow__step {
+  opacity: 1;
+  transform: none;
+}
+
+.js .project__arch .flow__step::after {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 450ms var(--ease-spring);
+  transition-delay: calc(var(--step-i, 0) * 120ms + 380ms);
+}
+
+.js .project__arch .flow__step::before {
+  opacity: 0;
+  transition: opacity 250ms ease;
+  transition-delay: calc(var(--step-i, 0) * 120ms + 640ms);
+}
+
+.js .project__arch.is-revealed .flow__step::after {
+  transform: scaleX(1);
+}
+
+.js .project__arch.is-revealed .flow__step::before {
+  opacity: 1;
+}
+
+@media (max-width: 760px) {
+  .js .project__arch .flow__step::after {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  .js .project__arch.is-revealed .flow__step::after {
+    transform: scaleY(1);
+  }
+}
+
+.js .project__arch .flow-support {
+  opacity: 0;
+  transition: opacity 800ms ease 900ms;
+}
+
+.js .project__arch.is-revealed .flow-support {
+  opacity: 1;
+}
+
+/* ---- 10. Logo marquee (original "marqueeLoop", 45s linear) ---- */
+@keyframes marqueeLoop {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+.marquee__track {
+  animation: marqueeLoop 45s linear infinite;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+.marquee__item {
+  transition: color var(--duration-fast) ease, transform var(--duration-fast) ease;
+}
+
+.marquee__item .aws-icon {
+  transition: transform var(--duration-fast) ease;
+}
+
+.marquee__item:hover {
+  color: var(--color-accent-text);
+  transform: translateY(-1px);
+}
+
+.marquee__item:hover .aws-icon {
+  transform: scale(1.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+  }
+}
+
+/* ---- 11. Links: underline draws in on hover ---- */
+a.contact-method__value {
+  display: inline;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition:
+    background-size 450ms var(--ease-spring),
+    color var(--duration-fast) ease;
+}
+
+a.contact-method__value:hover {
+  background-size: 100% 1px;
+}
+
+/* ---- 12. Capsule header: tightens on scroll, hides going down ---- */
+.site-header {
+  transition:
+    transform 450ms var(--ease-spring),
+    top 280ms var(--ease-spring),
+    background-color 280ms ease,
+    border-color 280ms ease,
+    box-shadow 280ms ease;
+}
+
+.site-header.is-hidden {
+  transform: translate(-50%, calc(-100% - 2rem));
+}
+
+.site-header:focus-within {
+  transform: translateX(-50%);
+}
+
+/* ---- 13. Reading progress: an orange hairline across the top ---- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: calc(var(--z-header) + 1);
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-accent), #fa6d2e);
+  transform: scaleX(var(--progress, 0));
+  transform-origin: left;
+  pointer-events: none;
+}
+
+/* ---- 14. Call flow (Project 01): builds left to right, then a call travels it ---- */
+.js .callflow .cfx-card,
+.js .callflow .cfx-diamond {
+  transition:
+    opacity 600ms var(--ease-spring),
+    transform 600ms var(--ease-spring),
+    translate 300ms var(--ease-spring) 0ms,
+    box-shadow 300ms var(--ease-spring) 0ms;
+  transition-delay: calc(var(--step-i, 0) * 120ms + 150ms), calc(var(--step-i, 0) * 120ms + 150ms), 0ms, 0ms;
+}
+
+.js .callflow:not(.is-revealed) .cfx-card,
+.js .callflow:not(.is-revealed) .cfx-diamond {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+/* connectors draw themselves just before the card they point to */
+.js .callflow .cfx-link,
+.js .callflow .cfx-branch,
+.js .callflow .cfx-diamond-shape {
+  transition: opacity 400ms ease;
+  transition-delay: calc(var(--step-i, 0) * 120ms + 60ms);
+}
+
+.js .callflow .cfx-link path {
+  stroke-dasharray: 1;
+  transition: stroke-dashoffset 500ms var(--ease-spring);
+  transition-delay: calc(var(--step-i, 0) * 120ms + 60ms);
+}
+
+.js .callflow:not(.is-revealed) .cfx-link,
+.js .callflow:not(.is-revealed) .cfx-branch,
+.js .callflow:not(.is-revealed) .cfx-diamond-shape {
+  opacity: 0;
+}
+
+.js .callflow:not(.is-revealed) .cfx-link path {
+  stroke-dashoffset: 1;
+}
+
+/* branch lines carry marching dashes once drawn */
+@keyframes cfxMarch {
+  to { stroke-dashoffset: -26; }
+}
+
+.callflow.is-revealed .cfx-branch path {
+  animation: cfxMarch 1.1s linear infinite;
+}
+
+/* the call "packet" travels the main row, passing under each card */
+@keyframes cfxTravel {
+  0% { offset-distance: 0%; opacity: 0; }
+  4% { opacity: 1; }
+  96% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
+.cfx-packet {
+  opacity: 0;
+}
+
+.callflow.is-revealed .cfx-packet {
+  animation: cfxTravel 9s linear 1.8s infinite;
+}
+
+/* cards lift slightly on hover */
+.cfx-card:hover {
+  translate: 0 -4px;
+  box-shadow: 0 16px 32px -12px rgba(38, 35, 34, 0.22);
+}
+
+/* ---- Reduced motion: stop the decorative loops entirely ---- */
+@media (prefers-reduced-motion: reduce) {
+  .js .console.is-revealed,
+  .btn--primary,
+  .pulse-dot,
+  .pipeline__pipe::after,
+  .callflow .cfx-branch path {
+    animation: none;
+  }
+
+  .cfx-packet {
+    display: none;
+  }
+}
