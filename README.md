@@ -57,7 +57,7 @@ All text lives in `index.html`. Each section starts with a clear comment banner,
 | About text / roles wanted   | the `About` section                                |
 | AWS services grid           | `<ul class="aws-grid">`                            |
 | Skill chips                 | `<div class="skills">`                             |
-| Projects                    | `<article class="project">` blocks (01–05)         |
+| Projects                    | `<article class="project">` blocks (01-05)         |
 | Project 01 call flow        | `<figure class="callflow">`: each card is an `<li class="cfx-card">` placed with `--x`/`--y`; arrows are in the `<svg class="cfx-wires">` |
 | Contact details             | the `Contact` section (email, phone, LinkedIn)     |
 
@@ -162,7 +162,7 @@ canvas, with arrows in an `<svg class="cfx-wires">` layer behind them.
   public subnet (ALB, NAT Gateway) → private subnet (RDS with agent login profiles) → ECS Fargate
   (Puppeteer + Python FastAPI, up to 5 parallel sessions). The loop runs Customer → Connect → Agent CCP →
   auto-answer → capture → resample → Bedrock Nova Sonic, then back via reply processing → injection
-  → the customer hears the reply (2–2.5 s). Secrets Manager and ECR sit outside the VPC.
+  → the customer hears the reply (2-2.5 s). Secrets Manager and ECR sit outside the VPC.
 
 On the page, each flow is scaled to fit its panel, so the whole flow is visible without scrolling.
 **View large**, or a click on the diagram, opens one shared full-screen view with zoom in, zoom out

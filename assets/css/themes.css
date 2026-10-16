@@ -5,15 +5,15 @@
    Apply by adding the class to a <section> (or the footer).
 
    Page rhythm:
-     Hero         — linen stone + peach glow (default, no class)
-     Stack band   — .theme-milk     milk white marquee strip
-     About        — .theme-muted    muted stone
-     Expertise    — .theme-dark     charcoal gradient (dark)
-     Projects     — linen stone with milk-white cards (default, no class)
-     Experience   — .theme-muted    muted stone
-     Education    — .theme-milk     milk white
-     Contact      — .theme-dark     charcoal gradient (dark)
-     Footer       — .theme-darker   espresso
+     Hero         - linen stone + peach glow (default, no class)
+     Stack band   - .theme-milk     milk white marquee strip
+     About        - .theme-muted    muted stone
+     Expertise    - .theme-dark     charcoal gradient (dark)
+     Projects     - linen stone with milk-white cards (default, no class)
+     Experience   - .theme-muted    muted stone
+     Education    - .theme-milk     milk white
+     Contact      - .theme-dark     charcoal gradient (dark)
+     Footer       - .theme-darker   espresso
 
    All text colours below are checked for at least 4.5:1 contrast
    against their section background.

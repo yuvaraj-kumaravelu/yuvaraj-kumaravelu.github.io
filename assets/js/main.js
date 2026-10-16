@@ -1,6 +1,6 @@
 /* ==========================================================================
    Portfolio interactions
-   Progressive enhancement only — every piece of content is in index.html,
+   Progressive enhancement only - every piece of content is in index.html,
    so the page stays fully usable if this script fails to load.
    ========================================================================== */
 
@@ -130,7 +130,7 @@
           await navigator.clipboard.writeText(value);
           showToast(`Copied: ${value}`);
         } catch {
-          showToast("Couldn't copy — please select the text instead");
+          showToast("Couldn't copy - please select the text instead");
         }
       });
     });

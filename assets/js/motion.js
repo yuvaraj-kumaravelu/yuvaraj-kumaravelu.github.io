@@ -5,7 +5,7 @@
    Styles for every effect live in assets/css/animations.css.
 
    If the visitor prefers reduced motion, everything jumps straight to its
-   final state — content is never hidden behind an animation.
+   final state - content is never hidden behind an animation.
    ========================================================================== */
 
 (function () {

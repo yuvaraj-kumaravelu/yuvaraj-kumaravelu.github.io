@@ -205,7 +205,7 @@
   margin-bottom: var(--space-5);
 }
 
-/* pipeline: node — pipe — node — pipe … */
+/* pipeline: node - pipe - node - pipe … */
 .pipeline {
   display: flex;
   align-items: flex-start;
@@ -434,7 +434,7 @@
 }
 
 /* ==========================================================================
-   Projects — milk-white case-study cards on stone
+   Projects - milk-white case-study cards on stone
    ========================================================================== */
 
 .projects {
@@ -547,7 +547,7 @@
 }
 
 /* ==========================================================================
-   Experience — timeline card
+   Experience - timeline card
    ========================================================================== */
 
 .job {
@@ -628,7 +628,7 @@
 }
 
 /* ==========================================================================
-   Contact — charcoal section (background from .theme-dark)
+   Contact - charcoal section (background from .theme-dark)
    ========================================================================== */
 
 .contact {
@@ -761,7 +761,7 @@ a.contact-method__value:hover {
 }
 
 /* ==========================================================================
-   Stack band — AWS logo marquee between hero and about
+   Stack band - AWS logo marquee between hero and about
    ========================================================================== */
 
 .stack-band {

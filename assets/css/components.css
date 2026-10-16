@@ -193,7 +193,7 @@
   border-radius: 5px;
 }
 
-/* AWS general resource icons are white outlines — set them on a charcoal tile */
+/* AWS general resource icons are white outlines - set them on a charcoal tile */
 .res-icon {
   display: grid;
   place-items: center;
