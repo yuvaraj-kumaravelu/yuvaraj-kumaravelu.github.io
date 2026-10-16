@@ -321,6 +321,11 @@
   height: 140px;
 }
 
+/* taller card when it lists three items (Project 01 Salesforce CRM) */
+.cfx-card--tall {
+  height: 176px;
+}
+
 /* small infrastructure service cards */
 .cfx-card--chip {
   height: 100px;

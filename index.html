@@ -181,7 +181,7 @@
                 </div>
                 <div class="readout">
                   <div class="readout__label">Managed</div>
-                  <div class="readout__value">2.5–3.5 s</div>
+                  <div class="readout__value">3.4–4 s</div>
                 </div>
                 <div class="readout">
                   <div class="readout__label">Calls / month</div>
@@ -191,7 +191,7 @@
             </div>
             <figcaption class="sr-only">
               Caller audio flows through Amazon Connect to Amazon Bedrock Nova Sonic, which calls AWS Lambda tools.
-              Response latency: 2 to 2.5 seconds with custom streaming, 2.5 to 3.5 seconds with the managed integration.
+              Response latency: 2 to 2.5 seconds with custom streaming, 3.4 to 4 seconds with the managed integration.
               About 15,000 calls per month.
             </figcaption>
           </figure>
@@ -507,6 +507,7 @@
               <div class="project__tags">
                 <span class="tag tag--gold">Production</span>
                 <span class="tag">Voice AI</span>
+                <span class="tag">After hours</span>
               </div>
               <h3 class="project__title" id="p1-title">Nova Sonic AI Voice Agent: <em>Appointment Scheduling</em></h3>
 
@@ -514,16 +515,17 @@
                 <div>
                   <p class="project__summary">
                     A production voice AI agent on Amazon Connect and Amazon Bedrock Nova Sonic that handles inbound
-                    appointment scheduling and rescheduling in real time.
+                    appointment scheduling and rescheduling outside business hours, in real time.
                   </p>
                   <ul class="project__points">
                     <li>Built tool-calling workflows with AWS Lambda, API Gateway and Bedrock AgentCore that run backend business operations during live customer calls.</li>
-                    <li>Profiled and tuned the audio-capture-to-response pipeline, bringing end-to-end latency down to a steady 2.5–3.5 seconds.</li>
+                    <li>Profiled and tuned the audio-capture-to-response pipeline, bringing end-to-end latency down to a steady 3.4–4 seconds.</li>
+                    <li>Built for out-of-hours calls: when a caller asks for a person, the agent explains that a team member will call back on the next business day, ends the call and saves a callback request with the call data in Salesforce.</li>
                   </ul>
                 </div>
                 <div class="project__metrics">
                   <div class="metric" data-rule>
-                    <div class="figure metric__value">2.5–3.5<span class="unit">sec</span></div>
+                    <div class="figure metric__value">3.4–4<span class="unit">sec</span></div>
                     <div class="metric__label">Consistent end-to-end latency</div>
                   </div>
                   <div class="metric" data-rule>
@@ -541,7 +543,7 @@
                 <div>
                   <p class="eyebrow callflow__kicker"><span class="callflow__dot" aria-hidden="true"></span>Call flow · continuous left-to-right</p>
                   <p class="callflow__title" id="p1-flow-title">Customer <span class="callflow__arrow" aria-hidden="true">→</span> Five9 <span class="callflow__arrow" aria-hidden="true">→</span> Amazon Connect <span class="callflow__arrow" aria-hidden="true">→</span> Lex <span class="callflow__arrow" aria-hidden="true">→</span> Lambda tools <span class="callflow__arrow" aria-hidden="true">→</span> Salesforce CRM</p>
-                  <p class="callflow__sub">One telephony journey: qualification, Lambda tool calls, live-agent escalation and CRM sync.</p>
+                  <p class="callflow__sub">One after-hours telephony journey: qualification, Lambda tool calls, out-of-hours callbacks and CRM sync.</p>
                 </div>
                 <button class="btn btn--ghost btn--sm callflow__expand" type="button" data-cf-open hidden>
                   <svg class="icon" aria-hidden="true"><use href="#i-maximize"/></svg>
@@ -613,8 +615,13 @@
                       </g>
                       <g class="cfx-branch cfx-branch--amber" style="--step-i: 5">
                         <path d="M 1130 340 C 1130 410, 1160 478, 1246 478" marker-end="url(#cfx-arrow-amber)"/>
-                        <rect x="1052" y="388" width="88" height="22" rx="11"/>
-                        <text x="1096" y="403">Live agent</text>
+                        <rect x="1038" y="388" width="116" height="22" rx="11"/>
+                        <text x="1096" y="403">Wants an agent</text>
+                      </g>
+                      <g class="cfx-branch cfx-branch--amber" style="--step-i: 12">
+                        <path d="M 1458 478 H 2912 V 382" marker-end="url(#cfx-arrow-amber)"/>
+                        <rect x="2120" y="466" width="124" height="22" rx="11"/>
+                        <text x="2182" y="481">CALLBACK SAVED</text>
                       </g>
                   </svg>
                   <span class="cfx-packet" style="offset-path: path('M 28 278 H 3012')" aria-hidden="true"></span>
@@ -686,13 +693,13 @@
                   <li class="cfx-card cfx-card--amber cfx-card--branch" style="--x: 1252px; --y: 408px; --step-i: 5">
                     <div class="cfx-card__top">
                       <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-headset"/></svg></span>
-                      <span class="cfx-badge">Live agent</span>
+                      <span class="cfx-badge">Callback</span>
                     </div>
-                    <p class="cfx-card__title">Live Agent Transfer</p>
-                    <p class="cfx-card__sub">Escalation path</p>
+                    <p class="cfx-card__title">Out-of-Hours Callback</p>
+                    <p class="cfx-card__sub">Caller asks for an agent</p>
                     <div class="cfx-card__body">
-                      <p>Hands the call to a person</p>
-                      <p class="cfx-card__em">Connect live queue</p>
+                      <p>Call back next business day</p>
+                      <p class="cfx-card__em">Call ends · callback saved</p>
                     </div>
                   </li>
                   <li class="cfx-card cfx-card--green" style="--x: 1252px; --y: 200px; --step-i: 6">
@@ -767,7 +774,7 @@
                       <p class="cfx-card__em">Pushes record &amp; transcript</p>
                     </div>
                   </li>
-                  <li class="cfx-card cfx-card--blue" style="--x: 2812px; --y: 200px; --step-i: 12">
+                  <li class="cfx-card cfx-card--blue cfx-card--tall" style="--x: 2812px; --y: 200px; --step-i: 12">
                     <div class="cfx-card__top">
                       <img class="cfx-logo" src="assets/images/logos/salesforce.png" alt="" width="137" height="96" loading="lazy">
                       <span class="cfx-badge">10 · CRM</span>
@@ -778,6 +785,7 @@
                       <ul class="cfx-card__checks">
                         <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Call record &amp; appt ID</li>
                         <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Full audio transcript</li>
+                        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Callback + call data</li>
                       </ul>
                     </div>
                   </li>
@@ -790,7 +798,7 @@
               <ul class="callflow__legend" aria-label="Legend">
                 <li><span class="legend-line legend-line--orange" aria-hidden="true"></span>Primary call flow</li>
                 <li><span class="legend-line legend-line--red legend-line--dashed" aria-hidden="true"></span>Disconnect path (branch up)</li>
-                <li><span class="legend-line legend-line--amber legend-line--dashed" aria-hidden="true"></span>Live-agent escalation (branch down)</li>
+                <li><span class="legend-line legend-line--amber legend-line--dashed" aria-hidden="true"></span>Out-of-hours callback to Salesforce (branch down)</li>
                 <li><span class="legend-swatch legend-swatch--orange" aria-hidden="true"></span>AWS Lambda tool call</li>
                 <li><span class="legend-swatch legend-swatch--blue" aria-hidden="true"></span>CRM data &amp; transcript sync</li>
               </ul>
@@ -823,7 +831,7 @@
                 <div class="project__metrics">
                   <div class="metric" data-rule>
                     <div class="figure metric__value">2–2.5<span class="unit">sec</span></div>
-                    <div class="metric__label">End-to-end response latency, faster than the managed integration's 2.5–3.5 s</div>
+                    <div class="metric__label">End-to-end response latency, faster than the managed integration's 3.4–4 s</div>
                   </div>
                   <div class="metric" data-rule>
                     <div class="figure metric__value"><span data-count>5</span></div>
