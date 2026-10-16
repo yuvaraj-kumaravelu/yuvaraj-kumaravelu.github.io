@@ -804,6 +804,7 @@
               <div class="project__tags">
                 <span class="tag tag--gold">Real-time streaming</span>
                 <span class="tag">Voice AI</span>
+                <span class="tag">Fully automated</span>
               </div>
               <h3 class="project__title" id="p2-title">Custom Nova Sonic <em>AI Voice Agent</em></h3>
 
@@ -814,7 +815,7 @@
                     limits of the managed Nova Sonic integration.
                   </p>
                   <ul class="project__points">
-                    <li>A Puppeteer headless browser on ECS Fargate watches each agent's CCP and answers calls automatically. Agent logins are loaded from Amazon RDS, so adding a login adds capacity, up to 5 concurrent calls.</li>
+                    <li>Fully automated, with no human agent on the call: a Puppeteer headless browser on ECS Fargate logs in to the CCP and answers every call itself. CCP logins are loaded from Amazon RDS, so adding a login adds capacity, up to 5 concurrent calls.</li>
                     <li>A Python FastAPI backend captures the caller's audio from the CCP WebRTC stream, resamples it and streams it with the system prompt to Amazon Bedrock Nova Sonic; the spoken reply is resampled and played back into the live call.</li>
                     <li>Runs inside a VPC: ECS Fargate tasks and RDS in a private subnet, an ALB and NAT Gateway in the public subnet, credentials in Secrets Manager, and Docker images in Amazon ECR.</li>
                   </ul>
@@ -826,7 +827,7 @@
                   </div>
                   <div class="metric" data-rule>
                     <div class="figure metric__value"><span data-count>5</span></div>
-                    <div class="metric__label">Concurrent AI calls, scaling with the agent logins in RDS</div>
+                    <div class="metric__label">Concurrent AI calls with no human agent, scaling with the CCP logins in RDS</div>
                   </div>
                 </div>
               </div>
@@ -837,8 +838,8 @@
               <figcaption class="callflow__head">
                 <div>
                   <p class="eyebrow callflow__kicker"><span class="callflow__dot" aria-hidden="true"></span>Audio streaming flow · inside the VPC</p>
-                  <p class="callflow__title" id="p2-flow-title">Customer <span class="callflow__arrow" aria-hidden="true">→</span> Connect <span class="callflow__arrow" aria-hidden="true">→</span> Agent CCP <span class="callflow__arrow" aria-hidden="true">→</span> ECS Fargate <span class="callflow__arrow" aria-hidden="true">→</span> Nova Sonic <span class="callflow__arrow" aria-hidden="true">→</span> back to the caller</p>
-                  <p class="callflow__sub">Puppeteer answers the call, FastAPI streams the audio to Nova Sonic and plays the reply back. Round trip in 2–2.5 seconds.</p>
+                  <p class="callflow__title" id="p2-flow-title">Customer <span class="callflow__arrow" aria-hidden="true">→</span> Connect <span class="callflow__arrow" aria-hidden="true">→</span> CCP (no human agent) <span class="callflow__arrow" aria-hidden="true">→</span> ECS Fargate <span class="callflow__arrow" aria-hidden="true">→</span> Nova Sonic <span class="callflow__arrow" aria-hidden="true">→</span> back to the caller</p>
+                  <p class="callflow__sub">Fully automated, with no human agent: Puppeteer answers the call, FastAPI streams the audio to Nova Sonic and plays the reply back. Round trip in 2–2.5 seconds.</p>
                 </div>
                 <button class="btn btn--ghost btn--sm callflow__expand" type="button" data-cf-open hidden>
                   <svg class="icon" aria-hidden="true"><use href="#i-maximize"/></svg>
@@ -848,8 +849,8 @@
 
               <div class="callflow__viewport" data-cf-inline>
                 <div class="cfx-sizer">
-                <div class="cfx-canvas" style="--cfx-w: 2130px; --cfx-h: 910px">
-                  <svg class="cfx-wires" viewBox="0 0 2130 910" width="2130" height="910" aria-hidden="true">
+                <div class="cfx-canvas" style="--cfx-w: 2130px; --cfx-h: 940px">
+                  <svg class="cfx-wires" viewBox="0 0 2130 940" width="2130" height="940" aria-hidden="true">
                     <defs>
                       <marker id="cfx2-arrow-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--orange"/></marker>
                       <marker id="cfx2-arrow-dark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--dark"/></marker>
@@ -857,28 +858,33 @@
                       <marker id="cfx2-arrow-infra" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--infra"/></marker>
                     </defs>
                     <g class="cfx-group cfx-group--cloud">
-                      <rect x="300" y="20" width="1800" height="870" rx="18"/>
-                      <text x="316" y="40">AWS Cloud</text>
+                      <rect x="300" y="20" width="1800" height="900" rx="6"/>
+                      <image href="assets/icons/aws-groups/aws-cloud.svg" x="300" y="20" width="32" height="32"/>
+                      <text x="342" y="41">AWS Cloud</text>
                     </g>
                     <g class="cfx-group cfx-group--vpc">
-                      <rect x="860" y="60" width="900" height="820" rx="18"/>
-                      <text x="876" y="80">VPC</text>
+                      <rect x="860" y="60" width="900" height="850" rx="6"/>
+                      <image href="assets/icons/aws-groups/vpc.svg" x="860" y="60" width="32" height="32"/>
+                      <text x="902" y="81">VPC</text>
                     </g>
                     <g class="cfx-group cfx-group--public">
-                      <rect x="890" y="90" width="840" height="150" rx="18"/>
-                      <text x="906" y="110">Public subnet</text>
+                      <rect x="890" y="90" width="840" height="150" rx="6"/>
+                      <image href="assets/icons/aws-groups/public-subnet.svg" x="890" y="90" width="32" height="32"/>
+                      <text x="932" y="111">Public subnet</text>
                     </g>
                     <g class="cfx-group cfx-group--private">
-                      <rect x="890" y="262" width="840" height="598" rx="18"/>
-                      <text x="906" y="282">Private subnet</text>
+                      <rect x="890" y="262" width="840" height="628" rx="6"/>
+                      <image href="assets/icons/aws-groups/private-subnet.svg" x="890" y="262" width="32" height="32"/>
+                      <text x="932" y="283">Private subnet</text>
                     </g>
                     <g class="cfx-group cfx-group--ecs">
-                      <rect x="920" y="430" width="780" height="410" rx="18"/>
-                      <text x="936" y="828">ECS Fargate · Python FastAPI · up to 5 parallel sessions</text>
+                      <rect x="920" y="430" width="780" height="440" rx="6"/>
+                      <image href="assets/icons/aws/aws-fargate.svg" x="930" y="832" width="28" height="28"/>
+                      <text x="966" y="852">ECS Fargate · Python FastAPI · up to 5 parallel sessions</text>
                     </g>
                     <g class="cfx-infra" style="--step-i: 3">
                       <path d="M 1050 404 V 460" marker-end="url(#cfx2-arrow-infra)"/>
-                      <text x="1135" y="420">AGENT LOGINS</text>
+                      <text x="1135" y="420">CCP LOGINS</text>
                     </g>
                     <g class="cfx-infra" style="--step-i: 3">
                       <path d="M 1310 224 V 424" marker-end="url(#cfx2-arrow-infra)"/>
@@ -893,8 +899,8 @@
                       <text x="1810" y="290">SECRETS</text>
                     </g>
                     <g class="cfx-infra" style="--step-i: 3">
-                      <path d="M 1856 790 H 1706" marker-end="url(#cfx2-arrow-infra)"/>
-                      <text x="1781" y="778">PULL IMAGE</text>
+                      <path d="M 794 350 H 928 V 424" marker-end="url(#cfx2-arrow-infra)"/>
+                      <text x="862" y="338">PULL IMAGE</text>
                     </g>
                     <g class="cfx-link cfx-link--dark" style="--step-i: 1">
                       <path d="M 232 544 H 324" pathLength="1" marker-end="url(#cfx2-arrow-dark)"/>
@@ -930,7 +936,7 @@
                     </g>
                     <g class="cfx-link cfx-link--green" style="--step-i: 9">
                       <path d="M 1206 738 H 234" pathLength="1" marker-end="url(#cfx2-arrow-green)"/>
-                      <text x="720" y="726">REPLY VIA AGENT CCP</text>
+                      <text x="720" y="726">REPLY VIA CCP</text>
                     </g>
                     <g class="cfx-link cfx-link--dark" style="--step-i: 10">
                       <path d="M 128 656 V 628" pathLength="1" marker-end="url(#cfx2-arrow-dark)"/>
@@ -947,8 +953,8 @@
                     <p class="cfx-card__title">Customer</p>
                     <p class="cfx-card__sub">Inbound caller</p>
                     <div class="cfx-card__body">
-                      <p>Calls in to a specific agent</p>
-                      <p class="cfx-card__em">Talks to the AI voice agent</p>
+                      <p>Calls in</p>
+                      <p class="cfx-card__em">Handled fully by AI</p>
                     </div>
                   </li>
                   <li class="cfx-card cfx-card--neutral" style="--x: 330px; --y: 466px; --step-i: 1">
@@ -959,8 +965,8 @@
                     <p class="cfx-card__title">Amazon Connect</p>
                     <p class="cfx-card__sub">AWS cloud contact center</p>
                     <div class="cfx-card__body">
-                      <p>Routes the call to</p>
-                      <p class="cfx-card__em">the specific agent</p>
+                      <p>Routes the call to the CCP</p>
+                      <p class="cfx-card__em">No human agent involved</p>
                     </div>
                   </li>
                   <li class="cfx-card cfx-card--neutral" style="--x: 590px; --y: 466px; --step-i: 2">
@@ -968,11 +974,11 @@
                       <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-headset"/></svg></span>
                       <span class="cfx-badge">02 · Softphone</span>
                     </div>
-                    <p class="cfx-card__title">Agent CCP</p>
-                    <p class="cfx-card__sub">WebRTC Contact Control Panel</p>
+                    <p class="cfx-card__title">Amazon Connect CCP</p>
+                    <p class="cfx-card__sub">Bot-operated softphone</p>
                     <div class="cfx-card__body">
-                      <p>Rings for the agent</p>
-                      <p class="cfx-card__em">One CCP per agent login</p>
+                      <p>Call rings in the CCP</p>
+                      <p class="cfx-card__em">One CCP per login (max 5)</p>
                     </div>
                   </li>
                   <li class="cfx-card cfx-card--orange" style="--x: 950px; --y: 466px; --step-i: 3">
@@ -1044,7 +1050,7 @@
                     <p class="cfx-card__sub">Python FastAPI</p>
                     <div class="cfx-card__body">
                       <p>Plays the reply into</p>
-                      <p class="cfx-card__em">the live agent CCP call</p>
+                      <p class="cfx-card__em">the live call via the CCP</p>
                     </div>
                   </li>
                   <li class="cfx-card cfx-card--green" style="--x: 28px; --y: 660px; --step-i: 9">
@@ -1081,7 +1087,7 @@
                       <span class="cfx-badge">Private</span>
                     </div>
                     <p class="cfx-card__title">Amazon RDS</p>
-                    <p class="cfx-card__sub">Agent login profiles</p>
+                    <p class="cfx-card__sub">CCP login profiles</p>
                   </li>
                   <li class="cfx-card cfx-card--neutral cfx-card--chip" style="--x: 1860px; --y: 120px; --step-i: 2">
                     <div class="cfx-card__top">
@@ -1091,7 +1097,7 @@
                     <p class="cfx-card__title">Secrets Manager</p>
                     <p class="cfx-card__sub">Credentials &amp; keys</p>
                   </li>
-                  <li class="cfx-card cfx-card--neutral cfx-card--chip" style="--x: 1860px; --y: 740px; --step-i: 2">
+                  <li class="cfx-card cfx-card--neutral cfx-card--chip" style="--x: 590px; --y: 300px; --step-i: 2">
                     <div class="cfx-card__top">
                       <img class="aws-icon" src="assets/icons/aws/amazon-ecr.svg" alt="" width="80" height="80" loading="lazy">
                       <span class="cfx-badge">Managed</span>
@@ -1277,7 +1283,7 @@
 
             <ul class="job__points">
               <li>Designed and shipped real-time voice AI agents on Amazon Connect, Amazon Bedrock Nova Sonic and Bedrock AgentCore, with tool calling through Lambda and API Gateway.</li>
-              <li>Engineered a custom audio-streaming architecture that brought voice response latency down to 2–2.5 seconds, handling up to 5 concurrent calls.</li>
+              <li>Engineered a custom audio-streaming architecture that brought voice response latency down to 2–2.5 seconds, fully automated with no human agent and up to 5 concurrent calls.</li>
               <li>Built an AI-to-AI automated QA platform that cut testing time from 2–3 days to 4–5 hours.</li>
               <li>Delivered a full-stack outbound campaign dialer on Amazon Connect Outbound Campaigns, React and DynamoDB.</li>
               <li>Worked in an Agile/Scrum team using Jira, Azure DevOps (PRs, branching) and CI/CD.</li>
