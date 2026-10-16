@@ -136,42 +136,84 @@
     });
   }
 
-  /* ---- Project call-flow diagrams (Project 01 and 02) ----
-     Inline: each flow is scaled to fit its panel width, so it is fully
-     visible without scrolling. "View large" (or clicking the diagram) moves
-     that flow's canvas into one shared full-screen dialog with zoom and
-     drag-to-pan, then moves it back on close. Without JS the panel scrolls. */
+  /* ---- Project diagrams: "Call flow" and "Architecture" views ----
+     Each project figure has two views, switched with the tabs. Every view
+     is scaled to fit its panel width, so the whole diagram is visible
+     without scrolling. "View large" (or clicking the diagram) moves the
+     visible view's canvas into one shared full-screen dialog with zoom and
+     drag-to-pan, then moves it back on close. Without JS both views show
+     and simply scroll sideways. */
   function initCallflow() {
-    const flows = Array.from(document.querySelectorAll(".callflow[data-draw]"))
-      .map((flow) => {
-        const inlineViewport = flow.querySelector("[data-cf-inline]");
-        const sizer = inlineViewport && inlineViewport.querySelector(".cfx-sizer");
+    const entries = Array.from(document.querySelectorAll(".callflow[data-draw] [data-cf-inline]"))
+      .map((inlineViewport) => {
+        const sizer = inlineViewport.querySelector(".cfx-sizer");
         const canvas = sizer && sizer.querySelector(".cfx-canvas");
         if (!canvas) return null;
-        // natural canvas size (transforms don't affect offset sizes)
-        return { flow, inlineViewport, sizer, canvas, W: canvas.offsetWidth, H: canvas.offsetHeight };
+        // read the natural size from the canvas settings (hidden views have no layout size)
+        const W = parseFloat(canvas.style.getPropertyValue("--cfx-w")) || canvas.offsetWidth;
+        const H = parseFloat(canvas.style.getPropertyValue("--cfx-h")) || canvas.offsetHeight;
+        return {
+          flow: inlineViewport.closest(".callflow"),
+          view: inlineViewport.closest("[data-cf-view]"),
+          inlineViewport, sizer, canvas, W, H,
+        };
       })
       .filter(Boolean);
-    if (!flows.length) return;
+    if (!entries.length) return;
 
-    const applyScale = (f, scale) => {
-      f.canvas.style.setProperty("--cf-scale", scale.toFixed(4));
-      f.sizer.style.width = `${Math.round(f.W * scale)}px`;
-      f.sizer.style.height = `${Math.round(f.H * scale)}px`;
+    const applyScale = (e, scale) => {
+      e.canvas.style.setProperty("--cf-scale", scale.toFixed(4));
+      e.sizer.style.width = `${Math.round(e.W * scale)}px`;
+      e.sizer.style.height = `${Math.round(e.H * scale)}px`;
     };
 
-    const fitInline = (f) => {
-      if (f.sizer.parentElement !== f.inlineViewport) return;
-      applyScale(f, f.inlineViewport.clientWidth / f.W);
+    const fitInline = (e) => {
+      if (e.sizer.parentElement !== e.inlineViewport || !e.inlineViewport.clientWidth) return;
+      applyScale(e, e.inlineViewport.clientWidth / e.W);
     };
 
-    flows.forEach((f) => {
-      f.inlineViewport.classList.add("is-fit");
-      fitInline(f);
-      if ("ResizeObserver" in window) new ResizeObserver(() => fitInline(f)).observe(f.inlineViewport);
-      else window.addEventListener("resize", () => fitInline(f), { passive: true });
-      const tip = f.flow.querySelector(".callflow__tip");
+    entries.forEach((e) => {
+      e.inlineViewport.classList.add("is-fit");
+      fitInline(e);
+      if ("ResizeObserver" in window) new ResizeObserver(() => fitInline(e)).observe(e.inlineViewport);
+      else window.addEventListener("resize", () => fitInline(e), { passive: true });
+      const tip = e.view && e.view.querySelector(".callflow__tip");
       if (tip) tip.hidden = false;
+    });
+
+    // ---- Tabs: switch between the views of one project ----
+    const figures = Array.from(new Set(entries.map((e) => e.flow)));
+    figures.forEach((flow) => {
+      const tabs = flow.querySelector(".cf-tabs");
+      const views = flow.querySelectorAll("[data-cf-view]");
+      if (!tabs || views.length < 2) return;
+
+      const show = (name) => {
+        views.forEach((v) => { v.hidden = v.dataset.cfView !== name; });
+        tabs.querySelectorAll("[data-cf-tab]").forEach((t) => {
+          const on = t.dataset.cfTab === name;
+          t.setAttribute("aria-selected", String(on));
+          t.tabIndex = on ? 0 : -1;
+        });
+        entries.filter((e) => e.flow === flow).forEach(fitInline);
+      };
+
+      tabs.hidden = false;
+      tabs.addEventListener("click", (event) => {
+        const tab = event.target.closest("[data-cf-tab]");
+        if (tab) show(tab.dataset.cfTab);
+      });
+      // arrow keys move between the two tabs
+      tabs.addEventListener("keydown", (event) => {
+        if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+        const all = Array.from(tabs.querySelectorAll("[data-cf-tab]"));
+        const i = all.indexOf(document.activeElement);
+        if (i < 0) return;
+        const next = all[(i + (event.key === "ArrowRight" ? 1 : all.length - 1)) % all.length];
+        show(next.dataset.cfTab);
+        next.focus();
+      });
+      show("flow");
     });
 
     // ---- One shared full-screen "View large" dialog ----
@@ -186,7 +228,7 @@
     const zoomOut = dialog.querySelector('[data-cf-zoom="out"]');
     const MAX_SCALE = 1.6;
     const PADDING = 48;
-    let active = null; // the flow currently shown in the dialog
+    let active = null; // the view currently shown in the dialog
     let scale = 1;
     let fitScale = 1;
     let followFit = true; // keep fitting on resize until the visitor zooms
@@ -211,46 +253,44 @@
       if (zoomIn) zoomIn.disabled = scale >= MAX_SCALE - 0.001;
     };
 
-    const open = (f) => {
-      active = f;
-      // label the dialog with this flow's own title
-      const title = f.flow.querySelector(".callflow__title");
-      const kicker = f.flow.querySelector(".callflow__kicker");
+    const open = (e) => {
+      active = e;
+      const title = e.flow.querySelector(".callflow__title");
       if (modalTitle && title) modalTitle.textContent = title.textContent.replace(/\s+/g, " ").trim();
       if (modalKicker) {
-        const project = f.flow.closest(".project")?.querySelector(".project__index")?.textContent.trim();
-        const kind = kicker ? kicker.textContent.split("·")[0].trim() : "Call flow";
-        modalKicker.textContent = project ? `Project ${project} · ${kind}` : kind;
+        const project = e.flow.closest(".project")?.querySelector(".project__index")?.textContent.trim();
+        const label = e.view ? e.view.dataset.cfLabel : "Call flow";
+        modalKicker.textContent = project ? `Project ${project} · ${label}` : label;
       }
 
-      // the dialog stage needs the same flow-type classes for its styling
-      const stage = modalViewport.parentElement;
-      stage.classList.toggle("callflow--infra", f.flow.classList.contains("callflow--infra"));
-
-      modalViewport.appendChild(f.sizer);
+      modalViewport.appendChild(e.sizer);
       modalViewport.classList.add("is-zoomable");
       document.documentElement.classList.add("cf-modal-open");
       dialog.showModal();
 
       fitScale = computeFit();
-      // on small screens the fitted flow is too small to read, so start zoomed in at the first step
+      // on small screens the fitted diagram is too small to read, so start zoomed in at the first step
       followFit = fitScale >= 0.45;
       scale = followFit ? fitScale : 0.75;
       setZoom(scale, false);
       modalViewport.scrollLeft = 0;
-      modalViewport.scrollTop = Math.max(0, (f.H * scale - modalViewport.clientHeight) / 2);
+      modalViewport.scrollTop = Math.max(0, (e.H * scale - modalViewport.clientHeight) / 2);
       modalViewport.focus({ preventScroll: true });
     };
 
-    flows.forEach((f) => {
-      const openButton = f.flow.querySelector("[data-cf-open]");
+    // the visible view of a figure
+    const visibleEntry = (flow) =>
+      entries.find((e) => e.flow === flow && !(e.view && e.view.hidden)) || entries.find((e) => e.flow === flow);
+
+    figures.forEach((flow) => {
+      const openButton = flow.querySelector("[data-cf-open]");
       if (openButton) {
         openButton.hidden = false;
-        openButton.addEventListener("click", () => open(f));
+        openButton.addEventListener("click", () => open(visibleEntry(flow)));
       }
-      // clicking the diagram itself also opens the large view
-      f.inlineViewport.addEventListener("click", () => open(f));
     });
+    // clicking a diagram itself also opens the large view
+    entries.forEach((e) => e.inlineViewport.addEventListener("click", () => open(e)));
 
     dialog.addEventListener("close", () => {
       if (!active) return;

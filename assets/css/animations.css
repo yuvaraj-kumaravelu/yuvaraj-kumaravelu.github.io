@@ -430,6 +430,7 @@ a.contact-method__value:hover {
 .js .callflow .cfx-branch,
 .js .callflow .cfx-infra,
 .js .callflow .cfx-group,
+.js .callflow .cfx-bracket,
 .js .callflow .cfx-diamond-shape {
   transition: opacity 400ms ease;
   transition-delay: calc(var(--step-i, 0) * 120ms + 60ms);
@@ -445,6 +446,7 @@ a.contact-method__value:hover {
 .js .callflow:not(.is-revealed) .cfx-branch,
 .js .callflow:not(.is-revealed) .cfx-infra,
 .js .callflow:not(.is-revealed) .cfx-group,
+.js .callflow:not(.is-revealed) .cfx-bracket,
 .js .callflow:not(.is-revealed) .cfx-diamond-shape {
   opacity: 0;
 }

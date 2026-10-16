@@ -285,7 +285,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 0;                 /* behind the SVG layer, so diamonds and cards hide it */
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -773,3 +773,89 @@ html.cf-modal-open {
     display: none;
   }
 }
+
+/* ==========================================================================
+   Two views per project: "Call flow" and "Architecture"
+   ========================================================================== */
+
+.callflow__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* segmented pill switch */
+.cf-tabs {
+  display: inline-flex;
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-line-strong);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.cf-tab {
+  min-height: 36px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-muted);
+  transition: background-color var(--duration-fast) ease, color var(--duration-fast) ease;
+}
+
+.cf-tab:hover {
+  color: var(--color-ink);
+}
+
+.cf-tab[aria-selected="true"] {
+  background: var(--color-dark);
+  color: #fffffb;
+}
+
+.callflow__note {
+  margin-bottom: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  max-width: 62rem;
+}
+
+.callflow__view[hidden] {
+  display: none !important;
+}
+
+/* external systems (Five9, calendar API, Salesforce) get a dashed edge */
+.cfx-card--ext {
+  border-style: dashed;
+}
+
+/* green dashed loop arrows ("next turn", "next batch") */
+.cfx-branch--green { --link-color: var(--t-green); --link-text: var(--t-green-text); --link-soft: #dcf1e6; }
+
+/* small note inside a group box (e.g. "Serverless · no VPC") */
+.cfx-group .cfx-group__note {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  fill: #6e6761;
+}
+
+/* timing bracket under a run of steps (Project 02: 2-2.5 s round trip) */
+.cfx-bracket path {
+  fill: none;
+  stroke: #6e6761;
+  stroke-width: 1.5;
+}
+
+.cfx-bracket text {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.06em;
+  text-anchor: middle;
+  text-transform: uppercase;
+  fill: var(--t-green-text);
+}
+
+.legend-box--cloud { --legend-color: #262322; --legend-fill: rgba(255, 255, 251, 0.6); }
+.legend-swatch--ext { --legend-color: #6e6761; border-style: dashed; }

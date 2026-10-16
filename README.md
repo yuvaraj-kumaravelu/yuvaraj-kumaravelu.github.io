@@ -150,26 +150,23 @@ Everything is plain CSS and JavaScript, with no animation library.
 If a visitor has "reduce motion" turned on in their operating system, all of these are skipped
 and the content appears in its final state straight away.
 
-## Project call flows (01 and 02)
+## Project diagrams: "Call flow" and "Architecture"
 
-Both projects have a call-flow diagram built the same way: HTML cards placed with `--x`/`--y` on a fixed
-canvas, with arrows in an `<svg class="cfx-wires">` layer behind them.
+Projects 01, 02 and 04 each have **two views**, switched with the **Call flow | Architecture** tabs.
+Call flow is the default.
 
-- **Project 01** (3040 × 560px) is one continuous left-to-right row. It starts at the **Customer**,
-  then runs Five9 → Amazon Connect → Lex → Lambda tools → Salesforce CRM. **Not met** branches up,
-  **Live agent** branches down, and **✓ Met** carries straight on.
-- **Project 02** (2130 × 910px) is a loop drawn inside its AWS infrastructure: AWS Cloud → VPC →
-  public subnet (ALB, NAT Gateway) → private subnet (RDS with agent login profiles) → ECS Fargate
-  (Puppeteer + Python FastAPI, up to 5 parallel sessions). The loop runs Customer → Connect → Agent CCP →
-  auto-answer → capture → resample → Bedrock Nova Sonic, then back via reply processing → injection
-  → the customer hears the reply (2-2.5 s). Secrets Manager and ECR sit outside the VPC.
+| Project | Call flow | Architecture |
+|---|---|---|
+| 01 | Customer → Five9 → Connect → Lex → criteria check (not met / wants an agent → out-of-hours callback / met) → Lambda tools → Salesforce | AWS Cloud (serverless): Connect, Lex + Nova Sonic, Bedrock AgentCore, API Gateway, Lambda tools; Five9, Calendar API and Salesforce outside |
+| 02 | One call, step by step, with a "speaks again?" loop and the 2-2.5 s round trip | AWS Cloud → VPC → public/private subnets → ECS Fargate, with RDS, ALB, NAT Gateway, Secrets Manager and ECR |
+| 04 | One test run: QA review and DevSecOps decisions, N parallel AI-to-AI calls, Claude grading, a "more scripts?" loop | Azure DevOps CI/CD → AWS (FastAPI on ECS, RDS, Connect, Bedrock), with ECR and CloudWatch auto-scaling |
 
-On the page, each flow is scaled to fit its panel, so the whole flow is visible without scrolling.
-**View large**, or a click on the diagram, opens one shared full-screen view with zoom in, zoom out
-and Fit controls, drag-to-pan, Ctrl/⌘ + scroll zoom and Esc to close. The dialog shows the
-project's own title.
+Each view is built the same way: HTML cards placed with `--x`/`--y` on a fixed canvas (size in `--cfx-w`/`--cfx-h`),
+with arrows and boxes in an `<svg class="cfx-wires">` layer behind them. Each view fits its panel
+width on the page. **View large**, or a click on the diagram, opens the visible view full screen,
+with zoom in, zoom out and Fit controls, drag-to-pan and Esc to close.
 
-To move or add a step, change its `--x`/`--y` and update the matching arrow path in that flow's SVG.
+To move or add a step, change its `--x`/`--y` and update the matching arrow path in that view's SVG.
 
 ## Resume requests
 

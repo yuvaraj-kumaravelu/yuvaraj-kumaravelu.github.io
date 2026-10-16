@@ -71,6 +71,7 @@
     <symbol id="i-layout-dashboard" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></symbol>
     <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
     <symbol id="i-file-code" viewBox="0 0 24 24"><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol>
     <symbol id="i-file-text" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
   </svg>
 
@@ -548,16 +549,23 @@
             <figure class="project__arch project__arch--wide callflow" data-draw aria-labelledby="p1-flow-title">
               <figcaption class="callflow__head">
                 <div>
-                  <p class="eyebrow callflow__kicker"><span class="callflow__dot" aria-hidden="true"></span>Call flow · continuous left-to-right</p>
+                  <p class="eyebrow callflow__kicker"><span class="callflow__dot" aria-hidden="true"></span>How it works · call flow &amp; architecture</p>
                   <p class="callflow__title" id="p1-flow-title">Customer <span class="callflow__arrow" aria-hidden="true">→</span> Five9 <span class="callflow__arrow" aria-hidden="true">→</span> Amazon Connect <span class="callflow__arrow" aria-hidden="true">→</span> Lex <span class="callflow__arrow" aria-hidden="true">→</span> Lambda tools <span class="callflow__arrow" aria-hidden="true">→</span> Salesforce CRM</p>
-                  <p class="callflow__sub">One after-hours telephony journey: qualification, Lambda tool calls, out-of-hours callbacks and CRM sync.</p>
                 </div>
-                <button class="btn btn--ghost btn--sm callflow__expand" type="button" data-cf-open hidden>
-                  <svg class="icon" aria-hidden="true"><use href="#i-maximize"/></svg>
-                  View large
-                </button>
+                <div class="callflow__actions">
+                  <div class="cf-tabs" role="tablist" aria-label="Diagram view" hidden>
+                    <button class="cf-tab" type="button" role="tab" aria-selected="true" data-cf-tab="flow">Call flow</button>
+                    <button class="cf-tab" type="button" role="tab" aria-selected="false" data-cf-tab="arch">Architecture</button>
+                  </div>
+                  <button class="btn btn--ghost btn--sm callflow__expand" type="button" data-cf-open hidden>
+                    <svg class="icon" aria-hidden="true"><use href="#i-maximize"/></svg>
+                    View large
+                  </button>
+                </div>
               </figcaption>
 
+            <div class="callflow__view" data-cf-view="flow" data-cf-label="Call flow">
+              <p class="callflow__note">One after-hours telephony journey: qualification, Lambda tool calls, out-of-hours callbacks and CRM sync.</p>
               <div class="callflow__viewport" data-cf-inline>
                 <div class="cfx-sizer">
                 <div class="cfx-canvas" style="--cfx-w: 3040px; --cfx-h: 560px">
@@ -800,8 +808,7 @@
                 </div>
                 </div>
               </div>
-              <p class="callflow__tip" hidden>Showing the full flow. Click the diagram or <strong>View large</strong> to zoom in.</p>
-
+              <p class="callflow__tip" hidden>Showing the full diagram. Click it or <strong>View large</strong> to zoom in.</p>
               <ul class="callflow__legend" aria-label="Legend">
                 <li><span class="legend-line legend-line--orange" aria-hidden="true"></span>Primary call flow</li>
                 <li><span class="legend-line legend-line--red legend-line--dashed" aria-hidden="true"></span>Disconnect path (branch up)</li>
@@ -809,6 +816,213 @@
                 <li><span class="legend-swatch legend-swatch--orange" aria-hidden="true"></span>AWS Lambda tool call</li>
                 <li><span class="legend-swatch legend-swatch--blue" aria-hidden="true"></span>CRM data &amp; transcript sync</li>
               </ul>
+            </div>
+            <div class="callflow__view" data-cf-view="arch" data-cf-label="Architecture" hidden>
+              <p class="callflow__note">Serverless on AWS: Amazon Connect hands after-hours calls to a Lex bot with Nova Sonic; Bedrock AgentCore routes tool calls through API Gateway to Lambda, which talks to the calendar API and Salesforce.</p>
+              <div class="callflow__viewport" data-cf-inline>
+                <div class="cfx-sizer">
+                <div class="cfx-canvas" style="--cfx-w: 2290px; --cfx-h: 700px">
+                  <svg class="cfx-wires" viewBox="0 0 2290 700" width="2290" height="700" aria-hidden="true">
+                    <defs>
+                        <marker id="cfx1a-arrow-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--orange"/></marker>
+                        <marker id="cfx1a-arrow-dark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--dark"/></marker>
+                        <marker id="cfx1a-arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--green"/></marker>
+                        <marker id="cfx1a-arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--blue"/></marker>
+                        <marker id="cfx1a-arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--red"/></marker>
+                        <marker id="cfx1a-arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--amber"/></marker>
+                        <marker id="cfx1a-arrow-infra" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--infra"/></marker>
+                    </defs>
+                      <g class="cfx-group cfx-group--cloud">
+                        <rect x="520" y="40" width="1480" height="640" rx="6"/>
+                        <image href="assets/icons/aws-groups/aws-cloud.svg" x="520" y="40" width="32" height="32"/>
+                        <text x="562" y="61">AWS Cloud</text>
+                        <text class="cfx-group__note" x="540" y="664">Serverless · no VPC or servers to manage</text>
+                      </g>
+                      <g class="cfx-group cfx-group--ecs">
+                        <rect x="1590" y="110" width="280" height="520" rx="6"/>
+                        <image href="assets/icons/aws/aws-lambda.svg" x="1590" y="110" width="32" height="32"/>
+                        <text x="1632" y="131">AWS Lambda tools</text>
+                      </g>
+                      <g class="cfx-link cfx-link--dark" style="--step-i: 1">
+                        <path d="M 232 380 H 282" pathLength="1" marker-end="url(#cfx1a-arrow-dark)"/>
+                        <text x="257" y="368">CALL</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 2">
+                        <path d="M 492 380 H 554" pathLength="1" marker-end="url(#cfx1a-arrow-orange)"/>
+                        <text x="523" y="368">SIP</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 3">
+                        <path d="M 764 380 H 814" pathLength="1" marker-end="url(#cfx1a-arrow-orange)"/>
+                        <text x="789" y="368">BOT</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 4">
+                        <path d="M 1024 380 H 1074" pathLength="1" marker-end="url(#cfx1a-arrow-orange)"/>
+                        <text x="1049" y="368">TOOLS</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 5">
+                        <path d="M 1284 380 H 1334" pathLength="1" marker-end="url(#cfx1a-arrow-orange)"/>
+                        <text x="1309" y="368">INVOKE</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 6">
+                        <path d="M 1544 380 H 1572 V 210 H 1624" pathLength="1" marker-end="url(#cfx1a-arrow-orange)"/>
+                        <text x="1560" y="196"></text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 6">
+                        <path d="M 1544 380 H 1624" pathLength="1" marker-end="url(#cfx1a-arrow-orange)"/>
+                        <text x="1585" y="368">ROUTE</text>
+                      </g>
+                      <g class="cfx-link cfx-link--blue" style="--step-i: 6">
+                        <path d="M 1544 380 H 1572 V 550 H 1624" pathLength="1" marker-end="url(#cfx1a-arrow-blue)"/>
+                        <text x="1560" y="536"></text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 7">
+                        <path d="M 1834 210 H 1950 V 285 H 2054" pathLength="1" marker-end="url(#cfx1a-arrow-orange)"/>
+                        <text x="1940" y="198">READ SLOTS</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 7">
+                        <path d="M 1834 380 H 1960 V 305 H 2054" pathLength="1" marker-end="url(#cfx1a-arrow-orange)"/>
+                        <text x="1940" y="368">BOOK</text>
+                      </g>
+                      <g class="cfx-link cfx-link--blue" style="--step-i: 7">
+                        <path d="M 1834 550 H 2054" pathLength="1" marker-end="url(#cfx1a-arrow-blue)"/>
+                        <text x="1945" y="538">SYNC</text>
+                      </g>
+                  </svg>
+                  <span class="cfx-packet" style="offset-path: path('M 128 380 H 1624')" aria-hidden="true"></span>
+                  <ol class="cfx-steps">
+                    <li class="cfx-card cfx-card--dark cfx-card--start" style="--x: 28px; --y: 302px; --step-i: 0">
+                      <div class="cfx-card__top">
+                        <span class="res-icon"><img src="assets/icons/general/user.svg" alt="" width="48" height="48" loading="lazy"></span>
+                        <span class="cfx-badge">Start</span>
+                      </div>
+                      <p class="cfx-card__title">Customer</p>
+                      <p class="cfx-card__sub">Inbound caller</p>
+                      <div class="cfx-card__body">
+                        <p>Calls after hours</p>
+                        <p class="cfx-card__em">Wants to book</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral cfx-card--ext" style="--x: 288px; --y: 302px; --step-i: 1">
+                      <div class="cfx-card__top">
+                        <img class="cfx-logo" src="assets/images/logos/five9.png" alt="" width="179" height="96" loading="lazy">
+                        <span class="cfx-badge">External</span>
+                      </div>
+                      <p class="cfx-card__title">Five9 Contact Center</p>
+                      <p class="cfx-card__sub">Cloud contact center</p>
+                      <div class="cfx-card__body">
+                        <p>Receives the call</p>
+                        <p class="cfx-card__em">SIP transfer to Connect</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral" style="--x: 560px; --y: 302px; --step-i: 2">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/amazon-connect.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">Telephony</span>
+                      </div>
+                      <p class="cfx-card__title">Amazon Connect</p>
+                      <p class="cfx-card__sub">Contact flow · after hours</p>
+                      <div class="cfx-card__body">
+                        <p>Receives the SIP transfer</p>
+                        <p class="cfx-card__em">Hands the call to Lex</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--orange" style="--x: 820px; --y: 302px; --step-i: 3">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/amazon-lex.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">Voice bot</span>
+                      </div>
+                      <p class="cfx-card__title">Amazon Lex bot</p>
+                      <p class="cfx-card__sub">Nova Sonic speech-to-speech</p>
+                      <div class="cfx-card__body">
+                        <p>Talks with the caller</p>
+                        <p class="cfx-card__em">Asks for tool calls</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral" style="--x: 1080px; --y: 302px; --step-i: 4">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/bedrock-agentcore.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">Tools</span>
+                      </div>
+                      <p class="cfx-card__title">Bedrock AgentCore</p>
+                      <p class="cfx-card__sub">Tool-calling layer</p>
+                      <div class="cfx-card__body">
+                        <p>Picks the right tool</p>
+                        <p class="cfx-card__em">Calls it via API Gateway</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral" style="--x: 1340px; --y: 302px; --step-i: 5">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/api-gateway.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">API</span>
+                      </div>
+                      <p class="cfx-card__title">API Gateway</p>
+                      <p class="cfx-card__sub">REST endpoints</p>
+                      <div class="cfx-card__body">
+                        <p>Fronts the tool functions</p>
+                        <p class="cfx-card__em">Routes to Lambda</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--orange cfx-card--chip" style="--x: 1630px; --y: 160px; --step-i: 6">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/aws-lambda.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">Tool 01</span>
+                      </div>
+                      <p class="cfx-card__title">getAvailableSlots</p>
+                      <p class="cfx-card__sub">Reads open slots</p>
+                    </li>
+                    <li class="cfx-card cfx-card--orange cfx-card--chip" style="--x: 1630px; --y: 330px; --step-i: 6">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/aws-lambda.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">Tool 02</span>
+                      </div>
+                      <p class="cfx-card__title">bookAppointment</p>
+                      <p class="cfx-card__sub">Books, returns appt ID</p>
+                    </li>
+                    <li class="cfx-card cfx-card--blue cfx-card--chip" style="--x: 1630px; --y: 500px; --step-i: 6">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/aws-lambda.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">Tool 03</span>
+                      </div>
+                      <p class="cfx-card__title">salesforceSync</p>
+                      <p class="cfx-card__sub">Runs at call wrap-up</p>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral cfx-card--ext" style="--x: 2060px; --y: 217px; --step-i: 7">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-calendar"/></svg></span>
+                        <span class="cfx-badge">External</span>
+                      </div>
+                      <p class="cfx-card__title">Calendar API</p>
+                      <p class="cfx-card__sub">Scheduling system</p>
+                      <div class="cfx-card__body">
+                        <p>Open slots &amp; bookings</p>
+                        <p class="cfx-card__em">Read and write</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--blue cfx-card--ext" style="--x: 2060px; --y: 472px; --step-i: 7">
+                      <div class="cfx-card__top">
+                        <img class="cfx-logo" src="assets/images/logos/salesforce.png" alt="" width="137" height="96" loading="lazy">
+                        <span class="cfx-badge">External</span>
+                      </div>
+                      <p class="cfx-card__title">Salesforce CRM</p>
+                      <p class="cfx-card__sub">Customer records</p>
+                      <div class="cfx-card__body">
+                        <p>Call record, transcript</p>
+                        <p class="cfx-card__em">Out-of-hours callbacks</p>
+                      </div>
+                    </li>
+                  </ol>
+                </div>
+                </div>
+              </div>
+              <p class="callflow__tip" hidden>Showing the full diagram. Click it or <strong>View large</strong> to zoom in.</p>
+              <ul class="callflow__legend" aria-label="Legend">
+                <li><span class="legend-line legend-line--orange" aria-hidden="true"></span>Call and tool-call path</li>
+                <li><span class="legend-line legend-line--blue" aria-hidden="true"></span>CRM sync to Salesforce</li>
+                <li><span class="legend-box legend-box--cloud" aria-hidden="true"></span>AWS Cloud (serverless)</li>
+                <li><span class="legend-box legend-box--ecs" aria-hidden="true"></span>AWS Lambda tools</li>
+                <li><span class="legend-swatch legend-swatch--ext" aria-hidden="true"></span>External system</li>
+              </ul>
+            </div>
             </figure>
           </article>
 
@@ -852,16 +1066,255 @@
             <figure class="project__arch project__arch--wide callflow callflow--infra" data-draw aria-labelledby="p2-flow-title">
               <figcaption class="callflow__head">
                 <div>
-                  <p class="eyebrow callflow__kicker"><span class="callflow__dot" aria-hidden="true"></span>Audio streaming flow · inside the VPC</p>
+                  <p class="eyebrow callflow__kicker"><span class="callflow__dot" aria-hidden="true"></span>How it works · call flow &amp; architecture</p>
                   <p class="callflow__title" id="p2-flow-title">Customer <span class="callflow__arrow" aria-hidden="true">→</span> Connect <span class="callflow__arrow" aria-hidden="true">→</span> CCP (no human agent) <span class="callflow__arrow" aria-hidden="true">→</span> ECS Fargate <span class="callflow__arrow" aria-hidden="true">→</span> Nova Sonic <span class="callflow__arrow" aria-hidden="true">→</span> back to the caller</p>
-                  <p class="callflow__sub">Fully automated, with no human agent: Puppeteer answers the call, FastAPI streams the audio to Nova Sonic and plays the reply back. Round trip in 2-2.5 seconds.</p>
                 </div>
-                <button class="btn btn--ghost btn--sm callflow__expand" type="button" data-cf-open hidden>
-                  <svg class="icon" aria-hidden="true"><use href="#i-maximize"/></svg>
-                  View large
-                </button>
+                <div class="callflow__actions">
+                  <div class="cf-tabs" role="tablist" aria-label="Diagram view" hidden>
+                    <button class="cf-tab" type="button" role="tab" aria-selected="true" data-cf-tab="flow">Call flow</button>
+                    <button class="cf-tab" type="button" role="tab" aria-selected="false" data-cf-tab="arch">Architecture</button>
+                  </div>
+                  <button class="btn btn--ghost btn--sm callflow__expand" type="button" data-cf-open hidden>
+                    <svg class="icon" aria-hidden="true"><use href="#i-maximize"/></svg>
+                    View large
+                  </button>
+                </div>
               </figcaption>
 
+            <div class="callflow__view" data-cf-view="flow" data-cf-label="Call flow">
+              <p class="callflow__note">One call, step by step: Puppeteer answers, FastAPI streams each turn to Nova Sonic and plays the reply back. Fully automated, with no human agent.</p>
+              <div class="callflow__viewport" data-cf-inline>
+                <div class="cfx-sizer">
+                <div class="cfx-canvas" style="--cfx-w: 3040px; --cfx-h: 430px">
+                  <svg class="cfx-wires" viewBox="0 0 3040 430" width="3040" height="430" aria-hidden="true">
+                    <defs>
+                        <marker id="cfx2f-arrow-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--orange"/></marker>
+                        <marker id="cfx2f-arrow-dark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--dark"/></marker>
+                        <marker id="cfx2f-arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--green"/></marker>
+                        <marker id="cfx2f-arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--blue"/></marker>
+                        <marker id="cfx2f-arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--red"/></marker>
+                        <marker id="cfx2f-arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--amber"/></marker>
+                        <marker id="cfx2f-arrow-infra" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--infra"/></marker>
+                    </defs>
+                      <polygon class="cfx-diamond-shape" style="--step-i: 10" points="2690,216 2752,278 2690,340 2628,278"/>
+                      <g class="cfx-link cfx-link--dark" style="--step-i: 1">
+                        <path d="M 232 278 H 282" pathLength="1" marker-end="url(#cfx2f-arrow-dark)"/>
+                        <text x="258" y="266">CALL</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 2">
+                        <path d="M 492 278 H 542" pathLength="1" marker-end="url(#cfx2f-arrow-orange)"/>
+                        <text x="518" y="266">ROUTE</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 3">
+                        <path d="M 752 278 H 802" pathLength="1" marker-end="url(#cfx2f-arrow-orange)"/>
+                        <text x="778" y="266">RINGS</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 4">
+                        <path d="M 1012 278 H 1062" pathLength="1" marker-end="url(#cfx2f-arrow-orange)"/>
+                        <text x="1038" y="266">ANSWER</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 5">
+                        <path d="M 1272 278 H 1322" pathLength="1" marker-end="url(#cfx2f-arrow-orange)"/>
+                        <text x="1298" y="266">VOICE</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 6">
+                        <path d="M 1532 278 H 1582" pathLength="1" marker-end="url(#cfx2f-arrow-orange)"/>
+                        <text x="1558" y="266">+ PROMPT</text>
+                      </g>
+                      <g class="cfx-link cfx-link--green" style="--step-i: 7">
+                        <path d="M 1792 278 H 1842" pathLength="1" marker-end="url(#cfx2f-arrow-green)"/>
+                        <text x="1818" y="266">REPLY</text>
+                      </g>
+                      <g class="cfx-link cfx-link--green" style="--step-i: 8">
+                        <path d="M 2052 278 H 2102" pathLength="1" marker-end="url(#cfx2f-arrow-green)"/>
+                        <text x="2078" y="266">PLAY</text>
+                      </g>
+                      <g class="cfx-link cfx-link--green" style="--step-i: 9">
+                        <path d="M 2312 278 H 2362" pathLength="1" marker-end="url(#cfx2f-arrow-green)"/>
+                        <text x="2338" y="266">HEARS</text>
+                      </g>
+                      <g class="cfx-link cfx-link--green" style="--step-i: 10">
+                        <path d="M 2572 278 H 2622" pathLength="1" marker-end="url(#cfx2f-arrow-green)"/>
+                        <text x="2598" y="266">CHECK</text>
+                      </g>
+                      <g class="cfx-link cfx-link--dark" style="--step-i: 11">
+                        <path d="M 2756 278 H 2806" pathLength="1" marker-end="url(#cfx2f-arrow-dark)"/>
+                        <text x="2782" y="266">NO</text>
+                      </g>
+                      <g class="cfx-branch cfx-branch--green" style="--step-i: 10">
+                        <path d="M 2690 212 V 160 H 1168 V 194" marker-end="url(#cfx2f-arrow-green)"/>
+                        <rect x="1867" y="145" width="126" height="22" rx="11"/>
+                        <text x="1930" y="160">YES · NEXT TURN</text>
+                      </g>
+                      <g class="cfx-infra" style="--step-i: 3">
+                        <path d="M 908 128 V 194" marker-end="url(#cfx2f-arrow-infra)"/>
+                        <text x="968" y="172">LOGS IN</text>
+                      </g>
+                      <g class="cfx-bracket" style="--step-i: 10">
+                        <path d="M 1068 382 V 392 H 2568 V 382"/>
+                        <text x="1818" y="414">2-2.5 s round trip, every turn</text>
+                      </g>
+                  </svg>
+                  <span class="cfx-packet" style="offset-path: path('M 128 278 H 2468')" aria-hidden="true"></span>
+                  <ol class="cfx-steps">
+                    <li class="cfx-card cfx-card--dark cfx-card--start" style="--x: 28px; --y: 200px; --step-i: 0">
+                      <div class="cfx-card__top">
+                        <span class="res-icon"><img src="assets/icons/general/user.svg" alt="" width="48" height="48" loading="lazy"></span>
+                        <span class="cfx-badge">Start</span>
+                      </div>
+                      <p class="cfx-card__title">Customer</p>
+                      <p class="cfx-card__sub">Inbound caller</p>
+                      <div class="cfx-card__body">
+                        <p>Calls in</p>
+                        <p class="cfx-card__em">Handled fully by AI</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral" style="--x: 288px; --y: 200px; --step-i: 1">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/amazon-connect.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">01 · Route</span>
+                      </div>
+                      <p class="cfx-card__title">Amazon Connect</p>
+                      <p class="cfx-card__sub">Contact flow</p>
+                      <div class="cfx-card__body">
+                        <p>Routes the call</p>
+                        <p class="cfx-card__em">to a bot-run CCP</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral" style="--x: 548px; --y: 200px; --step-i: 2">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-headset"/></svg></span>
+                        <span class="cfx-badge">02 · Ring</span>
+                      </div>
+                      <p class="cfx-card__title">Amazon Connect CCP</p>
+                      <p class="cfx-card__sub">Bot-operated softphone</p>
+                      <div class="cfx-card__body">
+                        <p>The call rings</p>
+                        <p class="cfx-card__em">One CCP per login</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--orange" style="--x: 808px; --y: 200px; --step-i: 3">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-bot"/></svg></span>
+                        <span class="cfx-badge">03 · Answer</span>
+                      </div>
+                      <p class="cfx-card__title">Puppeteer</p>
+                      <p class="cfx-card__sub">Headless browser</p>
+                      <div class="cfx-card__body">
+                        <p>Sees the ringing call</p>
+                        <p class="cfx-card__em">Answers it automatically</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral" style="--x: 1068px; --y: 200px; --step-i: 4">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-mic"/></svg></span>
+                        <span class="cfx-badge">04 · Capture</span>
+                      </div>
+                      <p class="cfx-card__title">Capture audio</p>
+                      <p class="cfx-card__sub">Python FastAPI</p>
+                      <div class="cfx-card__body">
+                        <p>Caller's voice from</p>
+                        <p class="cfx-card__em">the CCP WebRTC stream</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral" style="--x: 1328px; --y: 200px; --step-i: 5">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-audio-waveform"/></svg></span>
+                        <span class="cfx-badge">05 · Prep</span>
+                      </div>
+                      <p class="cfx-card__title">Resample</p>
+                      <p class="cfx-card__sub">Python FastAPI</p>
+                      <div class="cfx-card__body">
+                        <p>Up/down-samples packets</p>
+                        <p class="cfx-card__em">to Nova Sonic's format</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--green" style="--x: 1588px; --y: 200px; --step-i: 6">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/amazon-nova.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">06 · Think</span>
+                      </div>
+                      <p class="cfx-card__title">Bedrock Nova Sonic</p>
+                      <p class="cfx-card__sub">Speech-to-speech</p>
+                      <div class="cfx-card__body">
+                        <p>Audio + system prompt</p>
+                        <p class="cfx-card__em">Speaks back a reply</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral" style="--x: 1848px; --y: 200px; --step-i: 7">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-audio-waveform"/></svg></span>
+                        <span class="cfx-badge">07 · Return</span>
+                      </div>
+                      <p class="cfx-card__title">Process reply</p>
+                      <p class="cfx-card__sub">Python FastAPI</p>
+                      <div class="cfx-card__body">
+                        <p>Receives reply audio</p>
+                        <p class="cfx-card__em">Down-samples for the CCP</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--orange" style="--x: 2108px; --y: 200px; --step-i: 8">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-volume-2"/></svg></span>
+                        <span class="cfx-badge">08 · Play</span>
+                      </div>
+                      <p class="cfx-card__title">Play into call</p>
+                      <p class="cfx-card__sub">Python FastAPI</p>
+                      <div class="cfx-card__body">
+                        <p>Injects the reply</p>
+                        <p class="cfx-card__em">into the live CCP call</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--green" style="--x: 2368px; --y: 200px; --step-i: 9">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-ear"/></svg></span>
+                        <span class="cfx-badge">09 · Hear</span>
+                      </div>
+                      <p class="cfx-card__title">Customer hears AI</p>
+                      <p class="cfx-card__sub">Natural voice reply</p>
+                      <div class="cfx-card__body">
+                        <p>Round trip in</p>
+                        <p class="cfx-card__em">⏱ 2-2.5 seconds</p>
+                      </div>
+                    </li>
+                    <li class="cfx-diamond" style="--x: 2628px; --y: 216px; --step-i: 10">
+                      <span class="cfx-diamond__num">Loop</span>
+                      <span class="cfx-diamond__label">Speaks<br>again?</span>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral" style="--x: 2812px; --y: 200px; --step-i: 11">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-phone-off"/></svg></span>
+                        <span class="cfx-badge">End</span>
+                      </div>
+                      <p class="cfx-card__title">Call ends</p>
+                      <p class="cfx-card__sub">Line frees up</p>
+                      <div class="cfx-card__body">
+                        <p>CCP is ready for</p>
+                        <p class="cfx-card__em">the next call</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral cfx-card--chip" style="--x: 808px; --y: 24px; --step-i: 3">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/amazon-rds.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">Before calls</span>
+                      </div>
+                      <p class="cfx-card__title">CCP logins (RDS)</p>
+                      <p class="cfx-card__sub">Puppeteer logs in · max 5</p>
+                    </li>
+                  </ol>
+                </div>
+                </div>
+              </div>
+              <p class="callflow__tip" hidden>Showing the full diagram. Click it or <strong>View large</strong> to zoom in.</p>
+              <ul class="callflow__legend" aria-label="Legend">
+                <li><span class="legend-line legend-line--orange" aria-hidden="true"></span>Caller audio to Nova Sonic</li>
+                <li><span class="legend-line legend-line--green" aria-hidden="true"></span>AI reply back to the caller</li>
+                <li><span class="legend-line legend-line--green legend-line--dashed" aria-hidden="true"></span>Next turn of the conversation</li>
+                <li><span class="legend-line legend-line--infra legend-line--dashed" aria-hidden="true"></span>Setup before calls</li>
+              </ul>
+            </div>
+            <div class="callflow__view" data-cf-view="arch" data-cf-label="Architecture" hidden>
+              <p class="callflow__note">Fully automated, with no human agent: Puppeteer answers the call, FastAPI streams the audio to Nova Sonic and plays the reply back. Round trip in 2-2.5 seconds.</p>
               <div class="callflow__viewport" data-cf-inline>
                 <div class="cfx-sizer">
                 <div class="cfx-canvas" style="--cfx-w: 2130px; --cfx-h: 940px">
@@ -1124,8 +1577,7 @@
                 </div>
                 </div>
               </div>
-              <p class="callflow__tip" hidden>Showing the full flow. Click the diagram or <strong>View large</strong> to zoom in.</p>
-
+              <p class="callflow__tip" hidden>Showing the full diagram. Click it or <strong>View large</strong> to zoom in.</p>
               <ul class="callflow__legend" aria-label="Legend">
                 <li><span class="legend-line legend-line--orange" aria-hidden="true"></span>Caller audio to Nova Sonic</li>
                 <li><span class="legend-line legend-line--green" aria-hidden="true"></span>AI reply back to the caller</li>
@@ -1135,6 +1587,7 @@
                 <li><span class="legend-box legend-box--private" aria-hidden="true"></span>Private subnet</li>
                 <li><span class="legend-box legend-box--ecs" aria-hidden="true"></span>ECS Fargate</li>
               </ul>
+            </div>
             </figure>
           </article>
 
@@ -1221,16 +1674,251 @@
             <figure class="project__arch project__arch--wide callflow callflow--infra" data-draw aria-labelledby="p4-flow-title">
               <figcaption class="callflow__head">
                 <div>
-                  <p class="eyebrow callflow__kicker"><span class="callflow__dot" aria-hidden="true"></span>QA automation flow · Azure DevOps to AWS</p>
+                  <p class="eyebrow callflow__kicker"><span class="callflow__dot" aria-hidden="true"></span>How it works · call flow &amp; architecture</p>
                   <p class="callflow__title" id="p4-flow-title">YAML scripts <span class="callflow__arrow" aria-hidden="true">→</span> Azure DevOps <span class="callflow__arrow" aria-hidden="true">→</span> FastAPI <span class="callflow__arrow" aria-hidden="true">→</span> QA AI agent calls <span class="callflow__arrow" aria-hidden="true">→</span> Claude evaluation <span class="callflow__arrow" aria-hidden="true">→</span> Dashboard</p>
-                  <p class="callflow__sub">Fully automated: scripts are reviewed and checked in Azure DevOps, then an AI QA agent calls the target agent and Claude grades every call.</p>
                 </div>
-                <button class="btn btn--ghost btn--sm callflow__expand" type="button" data-cf-open hidden>
-                  <svg class="icon" aria-hidden="true"><use href="#i-maximize"/></svg>
-                  View large
-                </button>
+                <div class="callflow__actions">
+                  <div class="cf-tabs" role="tablist" aria-label="Diagram view" hidden>
+                    <button class="cf-tab" type="button" role="tab" aria-selected="true" data-cf-tab="flow">Call flow</button>
+                    <button class="cf-tab" type="button" role="tab" aria-selected="false" data-cf-tab="arch">Architecture</button>
+                  </div>
+                  <button class="btn btn--ghost btn--sm callflow__expand" type="button" data-cf-open hidden>
+                    <svg class="icon" aria-hidden="true"><use href="#i-maximize"/></svg>
+                    View large
+                  </button>
+                </div>
               </figcaption>
 
+            <div class="callflow__view" data-cf-view="flow" data-cf-label="Call flow">
+              <p class="callflow__note">One test run, start to finish: review and checks in Azure DevOps, then N parallel AI-to-AI calls, each graded by Claude and shown on the dashboard.</p>
+              <div class="callflow__viewport" data-cf-inline>
+                <div class="cfx-sizer">
+                <div class="cfx-canvas" style="--cfx-w: 3148px; --cfx-h: 400px">
+                  <svg class="cfx-wires" viewBox="0 0 3148 400" width="3148" height="400" aria-hidden="true">
+                    <defs>
+                        <marker id="cfx4f-arrow-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--orange"/></marker>
+                        <marker id="cfx4f-arrow-dark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--dark"/></marker>
+                        <marker id="cfx4f-arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--green"/></marker>
+                        <marker id="cfx4f-arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--blue"/></marker>
+                        <marker id="cfx4f-arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--red"/></marker>
+                        <marker id="cfx4f-arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--amber"/></marker>
+                        <marker id="cfx4f-arrow-infra" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--infra"/></marker>
+                    </defs>
+                      <polygon class="cfx-diamond-shape" style="--step-i: 1" points="350,216 412,278 350,340 288,278"/>
+                      <polygon class="cfx-diamond-shape" style="--step-i: 3" points="794,216 856,278 794,340 732,278"/>
+                      <polygon class="cfx-diamond-shape" style="--step-i: 10" points="2538,216 2600,278 2538,340 2476,278"/>
+                      <g class="cfx-link cfx-link--dark" style="--step-i: 1">
+                        <path d="M 232 278 H 282" pathLength="1" marker-end="url(#cfx4f-arrow-dark)"/>
+                        <text x="258" y="266">REVIEW</text>
+                      </g>
+                      <g class="cfx-link cfx-link--green" style="--step-i: 2">
+                        <path d="M 416 278 H 466" pathLength="1" marker-end="url(#cfx4f-arrow-green)"/>
+                        <text x="442" y="266">YES</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 3">
+                        <path d="M 676 278 H 726" pathLength="1" marker-end="url(#cfx4f-arrow-orange)"/>
+                        <text x="702" y="266">CHECKS</text>
+                      </g>
+                      <g class="cfx-link cfx-link--green" style="--step-i: 4">
+                        <path d="M 860 278 H 910" pathLength="1" marker-end="url(#cfx4f-arrow-green)"/>
+                        <text x="886" y="266">YES</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 5">
+                        <path d="M 1120 278 H 1170" pathLength="1" marker-end="url(#cfx4f-arrow-orange)"/>
+                        <text x="1146" y="266">PIPELINE</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 6">
+                        <path d="M 1380 278 H 1430" pathLength="1" marker-end="url(#cfx4f-arrow-orange)"/>
+                        <text x="1406" y="266">PLAN</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 7">
+                        <path d="M 1640 278 H 1690" pathLength="1" marker-end="url(#cfx4f-arrow-orange)"/>
+                        <text x="1666" y="266">×N</text>
+                      </g>
+                      <g class="cfx-link cfx-link--green" style="--step-i: 8">
+                        <path d="M 1900 278 H 1950" pathLength="1" marker-end="url(#cfx4f-arrow-green)"/>
+                        <text x="1926" y="266">TEXT</text>
+                      </g>
+                      <g class="cfx-link cfx-link--blue" style="--step-i: 9">
+                        <path d="M 2160 278 H 2210" pathLength="1" marker-end="url(#cfx4f-arrow-blue)"/>
+                        <text x="2186" y="266">EVAL</text>
+                      </g>
+                      <g class="cfx-link cfx-link--blue" style="--step-i: 10">
+                        <path d="M 2420 278 H 2470" pathLength="1" marker-end="url(#cfx4f-arrow-blue)"/>
+                        <text x="2446" y="266">SAVED</text>
+                      </g>
+                      <g class="cfx-link cfx-link--blue" style="--step-i: 11">
+                        <path d="M 2604 278 H 2654" pathLength="1" marker-end="url(#cfx4f-arrow-blue)"/>
+                        <text x="2630" y="266">NO</text>
+                      </g>
+                      <g class="cfx-link cfx-link--green" style="--step-i: 12">
+                        <path d="M 2864 278 H 2914" pathLength="1" marker-end="url(#cfx4f-arrow-green)"/>
+                        <text x="2890" y="266">QA</text>
+                      </g>
+                      <g class="cfx-branch cfx-branch--red" style="--step-i: 1">
+                        <path d="M 350 212 V 160 H 150 V 194" marker-end="url(#cfx4f-arrow-red)"/>
+                        <rect x="187" y="145" width="126" height="22" rx="11"/>
+                        <text x="250" y="160">NO · FIX &amp; PUSH</text>
+                      </g>
+                      <g class="cfx-branch cfx-branch--red" style="--step-i: 3">
+                        <path d="M 794 212 V 110 H 100 V 194" marker-end="url(#cfx4f-arrow-red)"/>
+                        <rect x="387" y="95" width="126" height="22" rx="11"/>
+                        <text x="450" y="110">NO · FIX &amp; PUSH</text>
+                      </g>
+                      <g class="cfx-branch cfx-branch--green" style="--step-i: 10">
+                        <path d="M 2538 212 V 160 H 1536 V 194" marker-end="url(#cfx4f-arrow-green)"/>
+                        <rect x="1944" y="145" width="132" height="22" rx="11"/>
+                        <text x="2010" y="160">YES · NEXT BATCH</text>
+                      </g>
+                  </svg>
+                  <span class="cfx-packet" style="offset-path: path('M 128 278 H 3020')" aria-hidden="true"></span>
+                  <ol class="cfx-steps">
+                    <li class="cfx-card cfx-card--dark cfx-card--start" style="--x: 28px; --y: 200px; --step-i: 0">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-file-code"/></svg></span>
+                        <span class="cfx-badge">Start</span>
+                      </div>
+                      <p class="cfx-card__title">YAML test scripts</p>
+                      <p class="cfx-card__sub">QA team + config.yaml</p>
+                      <div class="cfx-card__body">
+                        <p>1 YAML per call path</p>
+                        <p class="cfx-card__em">Pushed to a feature branch</p>
+                      </div>
+                    </li>
+                    <li class="cfx-diamond" style="--x: 288px; --y: 216px; --step-i: 1">
+                      <span class="cfx-diamond__num">Review</span>
+                      <span class="cfx-diamond__label">QA lead<br>approves?</span>
+                    </li>
+                    <li class="cfx-card cfx-card--orange" style="--x: 472px; --y: 200px; --step-i: 2">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-shield-check"/></svg></span>
+                        <span class="cfx-badge">02 · Dev</span>
+                      </div>
+                      <p class="cfx-card__title">PR to dev</p>
+                      <p class="cfx-card__sub">DevSecOps pipeline</p>
+                      <div class="cfx-card__body">
+                        <p>Checks structure &amp; data</p>
+                        <p class="cfx-card__em">e.g. 10-digit numbers</p>
+                      </div>
+                    </li>
+                    <li class="cfx-diamond" style="--x: 732px; --y: 216px; --step-i: 3">
+                      <span class="cfx-diamond__num">Gate</span>
+                      <span class="cfx-diamond__label">Checks<br>pass?</span>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral" style="--x: 916px; --y: 200px; --step-i: 4">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-git-merge"/></svg></span>
+                        <span class="cfx-badge">03 · Main</span>
+                      </div>
+                      <p class="cfx-card__title">Merge to main</p>
+                      <p class="cfx-card__sub">Azure DevOps pipeline</p>
+                      <div class="cfx-card__body">
+                        <p>Sends the scripts</p>
+                        <p class="cfx-card__em">to the FastAPI backend</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral" style="--x: 1176px; --y: 200px; --step-i: 5">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/amazon-rds.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">04 · Store</span>
+                      </div>
+                      <p class="cfx-card__title">Save scripts</p>
+                      <p class="cfx-card__sub">FastAPI · Amazon RDS</p>
+                      <div class="cfx-card__body">
+                        <p>A UUID per script</p>
+                        <p class="cfx-card__em">Plans N parallel calls</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--orange" style="--x: 1436px; --y: 200px; --step-i: 6">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/amazon-connect.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">05 · Call</span>
+                      </div>
+                      <p class="cfx-card__title">Start N test calls</p>
+                      <p class="cfx-card__sub">StartOutboundVoiceContact</p>
+                      <div class="cfx-card__body">
+                        <p>Script + role as</p>
+                        <p class="cfx-card__em">session attributes</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--green" style="--x: 1696px; --y: 200px; --step-i: 7">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/amazon-nova.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">06 · Talk</span>
+                      </div>
+                      <p class="cfx-card__title">AI-to-AI call</p>
+                      <p class="cfx-card__sub">QA agent ⇄ target agent</p>
+                      <div class="cfx-card__body">
+                        <p>QA agent plays the caller</p>
+                        <p class="cfx-card__em">Nova Sonic in Connect</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral" style="--x: 1956px; --y: 200px; --step-i: 8">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-audio-waveform"/></svg></span>
+                        <span class="cfx-badge">07 · Text</span>
+                      </div>
+                      <p class="cfx-card__title">Live transcript</p>
+                      <p class="cfx-card__sub">Nova Sonic speech-to-text</p>
+                      <div class="cfx-card__body">
+                        <p>Both sides, turn by turn</p>
+                        <p class="cfx-card__em">Collected by FastAPI</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--orange" style="--x: 2216px; --y: 200px; --step-i: 9">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/amazon-bedrock.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">08 · Grade</span>
+                      </div>
+                      <p class="cfx-card__title">Claude Sonnet 5.5</p>
+                      <p class="cfx-card__sub">Amazon Bedrock</p>
+                      <div class="cfx-card__body">
+                        <p>Grades vs the YAML script</p>
+                        <p class="cfx-card__em">Report saved in RDS</p>
+                      </div>
+                    </li>
+                    <li class="cfx-diamond" style="--x: 2476px; --y: 216px; --step-i: 10">
+                      <span class="cfx-diamond__num">Loop</span>
+                      <span class="cfx-diamond__label">More<br>scripts?</span>
+                    </li>
+                    <li class="cfx-card cfx-card--blue" style="--x: 2660px; --y: 200px; --step-i: 11">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-layout-dashboard"/></svg></span>
+                        <span class="cfx-badge">09 · Report</span>
+                      </div>
+                      <p class="cfx-card__title">DevOps dashboard</p>
+                      <p class="cfx-card__sub">Azure DevOps</p>
+                      <div class="cfx-card__body">
+                        <p>Every call's report</p>
+                        <p class="cfx-card__em">Refreshes from RDS</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--green" style="--x: 2920px; --y: 200px; --step-i: 12">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-clock"/></svg></span>
+                        <span class="cfx-badge">Result</span>
+                      </div>
+                      <p class="cfx-card__title">4-5 hours</p>
+                      <p class="cfx-card__sub">Instead of 2-3 days</p>
+                      <div class="cfx-card__body">
+                        <p>Fully automated QA</p>
+                        <p class="cfx-card__em">Scales with concurrency</p>
+                      </div>
+                    </li>
+                  </ol>
+                </div>
+                </div>
+              </div>
+              <p class="callflow__tip" hidden>Showing the full diagram. Click it or <strong>View large</strong> to zoom in.</p>
+              <ul class="callflow__legend" aria-label="Legend">
+                <li><span class="legend-line legend-line--orange" aria-hidden="true"></span>Scripts to test calls</li>
+                <li><span class="legend-line legend-line--blue" aria-hidden="true"></span>Results to the dashboard</li>
+                <li><span class="legend-line legend-line--red legend-line--dashed" aria-hidden="true"></span>No: fix &amp; push again</li>
+                <li><span class="legend-line legend-line--green legend-line--dashed" aria-hidden="true"></span>Yes: next batch of scripts</li>
+              </ul>
+            </div>
+            <div class="callflow__view" data-cf-view="arch" data-cf-label="Architecture" hidden>
+              <p class="callflow__note">Fully automated: scripts are reviewed and checked in Azure DevOps, then an AI QA agent calls the target agent and Claude grades every call.</p>
               <div class="callflow__viewport" data-cf-inline>
                 <div class="cfx-sizer">
                 <div class="cfx-canvas" style="--cfx-w: 3010px; --cfx-h: 960px">
@@ -1550,8 +2238,7 @@
                 </div>
                 </div>
               </div>
-              <p class="callflow__tip" hidden>Showing the full flow. Click the diagram or <strong>View large</strong> to zoom in.</p>
-
+              <p class="callflow__tip" hidden>Showing the full diagram. Click it or <strong>View large</strong> to zoom in.</p>
               <ul class="callflow__legend" aria-label="Legend">
                 <li><span class="legend-line legend-line--orange" aria-hidden="true"></span>Scripts to test calls</li>
                 <li><span class="legend-line legend-line--blue" aria-hidden="true"></span>Results back to the dashboard</li>
@@ -1560,6 +2247,7 @@
                 <li><span class="legend-box legend-box--azure" aria-hidden="true"></span>Azure DevOps</li>
                 <li><span class="legend-box legend-box--vpc" aria-hidden="true"></span>VPC</li>
               </ul>
+            </div>
             </figure>
           </article>
 
