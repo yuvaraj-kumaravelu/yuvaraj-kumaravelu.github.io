@@ -150,23 +150,26 @@ Everything is plain CSS and JavaScript, with no animation library.
 If a visitor has "reduce motion" turned on in their operating system, all of these are skipped
 and the content appears in its final state straight away.
 
-## Project 01 call flow
+## Project call flows (01 and 02)
 
-The call flow is one continuous left-to-right row drawn on a 3040 × 560px canvas. It starts at the
-**Customer**, then runs Five9 → Amazon Connect → Lex → Lambda tools → Salesforce CRM.
-Branches leave the Criteria Check diamond: **Not met** goes up and **Live agent** goes down.
-**✓ Met** carries straight on.
+Both projects have a call-flow diagram built the same way: HTML cards placed with `--x`/`--y` on a fixed
+canvas, with arrows in an `<svg class="cfx-wires">` layer behind them.
 
-- **On the page:** the whole flow is scaled to fit the panel width, so visitors see every step
-  at once without scrolling. Without JavaScript the panel scrolls sideways instead.
-- **View large:** the button, or a click on the diagram, opens a full-screen view. It starts
-  fitted to the screen and has zoom in, zoom out and Fit controls. Ctrl/⌘ + scroll also zooms.
-  Visitors can drag to move around, and Esc closes the view. On phones it opens at 75% so the
-  text is readable. The same diagram is moved into the dialog and back again, so there is only
-  one copy to edit.
+- **Project 01** (3040 × 560px) is one continuous left-to-right row. It starts at the **Customer**,
+  then runs Five9 → Amazon Connect → Lex → Lambda tools → Salesforce CRM. **Not met** branches up,
+  **Live agent** branches down, and **✓ Met** carries straight on.
+- **Project 02** (2130 × 910px) is a loop drawn inside its AWS infrastructure: AWS Cloud → VPC →
+  public subnet (ALB, NAT Gateway) → private subnet (RDS with agent login profiles) → ECS Fargate
+  (Puppeteer + Python FastAPI, up to 5 parallel sessions). The loop runs Customer → Connect → Agent CCP →
+  auto-answer → capture → resample → Bedrock Nova Sonic, then back via reply processing → injection
+  → the customer hears the reply (2–2.5 s). Secrets Manager and ECR sit outside the VPC.
 
-To move or add a step, change its `--x`/`--y` and update the matching arrow path in the SVG.
-Cards are 200px wide with a 60px gap; the main row's centre line is at `y = 278`.
+On the page, each flow is scaled to fit its panel, so the whole flow is visible without scrolling.
+**View large**, or a click on the diagram, opens one shared full-screen view with zoom in, zoom out
+and Fit controls, drag-to-pan, Ctrl/⌘ + scroll zoom and Esc to close. The dialog shows the
+project's own title.
+
+To move or add a step, change its `--x`/`--y` and update the matching arrow path in that flow's SVG.
 
 ## Resume requests
 

@@ -215,6 +215,55 @@
 .cfx-arrowhead--blue { fill: var(--t-blue); }
 .cfx-arrowhead--red { fill: var(--t-red); }
 .cfx-arrowhead--amber { fill: var(--t-amber); }
+.cfx-arrowhead--infra { fill: #6e6761; }
+
+/* ---- Infrastructure groups (Project 02) — AWS diagram colour conventions ---- */
+.cfx-group rect {
+  fill: var(--g-fill);
+  stroke: var(--g-line);
+  stroke-width: 2;
+}
+
+.cfx-group text {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: var(--g-text);
+}
+
+.cfx-group--cloud   { --g-fill: rgba(255, 255, 251, 0.35); --g-line: #262322; --g-text: #262322; }
+.cfx-group--vpc     { --g-fill: rgba(140, 79, 255, 0.04);  --g-line: #8c4fff; --g-text: #6a2fd9; }
+.cfx-group--public  { --g-fill: rgba(122, 161, 22, 0.08);  --g-line: #7aa116; --g-text: #4b6510; }
+.cfx-group--private { --g-fill: rgba(0, 164, 166, 0.06);   --g-line: #00a4a6; --g-text: #006d6e; }
+.cfx-group--ecs     { --g-fill: rgba(237, 113, 0, 0.05);   --g-line: #ed7100; --g-text: #9a4a00; }
+
+.cfx-group--cloud rect { stroke-width: 2.5; }
+.cfx-group--ecs rect { stroke-dasharray: 8 6; }
+
+/* dashed infrastructure links (RDS, ALB, NAT, Secrets Manager, ECR) */
+.cfx-infra path {
+  fill: none;
+  stroke: #6e6761;
+  stroke-width: 2;
+  stroke-dasharray: 6 6;
+  stroke-linecap: round;
+}
+
+.cfx-infra text {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.06em;
+  text-anchor: middle;
+  fill: #4a4440;
+  paint-order: stroke;
+  stroke: #f7f5f0;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
 
 .cfx-diamond-shape {
   fill: #fffffb;
@@ -270,6 +319,26 @@
 
 .cfx-card--branch {
   height: 140px;
+}
+
+/* small infrastructure service cards */
+.cfx-card--chip {
+  height: 100px;
+}
+
+/* AWS resource glyphs (e.g. NAT Gateway) have no background tile of their own */
+.cfx-glyph {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #f3eefe;
+}
+
+.cfx-glyph img {
+  width: 26px;
+  height: 26px;
 }
 
 /* the customer: where every call starts */
@@ -489,6 +558,21 @@
 .legend-line--orange { --legend-color: var(--t-orange); }
 .legend-line--red { --legend-color: var(--t-red); }
 .legend-line--amber { --legend-color: var(--t-amber); }
+.legend-line--green { --legend-color: var(--t-green); }
+.legend-line--infra { --legend-color: #6e6761; }
+
+.legend-box {
+  width: 18px;
+  height: 12px;
+  border-radius: 3px;
+  border: 1.5px solid var(--legend-color);
+  background: var(--legend-fill);
+}
+
+.legend-box--vpc { --legend-color: #8c4fff; --legend-fill: rgba(140, 79, 255, 0.06); }
+.legend-box--public { --legend-color: #7aa116; --legend-fill: rgba(122, 161, 22, 0.1); }
+.legend-box--private { --legend-color: #00a4a6; --legend-fill: rgba(0, 164, 166, 0.08); }
+.legend-box--ecs { --legend-color: #ed7100; --legend-fill: rgba(237, 113, 0, 0.06); border-style: dashed; }
 
 .legend-swatch {
   width: 18px;

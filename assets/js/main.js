@@ -136,58 +136,63 @@
     });
   }
 
-  /* ---- Project 01 call flow ----
-     Inline: the whole flow is scaled to fit the panel width, so it is fully
+  /* ---- Project call-flow diagrams (Project 01 and 02) ----
+     Inline: each flow is scaled to fit its panel width, so it is fully
      visible without scrolling. "View large" (or clicking the diagram) moves
-     the same canvas into a full-screen dialog with zoom and drag-to-pan,
-     then moves it back on close. Without JS the panel simply scrolls. */
+     that flow's canvas into one shared full-screen dialog with zoom and
+     drag-to-pan, then moves it back on close. Without JS the panel scrolls. */
   function initCallflow() {
-    const flow = document.querySelector(".callflow[data-draw]");
-    const inlineViewport = flow && flow.querySelector("[data-cf-inline]");
-    const sizer = inlineViewport && inlineViewport.querySelector(".cfx-sizer");
-    const canvas = sizer && sizer.querySelector(".cfx-canvas");
-    if (!canvas) return;
+    const flows = Array.from(document.querySelectorAll(".callflow[data-draw]"))
+      .map((flow) => {
+        const inlineViewport = flow.querySelector("[data-cf-inline]");
+        const sizer = inlineViewport && inlineViewport.querySelector(".cfx-sizer");
+        const canvas = sizer && sizer.querySelector(".cfx-canvas");
+        if (!canvas) return null;
+        // natural canvas size (transforms don't affect offset sizes)
+        return { flow, inlineViewport, sizer, canvas, W: canvas.offsetWidth, H: canvas.offsetHeight };
+      })
+      .filter(Boolean);
+    if (!flows.length) return;
 
-    // natural canvas size (transforms don't affect offset sizes)
-    const W = canvas.offsetWidth;
-    const H = canvas.offsetHeight;
-
-    const applyScale = (scale) => {
-      canvas.style.setProperty("--cf-scale", scale.toFixed(4));
-      sizer.style.width = `${Math.round(W * scale)}px`;
-      sizer.style.height = `${Math.round(H * scale)}px`;
+    const applyScale = (f, scale) => {
+      f.canvas.style.setProperty("--cf-scale", scale.toFixed(4));
+      f.sizer.style.width = `${Math.round(f.W * scale)}px`;
+      f.sizer.style.height = `${Math.round(f.H * scale)}px`;
     };
 
-    const fitInline = () => {
-      if (sizer.parentElement !== inlineViewport) return;
-      applyScale(inlineViewport.clientWidth / W);
+    const fitInline = (f) => {
+      if (f.sizer.parentElement !== f.inlineViewport) return;
+      applyScale(f, f.inlineViewport.clientWidth / f.W);
     };
 
-    inlineViewport.classList.add("is-fit");
-    fitInline();
-    if ("ResizeObserver" in window) new ResizeObserver(fitInline).observe(inlineViewport);
-    else window.addEventListener("resize", fitInline, { passive: true });
+    flows.forEach((f) => {
+      f.inlineViewport.classList.add("is-fit");
+      fitInline(f);
+      if ("ResizeObserver" in window) new ResizeObserver(() => fitInline(f)).observe(f.inlineViewport);
+      else window.addEventListener("resize", () => fitInline(f), { passive: true });
+      const tip = f.flow.querySelector(".callflow__tip");
+      if (tip) tip.hidden = false;
+    });
 
-    const tip = flow.querySelector(".callflow__tip");
-    if (tip) tip.hidden = false;
-
-    // ---- Full-screen "View large" dialog ----
+    // ---- One shared full-screen "View large" dialog ----
     const dialog = document.querySelector(".cf-modal");
-    const openButton = flow.querySelector("[data-cf-open]");
-    if (!dialog || typeof dialog.showModal !== "function" || !openButton) return;
+    if (!dialog || typeof dialog.showModal !== "function") return;
 
     const modalViewport = dialog.querySelector("[data-cf-modal-viewport]");
+    const modalTitle = dialog.querySelector(".cf-modal__title");
+    const modalKicker = dialog.querySelector(".cf-modal__kicker");
     const level = dialog.querySelector(".cf-modal__level");
     const zoomIn = dialog.querySelector('[data-cf-zoom="in"]');
     const zoomOut = dialog.querySelector('[data-cf-zoom="out"]');
     const MAX_SCALE = 1.6;
     const PADDING = 48;
+    let active = null; // the flow currently shown in the dialog
     let scale = 1;
     let fitScale = 1;
     let followFit = true; // keep fitting on resize until the visitor zooms
 
     const computeFit = () =>
-      Math.min((modalViewport.clientWidth - PADDING) / W, (modalViewport.clientHeight - PADDING) / H);
+      Math.min((modalViewport.clientWidth - PADDING) / active.W, (modalViewport.clientHeight - PADDING) / active.H);
 
     const setZoom = (next, keepCentre = true) => {
       const minScale = Math.min(fitScale, 1);
@@ -196,7 +201,7 @@
       const cx = (modalViewport.scrollLeft + modalViewport.clientWidth / 2) / scale;
       const cy = (modalViewport.scrollTop + modalViewport.clientHeight / 2) / scale;
       scale = target;
-      applyScale(scale);
+      applyScale(active, scale);
       if (keepCentre) {
         modalViewport.scrollLeft = cx * scale - modalViewport.clientWidth / 2;
         modalViewport.scrollTop = cy * scale - modalViewport.clientHeight / 2;
@@ -206,8 +211,23 @@
       if (zoomIn) zoomIn.disabled = scale >= MAX_SCALE - 0.001;
     };
 
-    const open = () => {
-      modalViewport.appendChild(sizer);
+    const open = (f) => {
+      active = f;
+      // label the dialog with this flow's own title
+      const title = f.flow.querySelector(".callflow__title");
+      const kicker = f.flow.querySelector(".callflow__kicker");
+      if (modalTitle && title) modalTitle.textContent = title.textContent.replace(/\s+/g, " ").trim();
+      if (modalKicker) {
+        const project = f.flow.closest(".project")?.querySelector(".project__index")?.textContent.trim();
+        const kind = kicker ? kicker.textContent.split("·")[0].trim() : "Call flow";
+        modalKicker.textContent = project ? `Project ${project} · ${kind}` : kind;
+      }
+
+      // the dialog stage needs the same flow-type classes for its styling
+      const stage = modalViewport.parentElement;
+      stage.classList.toggle("callflow--infra", f.flow.classList.contains("callflow--infra"));
+
+      modalViewport.appendChild(f.sizer);
       modalViewport.classList.add("is-zoomable");
       document.documentElement.classList.add("cf-modal-open");
       dialog.showModal();
@@ -218,27 +238,34 @@
       scale = followFit ? fitScale : 0.75;
       setZoom(scale, false);
       modalViewport.scrollLeft = 0;
-      modalViewport.scrollTop = Math.max(0, (H * scale - modalViewport.clientHeight) / 2);
+      modalViewport.scrollTop = Math.max(0, (f.H * scale - modalViewport.clientHeight) / 2);
       modalViewport.focus({ preventScroll: true });
     };
 
-    openButton.hidden = false;
-    openButton.addEventListener("click", open);
-
-    // clicking the diagram itself also opens the large view
-    inlineViewport.addEventListener("click", open);
+    flows.forEach((f) => {
+      const openButton = f.flow.querySelector("[data-cf-open]");
+      if (openButton) {
+        openButton.hidden = false;
+        openButton.addEventListener("click", () => open(f));
+      }
+      // clicking the diagram itself also opens the large view
+      f.inlineViewport.addEventListener("click", () => open(f));
+    });
 
     dialog.addEventListener("close", () => {
-      inlineViewport.appendChild(sizer);
+      if (!active) return;
+      active.inlineViewport.appendChild(active.sizer);
       modalViewport.classList.remove("is-zoomable");
       document.documentElement.classList.remove("cf-modal-open");
-      fitInline();
+      fitInline(active);
+      active = null;
     });
 
     dialog.querySelector("[data-cf-close]").addEventListener("click", () => dialog.close());
 
     dialog.querySelectorAll("[data-cf-zoom]").forEach((button) => {
       button.addEventListener("click", () => {
+        if (!active) return;
         const action = button.dataset.cfZoom;
         if (action === "fit") {
           fitScale = computeFit();
@@ -255,7 +282,7 @@
     modalViewport.addEventListener(
       "wheel",
       (event) => {
-        if (!event.ctrlKey && !event.metaKey) return;
+        if (!active || (!event.ctrlKey && !event.metaKey)) return;
         event.preventDefault();
         followFit = false;
         setZoom(scale * (event.deltaY < 0 ? 1.1 : 1 / 1.1));
@@ -288,7 +315,7 @@
     window.addEventListener(
       "resize",
       () => {
-        if (!dialog.open) return;
+        if (!dialog.open || !active) return;
         fitScale = computeFit();
         if (followFit) setZoom(fitScale, false);
       },

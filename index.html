@@ -59,6 +59,11 @@
     <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
     <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
     <symbol id="i-fit" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></symbol>
+    <symbol id="i-bot" viewBox="0 0 24 24"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></symbol>
+    <symbol id="i-audio-waveform" viewBox="0 0 24 24"><path d="M2 13a2 2 0 0 0 2-2V7a2 2 0 0 1 4 0v13a2 2 0 0 0 4 0V4a2 2 0 0 1 4 0v13a2 2 0 0 0 4 0v-4a2 2 0 0 1 2-2"/></symbol>
+    <symbol id="i-volume-2" viewBox="0 0 24 24"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></symbol>
+    <symbol id="i-ear" viewBox="0 0 24 24"><path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0"/><path d="M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4"/></symbol>
     <symbol id="i-file-text" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
   </svg>
 
@@ -119,7 +124,7 @@
             </p>
             <p class="hero__intro" data-reveal style="--reveal-delay: 240ms">
               I build cloud contact-center and conversational AI solutions on AWS. My voice agents answer
-              real calls, run backend tools mid-conversation, and reply in under two seconds.
+              real calls, run backend tools mid-conversation, and reply in about 2–2.5 seconds.
             </p>
 
             <div class="hero__actions" data-reveal style="--reveal-delay: 320ms">
@@ -172,7 +177,7 @@
               <div class="readouts">
                 <div class="readout">
                   <div class="readout__label">Custom stream</div>
-                  <div class="readout__value readout__value--good">&lt; 2 s</div>
+                  <div class="readout__value readout__value--good">2–2.5 s</div>
                 </div>
                 <div class="readout">
                   <div class="readout__label">Managed</div>
@@ -186,7 +191,7 @@
             </div>
             <figcaption class="sr-only">
               Caller audio flows through Amazon Connect to Amazon Bedrock Nova Sonic, which calls AWS Lambda tools.
-              Response latency: under 2 seconds with custom streaming, 2.5 to 3.5 seconds with the managed integration.
+              Response latency: 2 to 2.5 seconds with custom streaming, 2.5 to 3.5 seconds with the managed integration.
               About 15,000 calls per month.
             </figcaption>
           </figure>
@@ -196,7 +201,7 @@
         <dl class="impact" data-reveal-group>
           <div class="impact__item" data-reveal>
             <dt class="eyebrow">Response latency</dt>
-            <dd class="figure stat__value">&lt;2<span class="unit">sec</span></dd>
+            <dd class="figure stat__value">2–2.5<span class="unit">sec</span></dd>
             <dd class="stat__label">Voice AI replies with custom audio streaming</dd>
           </div>
           <div class="impact__item" data-reveal>
@@ -290,7 +295,7 @@
             </p>
             <p>
               I care most about latency and reliability. I profiled and rebuilt a voice pipeline with custom audio
-              streaming to bring response times <strong>under two seconds</strong>. I built most of these systems
+              streaming to bring response times down to <strong>2–2.5 seconds</strong>. I built most of these systems
               hands-on, working with my team where needed.
             </p>
           </div>
@@ -372,7 +377,7 @@
           </li>
           <li class="aws-tile" data-reveal>
             <img class="aws-icon" src="assets/icons/aws/amazon-ec2.svg" alt="" width="80" height="80" loading="lazy">
-            <div><p class="aws-tile__name">Amazon EC2</p><p class="aws-tile__use">Streaming backend</p></div>
+            <div><p class="aws-tile__name">Amazon EC2</p><p class="aws-tile__use">Virtual servers</p></div>
           </li>
           <li class="aws-tile" data-reveal>
             <img class="aws-icon" src="assets/icons/aws/amazon-vpc.svg" alt="" width="80" height="80" loading="lazy">
@@ -809,39 +814,307 @@
                     limits of the managed Nova Sonic integration.
                   </p>
                   <ul class="project__points">
-                    <li>Captured live audio directly from the Amazon Connect CCP, streamed it to Amazon Bedrock for inference, and routed the generated reply back into the active customer call.</li>
-                    <li>Wrote a Python/FastAPI backend for audio routing and session-state management.</li>
-                    <li>Built and deployed the backend across EC2, ECS, VPC, RDS, S3 and Secrets Manager.</li>
+                    <li>A Puppeteer headless browser on ECS Fargate watches each agent's CCP and answers calls automatically. Agent logins are loaded from Amazon RDS, so adding a login adds capacity, up to 5 concurrent calls.</li>
+                    <li>A Python FastAPI backend captures the caller's audio from the CCP WebRTC stream, resamples it and streams it with the system prompt to Amazon Bedrock Nova Sonic; the spoken reply is resampled and played back into the live call.</li>
+                    <li>Runs inside a VPC: ECS Fargate tasks and RDS in a private subnet, an ALB and NAT Gateway in the public subnet, credentials in Secrets Manager, and Docker images in Amazon ECR.</li>
                   </ul>
                 </div>
                 <div class="project__metrics">
                   <div class="metric" data-rule>
-                    <div class="figure metric__value">&lt;2<span class="unit">sec</span></div>
-                    <div class="metric__label">End-to-end response latency, faster than the managed integration</div>
+                    <div class="figure metric__value">2–2.5<span class="unit">sec</span></div>
+                    <div class="metric__label">End-to-end response latency, faster than the managed integration's 2.5–3.5 s</div>
+                  </div>
+                  <div class="metric" data-rule>
+                    <div class="figure metric__value"><span data-count>5</span></div>
+                    <div class="metric__label">Concurrent AI calls, scaling with the agent logins in RDS</div>
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div class="project__arch" data-draw>
-                <p class="eyebrow project__arch-title">Architecture</p>
-                <ol class="flow">
-                  <li class="flow__step"><span class="res-icon"><img src="assets/icons/general/user.svg" alt="" width="48" height="48" loading="lazy"></span><span class="flow__label">Caller</span></li>
-                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/amazon-connect.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">Connect CCP audio</span></li>
-                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/amazon-ecs.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">FastAPI stream service</span></li>
-                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/amazon-bedrock.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">Amazon Bedrock</span></li>
-                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/amazon-connect.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">Reply into live call</span></li>
-                </ol>
-                <div class="flow-support">
-                  <span class="eyebrow">Runs on</span>
-                  <span class="flow-support__item"><img class="aws-icon aws-icon--sm" src="assets/icons/aws/amazon-ec2.svg" alt="" width="80" height="80" loading="lazy">EC2</span>
-                  <span class="flow-support__item"><img class="aws-icon aws-icon--sm" src="assets/icons/aws/amazon-ecs.svg" alt="" width="80" height="80" loading="lazy">ECS</span>
-                  <span class="flow-support__item"><img class="aws-icon aws-icon--sm" src="assets/icons/aws/amazon-vpc.svg" alt="" width="80" height="80" loading="lazy">VPC</span>
-                  <span class="flow-support__item"><img class="aws-icon aws-icon--sm" src="assets/icons/aws/amazon-rds.svg" alt="" width="80" height="80" loading="lazy">RDS</span>
-                  <span class="flow-support__item"><img class="aws-icon aws-icon--sm" src="assets/icons/aws/amazon-s3.svg" alt="" width="80" height="80" loading="lazy">S3</span>
-                  <span class="flow-support__item"><img class="aws-icon aws-icon--sm" src="assets/icons/aws/secrets-manager.svg" alt="" width="80" height="80" loading="lazy">Secrets Manager</span>
+            <!-- Call flow: custom Nova Sonic audio streaming, drawn inside its AWS infrastructure -->
+            <figure class="project__arch project__arch--wide callflow callflow--infra" data-draw aria-labelledby="p2-flow-title">
+              <figcaption class="callflow__head">
+                <div>
+                  <p class="eyebrow callflow__kicker"><span class="callflow__dot" aria-hidden="true"></span>Audio streaming flow · inside the VPC</p>
+                  <p class="callflow__title" id="p2-flow-title">Customer <span class="callflow__arrow" aria-hidden="true">→</span> Connect <span class="callflow__arrow" aria-hidden="true">→</span> Agent CCP <span class="callflow__arrow" aria-hidden="true">→</span> ECS Fargate <span class="callflow__arrow" aria-hidden="true">→</span> Nova Sonic <span class="callflow__arrow" aria-hidden="true">→</span> back to the caller</p>
+                  <p class="callflow__sub">Puppeteer answers the call, FastAPI streams the audio to Nova Sonic and plays the reply back. Round trip in 2–2.5 seconds.</p>
+                </div>
+                <button class="btn btn--ghost btn--sm callflow__expand" type="button" data-cf-open hidden>
+                  <svg class="icon" aria-hidden="true"><use href="#i-maximize"/></svg>
+                  View large
+                </button>
+              </figcaption>
+
+              <div class="callflow__viewport" data-cf-inline>
+                <div class="cfx-sizer">
+                <div class="cfx-canvas" style="--cfx-w: 2130px; --cfx-h: 910px">
+                  <svg class="cfx-wires" viewBox="0 0 2130 910" width="2130" height="910" aria-hidden="true">
+                    <defs>
+                      <marker id="cfx2-arrow-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--orange"/></marker>
+                      <marker id="cfx2-arrow-dark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--dark"/></marker>
+                      <marker id="cfx2-arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--green"/></marker>
+                      <marker id="cfx2-arrow-infra" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--infra"/></marker>
+                    </defs>
+                    <g class="cfx-group cfx-group--cloud">
+                      <rect x="300" y="20" width="1800" height="870" rx="18"/>
+                      <text x="316" y="40">AWS Cloud</text>
+                    </g>
+                    <g class="cfx-group cfx-group--vpc">
+                      <rect x="860" y="60" width="900" height="820" rx="18"/>
+                      <text x="876" y="80">VPC</text>
+                    </g>
+                    <g class="cfx-group cfx-group--public">
+                      <rect x="890" y="90" width="840" height="150" rx="18"/>
+                      <text x="906" y="110">Public subnet</text>
+                    </g>
+                    <g class="cfx-group cfx-group--private">
+                      <rect x="890" y="262" width="840" height="598" rx="18"/>
+                      <text x="906" y="282">Private subnet</text>
+                    </g>
+                    <g class="cfx-group cfx-group--ecs">
+                      <rect x="920" y="430" width="780" height="410" rx="18"/>
+                      <text x="936" y="828">ECS Fargate · Python FastAPI · up to 5 parallel sessions</text>
+                    </g>
+                    <g class="cfx-infra" style="--step-i: 3">
+                      <path d="M 1050 404 V 460" marker-end="url(#cfx2-arrow-infra)"/>
+                      <text x="1135" y="420">AGENT LOGINS</text>
+                    </g>
+                    <g class="cfx-infra" style="--step-i: 3">
+                      <path d="M 1310 224 V 424" marker-end="url(#cfx2-arrow-infra)"/>
+                      <text x="1310" y="330">INBOUND</text>
+                    </g>
+                    <g class="cfx-infra" style="--step-i: 3">
+                      <path d="M 1580 430 V 226" marker-end="url(#cfx2-arrow-infra)"/>
+                      <text x="1580" y="330">OUTBOUND</text>
+                    </g>
+                    <g class="cfx-infra" style="--step-i: 3">
+                      <path d="M 1660 430 V 300 H 1960 V 226" marker-end="url(#cfx2-arrow-infra)"/>
+                      <text x="1810" y="290">SECRETS</text>
+                    </g>
+                    <g class="cfx-infra" style="--step-i: 3">
+                      <path d="M 1856 790 H 1706" marker-end="url(#cfx2-arrow-infra)"/>
+                      <text x="1781" y="778">PULL IMAGE</text>
+                    </g>
+                    <g class="cfx-link cfx-link--dark" style="--step-i: 1">
+                      <path d="M 232 544 H 324" pathLength="1" marker-end="url(#cfx2-arrow-dark)"/>
+                      <text x="278" y="532">CALL</text>
+                    </g>
+                    <g class="cfx-link cfx-link--orange" style="--step-i: 2">
+                      <path d="M 534 544 H 584" pathLength="1" marker-end="url(#cfx2-arrow-orange)"/>
+                      <text x="560" y="532">ROUTE</text>
+                    </g>
+                    <g class="cfx-link cfx-link--orange" style="--step-i: 3">
+                      <path d="M 794 544 H 944" pathLength="1" marker-end="url(#cfx2-arrow-orange)"/>
+                      <text x="840" y="532">RINGS</text>
+                    </g>
+                    <g class="cfx-link cfx-link--orange" style="--step-i: 4">
+                      <path d="M 1154 544 H 1204" pathLength="1" marker-end="url(#cfx2-arrow-orange)"/>
+                      <text x="1180" y="532">ANSWER</text>
+                    </g>
+                    <g class="cfx-link cfx-link--orange" style="--step-i: 5">
+                      <path d="M 1414 544 H 1464" pathLength="1" marker-end="url(#cfx2-arrow-orange)"/>
+                      <text x="1440" y="532">VOICE</text>
+                    </g>
+                    <g class="cfx-link cfx-link--orange" style="--step-i: 6">
+                      <path d="M 1674 544 H 1854" pathLength="1" marker-end="url(#cfx2-arrow-orange)"/>
+                      <text x="1765" y="532">AUDIO + PROMPT</text>
+                    </g>
+                    <g class="cfx-link cfx-link--green" style="--step-i: 7">
+                      <path d="M 1960 626 V 738 H 1676" pathLength="1" marker-end="url(#cfx2-arrow-green)"/>
+                      <text x="1800" y="726">REPLY AUDIO</text>
+                    </g>
+                    <g class="cfx-link cfx-link--green" style="--step-i: 8">
+                      <path d="M 1466 738 H 1416" pathLength="1" marker-end="url(#cfx2-arrow-green)"/>
+                      <text x="1440" y="726">PLAY</text>
+                    </g>
+                    <g class="cfx-link cfx-link--green" style="--step-i: 9">
+                      <path d="M 1206 738 H 234" pathLength="1" marker-end="url(#cfx2-arrow-green)"/>
+                      <text x="720" y="726">REPLY VIA AGENT CCP</text>
+                    </g>
+                    <g class="cfx-link cfx-link--dark" style="--step-i: 10">
+                      <path d="M 128 656 V 628" pathLength="1" marker-end="url(#cfx2-arrow-dark)"/>
+                      <text x="205" y="645">↻ SPEAKS AGAIN</text>
+                    </g>
+                  </svg>
+                  <span class="cfx-packet" style="offset-path: path('M 128 544 H 1960 V 738 H 128')" aria-hidden="true"></span>
+                  <ol class="cfx-steps">
+                  <li class="cfx-card cfx-card--dark cfx-card--start" style="--x: 28px; --y: 466px; --step-i: 0">
+                    <div class="cfx-card__top">
+                      <span class="res-icon"><img src="assets/icons/general/user.svg" alt="" width="48" height="48" loading="lazy"></span>
+                      <span class="cfx-badge">Start</span>
+                    </div>
+                    <p class="cfx-card__title">Customer</p>
+                    <p class="cfx-card__sub">Inbound caller</p>
+                    <div class="cfx-card__body">
+                      <p>Calls in to a specific agent</p>
+                      <p class="cfx-card__em">Talks to the AI voice agent</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--neutral" style="--x: 330px; --y: 466px; --step-i: 1">
+                    <div class="cfx-card__top">
+                      <img class="aws-icon" src="assets/icons/aws/amazon-connect.svg" alt="" width="80" height="80" loading="lazy">
+                      <span class="cfx-badge">01 · Telephony</span>
+                    </div>
+                    <p class="cfx-card__title">Amazon Connect</p>
+                    <p class="cfx-card__sub">AWS cloud contact center</p>
+                    <div class="cfx-card__body">
+                      <p>Routes the call to</p>
+                      <p class="cfx-card__em">the specific agent</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--neutral" style="--x: 590px; --y: 466px; --step-i: 2">
+                    <div class="cfx-card__top">
+                      <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-headset"/></svg></span>
+                      <span class="cfx-badge">02 · Softphone</span>
+                    </div>
+                    <p class="cfx-card__title">Agent CCP</p>
+                    <p class="cfx-card__sub">WebRTC Contact Control Panel</p>
+                    <div class="cfx-card__body">
+                      <p>Rings for the agent</p>
+                      <p class="cfx-card__em">One CCP per agent login</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--orange" style="--x: 950px; --y: 466px; --step-i: 3">
+                    <div class="cfx-card__top">
+                      <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-bot"/></svg></span>
+                      <span class="cfx-badge">03 · Auto-answer</span>
+                    </div>
+                    <p class="cfx-card__title">Puppeteer</p>
+                    <p class="cfx-card__sub">Headless browser</p>
+                    <div class="cfx-card__body">
+                      <p>Watches the CCP nonstop</p>
+                      <p class="cfx-card__em">Answers calls automatically</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--neutral" style="--x: 1210px; --y: 466px; --step-i: 4">
+                    <div class="cfx-card__top">
+                      <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-mic"/></svg></span>
+                      <span class="cfx-badge">04 · Capture</span>
+                    </div>
+                    <p class="cfx-card__title">Audio capture</p>
+                    <p class="cfx-card__sub">Python FastAPI</p>
+                    <div class="cfx-card__body">
+                      <p>Takes the caller's voice</p>
+                      <p class="cfx-card__em">from the CCP WebRTC stream</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--neutral" style="--x: 1470px; --y: 466px; --step-i: 5">
+                    <div class="cfx-card__top">
+                      <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-audio-waveform"/></svg></span>
+                      <span class="cfx-badge">05 · Prep</span>
+                    </div>
+                    <p class="cfx-card__title">Audio resampling</p>
+                    <p class="cfx-card__sub">Python FastAPI</p>
+                    <div class="cfx-card__body">
+                      <p>Up/down-samples packets</p>
+                      <p class="cfx-card__em">to Nova Sonic's format</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--green" style="--x: 1860px; --y: 466px; --step-i: 6">
+                    <div class="cfx-card__top">
+                      <img class="aws-icon" src="assets/icons/aws/amazon-nova.svg" alt="" width="80" height="80" loading="lazy">
+                      <span class="cfx-badge">06 · Voice AI</span>
+                    </div>
+                    <p class="cfx-card__title">Bedrock Nova Sonic</p>
+                    <p class="cfx-card__sub">Speech-to-speech model</p>
+                    <div class="cfx-card__body">
+                      <p>Hears audio + system prompt</p>
+                      <p class="cfx-card__em">Speaks back a reply</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--neutral" style="--x: 1470px; --y: 660px; --step-i: 7">
+                    <div class="cfx-card__top">
+                      <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-audio-waveform"/></svg></span>
+                      <span class="cfx-badge">07 · Return</span>
+                    </div>
+                    <p class="cfx-card__title">Reply processing</p>
+                    <p class="cfx-card__sub">Python FastAPI</p>
+                    <div class="cfx-card__body">
+                      <p>Receives Nova Sonic audio</p>
+                      <p class="cfx-card__em">Down-samples it for the CCP</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--orange" style="--x: 1210px; --y: 660px; --step-i: 8">
+                    <div class="cfx-card__top">
+                      <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-volume-2"/></svg></span>
+                      <span class="cfx-badge">08 · Inject</span>
+                    </div>
+                    <p class="cfx-card__title">Reply injection</p>
+                    <p class="cfx-card__sub">Python FastAPI</p>
+                    <div class="cfx-card__body">
+                      <p>Plays the reply into</p>
+                      <p class="cfx-card__em">the live agent CCP call</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--green" style="--x: 28px; --y: 660px; --step-i: 9">
+                    <div class="cfx-card__top">
+                      <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-ear"/></svg></span>
+                      <span class="cfx-badge">09 · Result</span>
+                    </div>
+                    <p class="cfx-card__title">Customer hears AI</p>
+                    <p class="cfx-card__sub">Natural voice reply</p>
+                    <div class="cfx-card__body">
+                      <p>Round trip in</p>
+                      <p class="cfx-card__em">⏱ 2–2.5 seconds</p>
+                    </div>
+                  </li>
+                  <li class="cfx-card cfx-card--neutral cfx-card--chip" style="--x: 1210px; --y: 120px; --step-i: 1">
+                    <div class="cfx-card__top">
+                      <img class="aws-icon" src="assets/icons/aws/elastic-load-balancing.svg" alt="" width="80" height="80" loading="lazy">
+                      <span class="cfx-badge">Public</span>
+                    </div>
+                    <p class="cfx-card__title">Load Balancer (ALB)</p>
+                    <p class="cfx-card__sub">Traffic in to FastAPI</p>
+                  </li>
+                  <li class="cfx-card cfx-card--neutral cfx-card--chip" style="--x: 1480px; --y: 120px; --step-i: 1">
+                    <div class="cfx-card__top">
+                      <span class="cfx-glyph"><img src="assets/icons/aws/nat-gateway.svg" alt="" width="48" height="48" loading="lazy"></span>
+                      <span class="cfx-badge">Public</span>
+                    </div>
+                    <p class="cfx-card__title">NAT Gateway</p>
+                    <p class="cfx-card__sub">Outbound internet access</p>
+                  </li>
+                  <li class="cfx-card cfx-card--neutral cfx-card--chip" style="--x: 950px; --y: 300px; --step-i: 2">
+                    <div class="cfx-card__top">
+                      <img class="aws-icon" src="assets/icons/aws/amazon-rds.svg" alt="" width="80" height="80" loading="lazy">
+                      <span class="cfx-badge">Private</span>
+                    </div>
+                    <p class="cfx-card__title">Amazon RDS</p>
+                    <p class="cfx-card__sub">Agent login profiles</p>
+                  </li>
+                  <li class="cfx-card cfx-card--neutral cfx-card--chip" style="--x: 1860px; --y: 120px; --step-i: 2">
+                    <div class="cfx-card__top">
+                      <img class="aws-icon" src="assets/icons/aws/secrets-manager.svg" alt="" width="80" height="80" loading="lazy">
+                      <span class="cfx-badge">Managed</span>
+                    </div>
+                    <p class="cfx-card__title">Secrets Manager</p>
+                    <p class="cfx-card__sub">Credentials &amp; keys</p>
+                  </li>
+                  <li class="cfx-card cfx-card--neutral cfx-card--chip" style="--x: 1860px; --y: 740px; --step-i: 2">
+                    <div class="cfx-card__top">
+                      <img class="aws-icon" src="assets/icons/aws/amazon-ecr.svg" alt="" width="80" height="80" loading="lazy">
+                      <span class="cfx-badge">Managed</span>
+                    </div>
+                    <p class="cfx-card__title">Amazon ECR</p>
+                    <p class="cfx-card__sub">Docker image registry</p>
+                  </li>
+                  </ol>
+                </div>
                 </div>
               </div>
-            </div>
+              <p class="callflow__tip" hidden>Showing the full flow. Click the diagram or <strong>View large</strong> to zoom in.</p>
+
+              <ul class="callflow__legend" aria-label="Legend">
+                <li><span class="legend-line legend-line--orange" aria-hidden="true"></span>Caller audio to Nova Sonic</li>
+                <li><span class="legend-line legend-line--green" aria-hidden="true"></span>AI reply back to the caller</li>
+                <li><span class="legend-line legend-line--infra legend-line--dashed" aria-hidden="true"></span>Infrastructure link</li>
+                <li><span class="legend-box legend-box--vpc" aria-hidden="true"></span>VPC</li>
+                <li><span class="legend-box legend-box--public" aria-hidden="true"></span>Public subnet</li>
+                <li><span class="legend-box legend-box--private" aria-hidden="true"></span>Private subnet</li>
+                <li><span class="legend-box legend-box--ecs" aria-hidden="true"></span>ECS Fargate</li>
+              </ul>
+            </figure>
           </article>
 
           <!-- ---------- 03 ---------- -->
@@ -1004,7 +1277,7 @@
 
             <ul class="job__points">
               <li>Designed and shipped real-time voice AI agents on Amazon Connect, Amazon Bedrock Nova Sonic and Bedrock AgentCore, with tool calling through Lambda and API Gateway.</li>
-              <li>Engineered a custom audio-streaming architecture that brought voice response latency under 2 seconds.</li>
+              <li>Engineered a custom audio-streaming architecture that brought voice response latency down to 2–2.5 seconds, handling up to 5 concurrent calls.</li>
               <li>Built an AI-to-AI automated QA platform that cut testing time from 2–3 days to 4–5 hours.</li>
               <li>Delivered a full-stack outbound campaign dialer on Amazon Connect Outbound Campaigns, React and DynamoDB.</li>
               <li>Worked in an Agile/Scrum team using Jira, Azure DevOps (PRs, branching) and CI/CD.</li>

@@ -428,6 +428,8 @@ a.contact-method__value:hover {
 /* connectors draw themselves just before the card they point to */
 .js .callflow .cfx-link,
 .js .callflow .cfx-branch,
+.js .callflow .cfx-infra,
+.js .callflow .cfx-group,
 .js .callflow .cfx-diamond-shape {
   transition: opacity 400ms ease;
   transition-delay: calc(var(--step-i, 0) * 120ms + 60ms);
@@ -441,6 +443,8 @@ a.contact-method__value:hover {
 
 .js .callflow:not(.is-revealed) .cfx-link,
 .js .callflow:not(.is-revealed) .cfx-branch,
+.js .callflow:not(.is-revealed) .cfx-infra,
+.js .callflow:not(.is-revealed) .cfx-group,
 .js .callflow:not(.is-revealed) .cfx-diamond-shape {
   opacity: 0;
 }
@@ -452,6 +456,14 @@ a.contact-method__value:hover {
 /* branch lines carry marching dashes once drawn */
 @keyframes cfxMarch {
   to { stroke-dashoffset: -26; }
+}
+
+.callflow.is-revealed .cfx-infra path {
+  animation: cfxMarchInfra 1.2s linear infinite;
+}
+
+@keyframes cfxMarchInfra {
+  to { stroke-dashoffset: -24; }
 }
 
 .callflow.is-revealed .cfx-branch path {
@@ -486,7 +498,8 @@ a.contact-method__value:hover {
   .btn--primary,
   .pulse-dot,
   .pipeline__pipe::after,
-  .callflow .cfx-branch path {
+  .callflow .cfx-branch path,
+  .callflow .cfx-infra path {
     animation: none;
   }
 
