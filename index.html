@@ -72,6 +72,8 @@
     <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
     <symbol id="i-file-code" viewBox="0 0 24 24"><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/></symbol>
     <symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol>
+    <symbol id="i-stethoscope" viewBox="0 0 24 24"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6 6h.01"/><path d="M6 18h.01"/></symbol>
     <symbol id="i-file-text" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
   </svg>
 
@@ -1598,38 +1600,537 @@
               <div class="project__tags">
                 <span class="tag tag--gold">Healthcare</span>
                 <span class="tag">Voice AI</span>
+                <span class="tag">HIPAA-aware</span>
               </div>
               <h3 class="project__title" id="p3-title">AI Healthcare <em>Receptionist Agent</em></h3>
 
               <div class="project__body">
                 <div>
                   <p class="project__summary">
-                    An Amazon Connect AI voice agent built to fully automate a clinic's front-desk phone calls.
+                    An AI receptionist for clinics: a Nova Sonic agent in Amazon Connect answers patient calls,
+                    handles routine requests itself and hands health questions to a nurse, so the front desk no
+                    longer spends time on simple calls.
                   </p>
                   <ul class="project__points">
-                    <li>Built conversational tool-calling workflows for booking, rescheduling and cancelling appointments.</li>
-                    <li>Integrated Amazon Connect with API Gateway, AWS Lambda and Bedrock AgentCore Gateway to run appointment-management operations during live calls.</li>
+                    <li>Asks for consent to use the caller's data first (no consent goes to the front desk), then books appointments with any doctor or a specific one, reschedules, cancels and checks insurance coverage through AgentCore Gateway → API Gateway → Lambda tools that call the clinic's own endpoint.</li>
+                    <li>Gives no medical advice: symptoms and health questions go to a nurse. Callers who ask for the front desk are routed there during business hours; outside hours they are asked to call back during business hours.</li>
+                    <li>A staff portal on Amazon S3 with role-based logins: the front desk and nurses take calls in an embedded CCP with a live transcript (from CloudWatch bot logs) and the earlier AI conversation; admins see AI-handled vs human-handled calls.</li>
+                    <li>PHI and HIPAA details are redacted in live transcripts and before records are stored in DynamoDB.</li>
                   </ul>
                 </div>
                 <div class="project__metrics">
                   <div class="metric" data-rule>
-                    <div class="figure metric__value">3</div>
-                    <div class="metric__label">Appointment workflows automated: book, reschedule and cancel</div>
+                    <div class="figure metric__value"><span data-count>5</span></div>
+                    <div class="metric__label">Request types the AI handles: book, specific doctor, reschedule, cancel, insurance</div>
+                  </div>
+                  <div class="metric" data-rule>
+                    <div class="figure metric__value"><span data-count>3</span></div>
+                    <div class="metric__label">Portal roles: admin, nurse and front desk</div>
                   </div>
                 </div>
               </div>
-
-              <div class="project__arch" data-draw>
-                <p class="eyebrow project__arch-title">Architecture</p>
-                <ol class="flow">
-                  <li class="flow__step"><span class="res-icon"><img src="assets/icons/general/user.svg" alt="" width="48" height="48" loading="lazy"></span><span class="flow__label">Patient</span></li>
-                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/amazon-connect.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">Amazon Connect</span></li>
-                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/bedrock-agentcore.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">AgentCore Gateway</span></li>
-                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/api-gateway.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">API Gateway</span></li>
-                  <li class="flow__step"><img class="aws-icon" src="assets/icons/aws/aws-lambda.svg" alt="" width="80" height="80" loading="lazy"><span class="flow__label">Appointment Lambdas</span></li>
-                </ol>
-              </div>
             </div>
+
+            <!-- Project 03 diagrams: call flow + architecture -->
+            <figure class="project__arch project__arch--wide callflow" data-draw aria-labelledby="p3-flow-title">
+              <figcaption class="callflow__head">
+                <div>
+                  <p class="eyebrow callflow__kicker"><span class="callflow__dot" aria-hidden="true"></span>How it works · call flow &amp; architecture</p>
+                  <p class="callflow__title" id="p3-flow-title">Patient <span class="callflow__arrow" aria-hidden="true">→</span> Amazon Connect <span class="callflow__arrow" aria-hidden="true">→</span> Nova Sonic AI <span class="callflow__arrow" aria-hidden="true">→</span> self-service or nurse / front desk <span class="callflow__arrow" aria-hidden="true">→</span> staff portal</p>
+                </div>
+                <div class="callflow__actions">
+                  <div class="cf-tabs" role="tablist" aria-label="Diagram view" hidden>
+                    <button class="cf-tab" type="button" role="tab" aria-selected="true" data-cf-tab="flow">Call flow</button>
+                    <button class="cf-tab" type="button" role="tab" aria-selected="false" data-cf-tab="arch">Architecture</button>
+                  </div>
+                  <button class="btn btn--ghost btn--sm callflow__expand" type="button" data-cf-open hidden>
+                    <svg class="icon" aria-hidden="true"><use href="#i-maximize"/></svg>
+                    View large
+                  </button>
+                </div>
+              </figcaption>
+
+            <div class="callflow__view" data-cf-view="flow" data-cf-label="Call flow">
+              <p class="callflow__note">One patient call: the AI asks for consent, handles routine requests itself, and hands health questions and front-desk requests to staff in the portal.</p>
+              <div class="callflow__viewport" data-cf-inline>
+                <div class="cfx-sizer">
+                <div class="cfx-canvas" style="--cfx-w: 2444px; --cfx-h: 980px">
+                  <svg class="cfx-wires" viewBox="0 0 2444 980" width="2444" height="980" aria-hidden="true">
+                    <defs>
+                        <marker id="cfx3f-arrow-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--orange"/></marker>
+                        <marker id="cfx3f-arrow-dark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--dark"/></marker>
+                        <marker id="cfx3f-arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--green"/></marker>
+                        <marker id="cfx3f-arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--blue"/></marker>
+                        <marker id="cfx3f-arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--red"/></marker>
+                        <marker id="cfx3f-arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--amber"/></marker>
+                        <marker id="cfx3f-arrow-infra" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--infra"/></marker>
+                    </defs>
+                      <polygon class="cfx-diamond-shape" style="--step-i: 3" points="870,358 932,420 870,482 808,420"/>
+                      <polygon class="cfx-diamond-shape" style="--step-i: 4" points="1054,358 1116,420 1054,482 992,420"/>
+                      <polygon class="cfx-diamond-shape" style="--step-i: 6" points="1238,636 1300,698 1238,760 1176,698"/>
+                      <g class="cfx-link cfx-link--dark" style="--step-i: 1">
+                        <path d="M 232 420 H 282" pathLength="1" marker-end="url(#cfx3f-arrow-dark)"/>
+                        <text x="258" y="408">CALL</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 2">
+                        <path d="M 492 420 H 542" pathLength="1" marker-end="url(#cfx3f-arrow-orange)"/>
+                        <text x="518" y="408">ANSWER</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 3">
+                        <path d="M 752 420 H 802" pathLength="1" marker-end="url(#cfx3f-arrow-orange)"/>
+                        <text x="778" y="408">CONSENT</text>
+                      </g>
+                      <g class="cfx-link cfx-link--green" style="--step-i: 4">
+                        <path d="M 936 420 H 986" pathLength="1" marker-end="url(#cfx3f-arrow-green)"/>
+                        <text x="962" y="408">YES</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 5">
+                        <path d="M 1120 420 H 1170" pathLength="1" marker-end="url(#cfx3f-arrow-orange)"/>
+                        <text x="1146" y="408">TASK</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 6">
+                        <path d="M 1380 420 H 1430" pathLength="1" marker-end="url(#cfx3f-arrow-orange)"/>
+                        <text x="1406" y="408">RESULT</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 7">
+                        <path d="M 1640 420 H 1690" pathLength="1" marker-end="url(#cfx3f-arrow-orange)"/>
+                        <text x="1666" y="408">LOG</text>
+                      </g>
+                      <g class="cfx-link cfx-link--dark" style="--step-i: 8">
+                        <path d="M 1900 420 H 1950" pathLength="1" marker-end="url(#cfx3f-arrow-dark)"/>
+                        <text x="1926" y="408">DONE</text>
+                      </g>
+                      <g class="cfx-branch cfx-branch--blue" style="--step-i: 5">
+                        <path d="M 1054 354 V 198 H 1170" marker-end="url(#cfx3f-arrow-blue)"/>
+                        <rect x="1016" y="285" width="77" height="22" rx="11"/>
+                        <text x="1054" y="300">SYMPTOMS</text>
+                      </g>
+                      <g class="cfx-branch cfx-branch--amber" style="--step-i: 5">
+                        <path d="M 1054 486 V 698 H 1170" marker-end="url(#cfx3f-arrow-amber)"/>
+                        <rect x="1011" y="545" width="91" height="22" rx="11"/>
+                        <text x="1056" y="560">FRONT DESK</text>
+                      </g>
+                      <g class="cfx-branch cfx-branch--amber" style="--step-i: 4">
+                        <path d="M 870 486 V 698 H 1170" marker-end="url(#cfx3f-arrow-amber)"/>
+                        <rect x="852" y="605" width="36" height="22" rx="11"/>
+                        <text x="870" y="620">NO</text>
+                      </g>
+                      <g class="cfx-link cfx-link--amber" style="--step-i: 7">
+                        <path d="M 1304 698 H 1354" pathLength="1" marker-end="url(#cfx3f-arrow-amber)"/>
+                        <text x="1330" y="686">YES</text>
+                      </g>
+                      <g class="cfx-branch cfx-branch--red" style="--step-i: 7">
+                        <path d="M 1238 764 V 800" marker-end="url(#cfx3f-arrow-red)"/>
+                        <rect x="1260" y="773" width="36" height="22" rx="11"/>
+                        <text x="1278" y="788">NO</text>
+                      </g>
+                      <g class="cfx-link cfx-link--blue" style="--step-i: 9">
+                        <path d="M 1380 198 H 2210" pathLength="1" marker-end="url(#cfx3f-arrow-blue)"/>
+                        <text x="1800" y="186">TO A NURSE IN THE PORTAL</text>
+                      </g>
+                      <g class="cfx-link cfx-link--amber" style="--step-i: 9">
+                        <path d="M 1564 698 H 2210" pathLength="1" marker-end="url(#cfx3f-arrow-amber)"/>
+                        <text x="1890" y="686">TO THE FRONT DESK IN THE PORTAL</text>
+                      </g>
+                  </svg>
+                  <span class="cfx-packet" style="offset-path: path('M 128 420 H 2056')" aria-hidden="true"></span>
+                  <ol class="cfx-steps">
+                    <li class="cfx-card cfx-card--dark cfx-card--start" style="--x: 28px; --y: 342px; --step-i: 0">
+                      <div class="cfx-card__top">
+                        <span class="res-icon"><img src="assets/icons/general/user.svg" alt="" width="48" height="48" loading="lazy"></span>
+                        <span class="cfx-badge">Start</span>
+                      </div>
+                      <p class="cfx-card__title">Patient</p>
+                      <p class="cfx-card__sub">Calls the clinic</p>
+                      <div class="cfx-card__body">
+                        <p>Dials the clinic number</p>
+                        <p class="cfx-card__em">Answered by AI</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral" style="--x: 288px; --y: 342px; --step-i: 1">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/amazon-connect.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">01 · Call</span>
+                      </div>
+                      <p class="cfx-card__title">Amazon Connect</p>
+                      <p class="cfx-card__sub">Clinic phone number</p>
+                      <div class="cfx-card__body">
+                        <p>Contact flow</p>
+                        <p class="cfx-card__em">Starts the AI agent</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--green" style="--x: 548px; --y: 342px; --step-i: 2">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/amazon-nova.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">02 · Greet</span>
+                      </div>
+                      <p class="cfx-card__title">Nova Sonic AI agent</p>
+                      <p class="cfx-card__sub">Built into Amazon Connect</p>
+                      <div class="cfx-card__body">
+                        <p>Greets the caller</p>
+                        <p class="cfx-card__em">Asks for data consent</p>
+                      </div>
+                    </li>
+                    <li class="cfx-diamond" style="--x: 808px; --y: 358px; --step-i: 3">
+                      <span class="cfx-diamond__num">Consent</span>
+                      <span class="cfx-diamond__label">Data use<br>OK?</span>
+                    </li>
+                    <li class="cfx-diamond" style="--x: 992px; --y: 358px; --step-i: 4">
+                      <span class="cfx-diamond__num">Intent</span>
+                      <span class="cfx-diamond__label">How may<br>I help?</span>
+                    </li>
+                    <li class="cfx-card cfx-card--orange" style="--x: 1176px; --y: 342px; --step-i: 5">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/bedrock-agentcore.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">03 · Self-service</span>
+                      </div>
+                      <p class="cfx-card__title">Booking &amp; insurance</p>
+                      <p class="cfx-card__sub">AgentCore → API GW → Lambda</p>
+                      <div class="cfx-card__body">
+                        <p>Book, doctor, reschedule,</p>
+                        <p class="cfx-card__em">cancel, insurance check</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--green" style="--x: 1436px; --y: 342px; --step-i: 6">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-volume-2"/></svg></span>
+                        <span class="cfx-badge">04 · Answer</span>
+                      </div>
+                      <p class="cfx-card__title">AI confirms</p>
+                      <p class="cfx-card__sub">Spoken back to the caller</p>
+                      <div class="cfx-card__body">
+                        <p>Booking or answer</p>
+                        <p class="cfx-card__em">No human needed</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral" style="--x: 1696px; --y: 342px; --step-i: 7">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/amazon-dynamodb.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">05 · Store</span>
+                      </div>
+                      <p class="cfx-card__title">Redact &amp; store</p>
+                      <p class="cfx-card__sub">Amazon DynamoDB</p>
+                      <div class="cfx-card__body">
+                        <p>PHI / HIPAA redacted</p>
+                        <p class="cfx-card__em">before storing</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--dark" style="--x: 1956px; --y: 342px; --step-i: 8">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-circle-check"/></svg></span>
+                        <span class="cfx-badge">End</span>
+                      </div>
+                      <p class="cfx-card__title">Call complete</p>
+                      <p class="cfx-card__sub">Handled fully by AI</p>
+                      <div class="cfx-card__body">
+                        <p>Front-desk time saved</p>
+                        <p class="cfx-card__em">for complex calls</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--blue" style="--x: 1176px; --y: 120px; --step-i: 5">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-stethoscope"/></svg></span>
+                        <span class="cfx-badge">Nurse</span>
+                      </div>
+                      <p class="cfx-card__title">Nurse queue</p>
+                      <p class="cfx-card__sub">Symptoms or health questions</p>
+                      <div class="cfx-card__body">
+                        <p>AI gives no medical advice</p>
+                        <p class="cfx-card__em">Routes to a nurse</p>
+                      </div>
+                    </li>
+                    <li class="cfx-diamond" style="--x: 1176px; --y: 636px; --step-i: 6">
+                      <span class="cfx-diamond__num">Hours</span>
+                      <span class="cfx-diamond__label">Business<br>hours?</span>
+                    </li>
+                    <li class="cfx-card cfx-card--amber" style="--x: 1360px; --y: 620px; --step-i: 7">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-headset"/></svg></span>
+                        <span class="cfx-badge">Front desk</span>
+                      </div>
+                      <p class="cfx-card__title">Front desk queue</p>
+                      <p class="cfx-card__sub">Within business hours</p>
+                      <div class="cfx-card__body">
+                        <p>Consent declined or asked</p>
+                        <p class="cfx-card__em">Routes to the front desk</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--red cfx-card--branch" style="--x: 1138px; --y: 806px; --step-i: 7">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-clock"/></svg></span>
+                        <span class="cfx-badge">Closed</span>
+                      </div>
+                      <p class="cfx-card__title">Outside hours</p>
+                      <p class="cfx-card__sub">Caller hears a message</p>
+                      <div class="cfx-card__body">
+                        <p>“Please call during</p>
+                        <p class="cfx-card__em">business hours”</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral cfx-card--h" style="--x: 2216px; --y: 120px; --step-i: 9; --h: 656px">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-layout-dashboard"/></svg></span>
+                        <span class="cfx-badge">Staff</span>
+                      </div>
+                      <p class="cfx-card__title">Staff portal</p>
+                      <p class="cfx-card__sub">Hosted on Amazon S3</p>
+                      <div class="cfx-card__body">
+                        <ul class="cfx-card__checks">
+                          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Embedded CCP</li>
+                          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Live transcript</li>
+                          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Earlier AI conversation</li>
+                          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>PHI / HIPAA redacted</li>
+                          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Nurse &amp; front desk logins</li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ol>
+                </div>
+                </div>
+              </div>
+              <p class="callflow__tip" hidden>Showing the full diagram. Click it or <strong>View large</strong> to zoom in.</p>
+              <ul class="callflow__legend" aria-label="Legend">
+                <li><span class="legend-line legend-line--orange" aria-hidden="true"></span>Handled by the AI</li>
+                <li><span class="legend-line legend-line--blue legend-line--dashed" aria-hidden="true"></span>Routed to a nurse</li>
+                <li><span class="legend-line legend-line--amber legend-line--dashed" aria-hidden="true"></span>Routed to the front desk</li>
+                <li><span class="legend-line legend-line--red legend-line--dashed" aria-hidden="true"></span>Outside business hours</li>
+              </ul>
+            </div>
+            <div class="callflow__view" data-cf-view="arch" data-cf-label="Architecture" hidden>
+              <p class="callflow__note">Serverless on AWS: Amazon Connect runs the Nova Sonic agent; AgentCore Gateway → API Gateway → Lambda reach the clinic's endpoint; records are redacted into DynamoDB; the staff portal on S3 shows live transcripts from CloudWatch bot logs.</p>
+              <div class="callflow__viewport" data-cf-inline>
+                <div class="cfx-sizer">
+                <div class="cfx-canvas" style="--cfx-w: 1928px; --cfx-h: 900px">
+                  <svg class="cfx-wires" viewBox="0 0 1928 900" width="1928" height="900" aria-hidden="true">
+                    <defs>
+                        <marker id="cfx3a-arrow-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--orange"/></marker>
+                        <marker id="cfx3a-arrow-dark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--dark"/></marker>
+                        <marker id="cfx3a-arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--green"/></marker>
+                        <marker id="cfx3a-arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--blue"/></marker>
+                        <marker id="cfx3a-arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--red"/></marker>
+                        <marker id="cfx3a-arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--amber"/></marker>
+                        <marker id="cfx3a-arrow-infra" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 1 L 9 5 L 0 9 z" class="cfx-arrowhead cfx-arrowhead--infra"/></marker>
+                    </defs>
+                      <g class="cfx-group cfx-group--cloud">
+                        <rect x="280" y="40" width="1360" height="840" rx="6"/>
+                        <image href="assets/icons/aws-groups/aws-cloud.svg" x="280" y="40" width="32" height="32"/>
+                        <text x="322" y="61">AWS Cloud</text>
+                        <text class="cfx-group__note" x="300" y="864">Serverless · Nova Sonic AI agent runs inside Amazon Connect</text>
+                      </g>
+                      <g class="cfx-link cfx-link--dark" style="--step-i: 1">
+                        <path d="M 232 380 H 314" pathLength="1" marker-end="url(#cfx3a-arrow-dark)"/>
+                        <text x="276" y="368">CALL</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 2">
+                        <path d="M 524 380 H 574" pathLength="1" marker-end="url(#cfx3a-arrow-orange)"/>
+                        <text x="550" y="368">AI AGENT</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 3">
+                        <path d="M 784 380 H 834" pathLength="1" marker-end="url(#cfx3a-arrow-orange)"/>
+                        <text x="810" y="368">TOOLS</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 4">
+                        <path d="M 1044 380 H 1094" pathLength="1" marker-end="url(#cfx3a-arrow-orange)"/>
+                        <text x="1070" y="368">INVOKE</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 5">
+                        <path d="M 1304 380 H 1354" pathLength="1" marker-end="url(#cfx3a-arrow-orange)"/>
+                        <text x="1330" y="368">ROUTE</text>
+                      </g>
+                      <g class="cfx-link cfx-link--orange" style="--step-i: 6">
+                        <path d="M 1564 380 H 1694" pathLength="1" marker-end="url(#cfx3a-arrow-orange)"/>
+                        <text x="1630" y="368">API CALL</text>
+                      </g>
+                      <g class="cfx-branch cfx-branch--blue" style="--step-i: 3">
+                        <path d="M 680 462 V 516 H 420 V 550" marker-end="url(#cfx3a-arrow-blue)"/>
+                        <rect x="515" y="501" width="70" height="22" rx="11"/>
+                        <text x="550" y="516">HANDOFF</text>
+                      </g>
+                      <g class="cfx-branch cfx-branch--amber" style="--step-i: 3">
+                        <path d="M 680 462 V 550" marker-end="url(#cfx3a-arrow-amber)"/>
+                      </g>
+                      <g class="cfx-infra" style="--step-i: 4">
+                        <path d="M 760 462 V 516 H 940 V 550" marker-end="url(#cfx3a-arrow-infra)"/>
+                        <text x="850" y="508">BOT LOGS</text>
+                      </g>
+                      <g class="cfx-infra" style="--step-i: 6">
+                        <path d="M 1460 462 V 550" marker-end="url(#cfx3a-arrow-infra)"/>
+                        <text x="1520" y="516">REDACTED</text>
+                      </g>
+                      <g class="cfx-link cfx-link--blue" style="--step-i: 7">
+                        <path d="M 316 606 H 232" pathLength="1" marker-end="url(#cfx3a-arrow-blue)"/>
+                        <text x="276" y="594">CALLS</text>
+                      </g>
+                      <g class="cfx-link cfx-link--amber" style="--step-i: 7">
+                        <path d="M 680 660 V 700 H 232" pathLength="1" marker-end="url(#cfx3a-arrow-amber)"/>
+                        <text x="456" y="688">CALLS</text>
+                      </g>
+                      <g class="cfx-infra" style="--step-i: 7">
+                        <path d="M 940 660 V 760 H 236" marker-end="url(#cfx3a-arrow-infra)"/>
+                        <text x="600" y="748">LIVE TRANSCRIPT</text>
+                      </g>
+                      <g class="cfx-infra" style="--step-i: 7">
+                        <path d="M 1200 660 V 820 H 236" marker-end="url(#cfx3a-arrow-infra)"/>
+                        <text x="720" y="808">HOSTS THE PORTAL</text>
+                      </g>
+                  </svg>
+                  <span class="cfx-packet" style="offset-path: path('M 128 380 H 1800')" aria-hidden="true"></span>
+                  <ol class="cfx-steps">
+                    <li class="cfx-card cfx-card--dark cfx-card--start" style="--x: 28px; --y: 302px; --step-i: 0">
+                      <div class="cfx-card__top">
+                        <span class="res-icon"><img src="assets/icons/general/user.svg" alt="" width="48" height="48" loading="lazy"></span>
+                        <span class="cfx-badge">Start</span>
+                      </div>
+                      <p class="cfx-card__title">Patient</p>
+                      <p class="cfx-card__sub">Calls the clinic</p>
+                      <div class="cfx-card__body">
+                        <p>Phone call</p>
+                        <p class="cfx-card__em">to the clinic number</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral" style="--x: 320px; --y: 302px; --step-i: 1">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/amazon-connect.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">Telephony</span>
+                      </div>
+                      <p class="cfx-card__title">Amazon Connect</p>
+                      <p class="cfx-card__sub">Contact flow · queues · hours</p>
+                      <div class="cfx-card__body">
+                        <p>Clinic phone number</p>
+                        <p class="cfx-card__em">Routes to AI or staff</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--green" style="--x: 580px; --y: 302px; --step-i: 2">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/amazon-nova.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">Voice AI</span>
+                      </div>
+                      <p class="cfx-card__title">Nova Sonic AI agent</p>
+                      <p class="cfx-card__sub">Built into Amazon Connect</p>
+                      <div class="cfx-card__body">
+                        <p>Consent, booking, insurance</p>
+                        <p class="cfx-card__em">No medical advice</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral" style="--x: 840px; --y: 302px; --step-i: 3">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/bedrock-agentcore.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">Tools</span>
+                      </div>
+                      <p class="cfx-card__title">AgentCore Gateway</p>
+                      <p class="cfx-card__sub">Tool-calling layer</p>
+                      <div class="cfx-card__body">
+                        <p>Picks the right tool</p>
+                        <p class="cfx-card__em">Calls API Gateway</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral" style="--x: 1100px; --y: 302px; --step-i: 4">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/api-gateway.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">API</span>
+                      </div>
+                      <p class="cfx-card__title">API Gateway</p>
+                      <p class="cfx-card__sub">REST endpoints</p>
+                      <div class="cfx-card__body">
+                        <p>Fronts the tools</p>
+                        <p class="cfx-card__em">Routes to Lambda</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--orange" style="--x: 1360px; --y: 302px; --step-i: 5">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/aws-lambda.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">Tools</span>
+                      </div>
+                      <p class="cfx-card__title">Lambda functions</p>
+                      <p class="cfx-card__sub">Appointment &amp; insurance</p>
+                      <div class="cfx-card__body">
+                        <p>Book, reschedule, cancel</p>
+                        <p class="cfx-card__em">Coverage checks</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral cfx-card--ext" style="--x: 1700px; --y: 302px; --step-i: 6">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-server"/></svg></span>
+                        <span class="cfx-badge">External</span>
+                      </div>
+                      <p class="cfx-card__title">Client's endpoint</p>
+                      <p class="cfx-card__sub">Clinic's own system</p>
+                      <div class="cfx-card__body">
+                        <p>Appointments &amp; patients</p>
+                        <p class="cfx-card__em">Insurance details</p>
+                      </div>
+                    </li>
+                    <li class="cfx-card cfx-card--blue cfx-card--chip" style="--x: 320px; --y: 556px; --step-i: 3">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-stethoscope"/></svg></span>
+                        <span class="cfx-badge">Queue</span>
+                      </div>
+                      <p class="cfx-card__title">Nurse queue</p>
+                      <p class="cfx-card__sub">Symptoms &amp; health questions</p>
+                    </li>
+                    <li class="cfx-card cfx-card--amber cfx-card--chip" style="--x: 580px; --y: 556px; --step-i: 3">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-headset"/></svg></span>
+                        <span class="cfx-badge">Queue</span>
+                      </div>
+                      <p class="cfx-card__title">Front desk queue</p>
+                      <p class="cfx-card__sub">Business hours only</p>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral cfx-card--chip" style="--x: 840px; --y: 556px; --step-i: 4">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/amazon-cloudwatch.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">Logs</span>
+                      </div>
+                      <p class="cfx-card__title">CloudWatch</p>
+                      <p class="cfx-card__sub">Bot conversation logs</p>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral cfx-card--chip" style="--x: 1100px; --y: 556px; --step-i: 4">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/amazon-s3.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">Hosting</span>
+                      </div>
+                      <p class="cfx-card__title">Amazon S3</p>
+                      <p class="cfx-card__sub">Hosts the staff portal</p>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral cfx-card--chip" style="--x: 1360px; --y: 556px; --step-i: 6">
+                      <div class="cfx-card__top">
+                        <img class="aws-icon" src="assets/icons/aws/amazon-dynamodb.svg" alt="" width="80" height="80" loading="lazy">
+                        <span class="cfx-badge">Data</span>
+                      </div>
+                      <p class="cfx-card__title">DynamoDB</p>
+                      <p class="cfx-card__sub">Redacted call records</p>
+                    </li>
+                    <li class="cfx-card cfx-card--neutral cfx-card--h" style="--x: 28px; --y: 540px; --step-i: 7; --h: 320px">
+                      <div class="cfx-card__top">
+                        <span class="cfx-uicon" aria-hidden="true"><svg class="icon"><use href="#i-layout-dashboard"/></svg></span>
+                        <span class="cfx-badge">Web portal</span>
+                      </div>
+                      <p class="cfx-card__title">Staff portal</p>
+                      <p class="cfx-card__sub">Role-based logins</p>
+                      <div class="cfx-card__body">
+                        <ul class="cfx-card__checks">
+                          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Front desk: CCP + transcript</li>
+                          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Nurse: CCP + transcript</li>
+                          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Admin: AI vs human</li>
+                          <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>PHI / HIPAA redacted</li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ol>
+                </div>
+                </div>
+              </div>
+              <p class="callflow__tip" hidden>Showing the full diagram. Click it or <strong>View large</strong> to zoom in.</p>
+              <ul class="callflow__legend" aria-label="Legend">
+                <li><span class="legend-line legend-line--orange" aria-hidden="true"></span>Call and tool-call path</li>
+                <li><span class="legend-line legend-line--blue legend-line--dashed" aria-hidden="true"></span>Handoff to a nurse</li>
+                <li><span class="legend-line legend-line--amber legend-line--dashed" aria-hidden="true"></span>Handoff to the front desk</li>
+                <li><span class="legend-line legend-line--infra legend-line--dashed" aria-hidden="true"></span>Logs, data and hosting</li>
+                <li><span class="legend-box legend-box--cloud" aria-hidden="true"></span>AWS Cloud</li>
+                <li><span class="legend-swatch legend-swatch--ext" aria-hidden="true"></span>External system</li>
+              </ul>
+            </div>
+            </figure>
           </article>
 
           <!-- ---------- 04 ---------- -->

@@ -859,3 +859,19 @@ html.cf-modal-open {
 
 .legend-box--cloud { --legend-color: #262322; --legend-fill: rgba(255, 255, 251, 0.6); }
 .legend-swatch--ext { --legend-color: #6e6761; border-style: dashed; }
+
+/* card with a custom height set inline as --h (e.g. the staff portal) */
+.cfx-card--h {
+  height: var(--h);
+}
+
+/* blue dashed branch (Project 03: routed to a nurse) */
+.cfx-branch--blue { --link-color: var(--t-blue); --link-text: var(--t-blue-text); --link-soft: #dff2fb; }
+
+/* solid amber link (Project 03: to the front desk) */
+.cfx-link--amber { --link-color: var(--t-amber); --link-text: var(--t-amber-text); }
+
+/* tall cards keep their list right under the title */
+.cfx-card--h .cfx-card__body {
+  margin-top: 8px;
+}
